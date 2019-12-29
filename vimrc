@@ -10,6 +10,8 @@ Plug 'morhetz/gruvbox'
 Plug 'chiel92/vim-autoformat'
 Plug 'easymotion/vim-easymotion'
 Plug 'mattn/emmet-vim'
+Plug 'ericcurtin/CurtineIncSw.vim'
+Plug 'ycm-core/YouCompleteMe'
 call plug#end()
 
 "----------- NerdTree -----------
@@ -29,12 +31,15 @@ no <down> ddp
 no <left> <Nop>
 no <right> <Nop>
 no <up> ddkP
-ino <down> <Nop>
-ino <left> <Nop>
-ino <right> <Nop>
-ino <up> <Nop>
+"ino <down> <Nop>
+"ino <left> <Nop>
+"ino <right> <Nop>
+"ino <up> <Nop>
 "---------- Motion + Writing ---------
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 nmap s <Plug>(easymotion-overwin-f2)
 
 let g:user_emmet_leader_key=','
+map <F5> :call CurtineIncSw()<CR>
+"let g:ycm_semantic_triggers = { 'cpp': [ 're!.' ] }
+set timeoutlen=1000 ttimeoutlen=0
