@@ -1,0 +1,101 @@
+"----------- Plugvim ------------
+":PlugInstall
+call plug#begin()
+Plug 'scrooloose/nerdtree'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'morhetz/gruvbox'
+Plug 'chiel92/vim-autoformat'
+Plug 'easymotion/vim-easymotion'
+Plug 'mattn/emmet-vim'
+Plug 'ericcurtin/CurtineIncSw.vim'
+Plug 'ycm-core/YouCompleteMe'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+call plug#end()
+
+"----------- NerdTree -----------
+syntax on
+filetype plugin indent on
+nnoremap <C-n> :NERDTreeToggle<CR>
+"---------- Theme ---------
+colorscheme gruvbox
+set bg=dark
+"colorscheme onedark
+"match keyword "\v<[A-Z]+>" 
+"---------- My commands ---------
+let mapleader="'"
+set number
+set relativenumber
+set tabstop=4
+set shiftwidth=4
+set iskeyword&
+set hlsearch
+no <down> ddp 
+no <left> <Nop>
+no <right> <Nop>
+no <up> ddkP
+nnoremap ; :
+
+"----- Tabs
+nnoremap <leader>t :tabedit<CR>
+
+"----- Close brackets
+inoremap {      {}<Left>
+inoremap {<CR>  {<CR>}<Esc>O
+inoremap {{     {
+inoremap {}     {}
+"------ Window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
+"------ Folding
+nnoremap <leader>c zfa}
+nnoremap <leader>o zo
+
+"---------- Motion + Writing ---------
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+nmap s <Plug>(easymotion-overwin-f2)
+"---------- Emmet (html,css) ---------
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+map <F5> :call CurtineIncSw()<CR>
+"let g:ycm_semantic_triggers = { 'cpp': [ 're!.' ] }
+set timeoutlen=1000 ttimeoutlen=0
+
+"----------- Syntax ------------
+"Basm
+augroup twig_ft
+  au!
+  autocmd BufNewFile,BufRead *.basm   set syntax=basm
+augroup END
+
+" Vulkan
+autocmd FileType cpp,c source ~/.vim/syntax/vulkan.vim
+
+" Esp-idf
+autocmd FileType cpp,c source ~/.vim/syntax/espidf.vim
+
+" Ray tracing shaders
+augroup twig_ft
+  au!
+  autocmd BufNewFile,BufRead *.rgen,*.rmiss,*.rchit,*.rint   set syntax=glsl
+augroup END
+
+"----------- Code Generation ------------
+" Guide navigation
+noremap <leader><Tab> <Esc>/<++><Enter>cf>
+inoremap <leader><Tab> <Esc>/<++><Enter>cf>
+vnoremap <leader><Tab> <Esc>/<++><Enter>cf>
+" Nohighligig
+noremap <leader>h :noh<CR>
+
+" C++
+autocmd FileType cpp,c inoremap ,fun (<++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?(<++>)<CR>i
+autocmd FileType cpp,c inoremap ,if if(<++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
+autocmd FileType cpp,c inoremap ,while while(<++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
+autocmd FileType cpp,c inoremap ,for for(<++>; <++>; <++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
