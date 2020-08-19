@@ -56,9 +56,16 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>c zfa}
 nnoremap <leader>o zo
 
+"------ Save views
+au BufWinLeave * mkview
+au BufWinEnter * silent loadview
+
 "---------- Motion + Writing ---------
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 nmap s <Plug>(easymotion-overwin-f2)
+nnoremap <leader>k <c-u>
+nnoremap <leader>j <c-d>
+
 "---------- Emmet (html,css) ---------
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
@@ -99,3 +106,4 @@ autocmd FileType cpp,c inoremap ,fun (<++>)<CR>{<CR><++><CR><Backspace><Backspac
 autocmd FileType cpp,c inoremap ,if if(<++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
 autocmd FileType cpp,c inoremap ,while while(<++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
 autocmd FileType cpp,c inoremap ,for for(<++>; <++>; <++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
+
