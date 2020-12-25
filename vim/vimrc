@@ -90,8 +90,9 @@ autocmd FileType cpp,c source ~/.vim/syntax/espidf.vim
 " Ray tracing shaders
 augroup twig_ft
   au!
-  autocmd BufNewFile,BufRead *.rgen,*.rmiss,*.rchit,*.rint   set syntax=glsl
+  autocmd BufNewFile,BufRead *.rgen,*.rmiss,*.rchit,*.rint,*.frag,*.vert   set syntax=glsl
 augroup END
+
 
 "----------- Code Generation ------------
 " Guide navigation

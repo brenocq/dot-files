@@ -1,9 +1,16 @@
 " Vim syntax file
-" Author: Breno Cunha Queiroz
+" Author: Breno Cunha Queiroz <breno1423@gmail.com>
 " Creation: 2020-07-16
 " Notes: Added more keywords to new version of vulkan and nvidia raytracing
 " Adapted from Tomas Milet <imilet@fit.vutbr.cz> 
 " Adapted from opengl.vim - Marc Costa <beyond.marc@gmail.com>
+
+" Validation layers
+syntax keyword vkType VkValidationFeatureEnableEXT 
+syntax keyword vkType VkValidationFeaturesEXT 
+syntax keyword vkType VkDebugUtilsMessengerCreateInfoEXT
+syntax keyword vkConstant VK_STRUCTURE_TYPE_VALIDATION_FEATURES_EXT 
+syntax keyword vkConstant VK_VALIDATION_FEATURE_ENABLE_BEST_PRACTICES_EXT
 
 "Nvidia raytracing
 syntax keyword vkType VkMemoryRequirements2 
