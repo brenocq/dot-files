@@ -11,9 +11,12 @@ Plug 'chiel92/vim-autoformat'
 Plug 'easymotion/vim-easymotion'
 Plug 'mattn/emmet-vim'
 Plug 'ericcurtin/CurtineIncSw.vim'
-Plug 'ycm-core/YouCompleteMe'
+"Plug 'ycm-core/YouCompleteMe'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'felixSchl/vim-gh-preview'
+Plug 'Jacotsu/CoVim-Neovim'
 call plug#end()
+
 
 "----------- NerdTree -----------
 syntax on
@@ -25,7 +28,7 @@ set bg=dark
 "colorscheme onedark
 "match keyword "\v<[A-Z]+>" 
 "---------- My commands ---------
-let mapleader="'"
+let mapleader = "'"
 set number
 set relativenumber
 set tabstop=4
@@ -90,9 +93,13 @@ autocmd FileType cpp,c source ~/.vim/syntax/espidf.vim
 " Ray tracing shaders
 augroup twig_ft
   au!
-  autocmd BufNewFile,BufRead *.rgen,*.rmiss,*.rchit,*.rint,*.frag,*.vert   set syntax=glsl
+  autocmd BufNewFile,BufRead *.rgen,*.rmiss,*.rchit,*.rint   set syntax=glsl
 augroup END
 
+" Markdown
+let g:ghp_start_server = 1
+let g:ghp_open_browser = 1
+let g:ghp_port = 1234
 
 "----------- Code Generation ------------
 " Guide navigation
@@ -100,7 +107,7 @@ noremap <leader><Tab> <Esc>/<++><Enter>cf>
 inoremap <leader><Tab> <Esc>/<++><Enter>cf>
 vnoremap <leader><Tab> <Esc>/<++><Enter>cf>
 " Nohighligig
-noremap <leader>h :noh<CR>
+noremap <leader>h :set hlsearch!<CR>
 
 " C++
 autocmd FileType cpp,c inoremap ,fun (<++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?(<++>)<CR>i
@@ -108,3 +115,5 @@ autocmd FileType cpp,c inoremap ,if if(<++>)<CR>{<CR><++><CR><Backspace><Backspa
 autocmd FileType cpp,c inoremap ,while while(<++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
 autocmd FileType cpp,c inoremap ,for for(<++>; <++>; <++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
 
+"---------- CoVim
+let g:python3_host_prog = '/usr/bin/python3'

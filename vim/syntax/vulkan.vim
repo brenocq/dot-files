@@ -1,32 +1,49 @@
 " Vim syntax file
-" Author: Breno Cunha Queiroz <breno1423@gmail.com>
+" Author: Breno Cunha Queiroz <admin@brenocq.com>
 " Creation: 2020-07-16
-" Notes: Added more keywords to new version of vulkan and nvidia raytracing
+" Notes: Added more keywords to new version of vulkan core and extensions
 " Adapted from Tomas Milet <imilet@fit.vutbr.cz> 
 " Adapted from opengl.vim - Marc Costa <beyond.marc@gmail.com>
 
-" Validation layers
-syntax keyword vkType VkValidationFeatureEnableEXT 
-syntax keyword vkType VkValidationFeaturesEXT 
-syntax keyword vkType VkDebugUtilsMessengerCreateInfoEXT
-syntax keyword vkConstant VK_STRUCTURE_TYPE_VALIDATION_FEATURES_EXT 
-syntax keyword vkConstant VK_VALIDATION_FEATURE_ENABLE_BEST_PRACTICES_EXT
+"Vulkan raytracing
+syntax keyword vkType VkAccelerationStructureCreateInfoKHR
+syntax keyword vkType VkAccelerationStructureKHR
+syntax keyword vkType VkAccelerationStructureBuildTypeKHR 
+syntax keyword vkType VkAccelerationStructureBuildGeometryInfoKHR
+syntax keyword vkType VkAccelerationStructureBuildSizesInfoKHR
+syntax keyword vkType VkAccelerationStructureBuildRangeInfoKHR
+syntax keyword vkType VkCopyAccelerationStructureInfoKHR
+syntax keyword vkType VkStridedDeviceAddressRegionKHR
+syntax keyword vkType VkDeferredOperationKHR 
+syntax keyword vkType VkRayTracingPipelineCreateInfoKHR
+syntax keyword vkType VkAccelerationStructureDeviceAddressInfoKHR
+syntax keyword vkType VkPhysicalDeviceAccelerationStructurePropertiesKHR 
+syntax keyword vkType VkPhysicalDeviceRayTracingPipelinePropertiesKHR 
+syntax keyword vkType VkBuildAccelerationStructureFlagsKHR 
+syntax keyword vkType VkAccelerationStructureGeometryInstancesDataKHR 
+syntax keyword vkType VkAccelerationStructureGeometryKHR 
+syntax keyword vkType VkAccelerationStructureInstanceKHR 
+syntax keyword vkType VkRayTracingShaderGroupCreateInfoKHR 
+syntax keyword vkType VkWriteDescriptorSetAccelerationStructureKHR 
+syntax keyword vkType VkPhysicalDeviceAccelerationStructureFeaturesKHR 
+syntax keyword vkType VkPhysicalDeviceRayTracingPipelineFeaturesKHR 
+syntax keyword vkType VkPhysicalDeviceBufferDeviceAddressFeatures 
 
 "Nvidia raytracing
-syntax keyword vkType VkMemoryRequirements2 
-syntax keyword vkType VkAccelerationStructureMemoryRequirementsInfoNV 
-syntax keyword vkType VkAccelerationStructureNV 
-syntax keyword vkType VkCopyAccelerationStructureModeNV 
-syntax keyword vkType VkBindAccelerationStructureMemoryInfoNV
-syntax keyword vkType VkMemoryRequirements2KHR
-syntax keyword vkType VkAccelerationStructureInfoNV
-syntax keyword vkType VkAccelerationStructureCreateInfoNV
-syntax keyword vkType VkRayTracingPipelineCreateInfoNV
-syntax keyword vkType VkGeometryNV
-syntax keyword vkType VkRayTracingShaderGroupCreateInfoNV 
-syntax keyword vkType VkWriteDescriptorSetAccelerationStructureNV 
-syntax keyword vkType VkPhysicalDeviceRayTracingPropertiesNV
-syntax keyword vkType VkGeometryInstance 
+"syntax keyword vkType VkMemoryRequirements2 
+"syntax keyword vkType VkAccelerationStructureMemoryRequirementsInfoNV 
+"syntax keyword vkType VkAccelerationStructureNV 
+"syntax keyword vkType VkCopyAccelerationStructureModeNV 
+"syntax keyword vkType VkBindAccelerationStructureMemoryInfoNV
+"syntax keyword vkType VkMemoryRequirements2KHR
+"syntax keyword vkType VkAccelerationStructureInfoNV
+"syntax keyword vkType VkAccelerationStructureCreateInfoNV
+"syntax keyword vkType VkRayTracingPipelineCreateInfoNV
+"syntax keyword vkType VkGeometryNV
+"syntax keyword vkType VkRayTracingShaderGroupCreateInfoNV 
+"syntax keyword vkType VkWriteDescriptorSetAccelerationStructureNV 
+"syntax keyword vkType VkPhysicalDeviceRayTracingPropertiesNV
+"syntax keyword vkType VkGeometryInstance 
 
 syntax keyword vkType PFN_vkCreateAccelerationStructureNV
 syntax keyword vkType PFN_vkDestroyAccelerationStructureNV
@@ -103,6 +120,10 @@ syntax keyword vkConstant VK_QUEUE_FAMILY_IGNORED
 syntax keyword vkConstant VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2
 
 syntax keyword vkType VkPhysicalDeviceDescriptorIndexingFeaturesEXT
+syntax keyword vkType VkDeviceAddress 
+syntax keyword vkType VkBufferDeviceAddressInfo 
+syntax keyword vkType VkMemoryAllocateFlagsInfo 
+syntax keyword vkType VkMemoryAllocateFlags 
 
 syntax keyword vkConstant VK_TRUE
 syntax keyword vkConstant VK_FALSE
@@ -1073,6 +1094,7 @@ syntax keyword vkType VkImageFormatProperties
 syntax keyword vkType VkPhysicalDeviceLimits
 syntax keyword vkType VkPhysicalDeviceSparseProperties
 syntax keyword vkType VkPhysicalDeviceProperties
+syntax keyword vkType VkPhysicalDeviceProperties2 
 syntax keyword vkType VkQueueFamilyProperties
 syntax keyword vkType VkMemoryType
 syntax keyword vkType VkMemoryHeap
