@@ -162,10 +162,10 @@ bindsym $mod+r mode "resize"
 bindsym $mod+shift+x exec i3lock
 
 # Wallpaper
-exec_always feh --bg-fill /home/breno/Pictures/firstWallpaper.png
+exec_always feh --bg-fill /home/breno/Pictures/tensorcore.png
 
 # Setup monitors
-exec_always xrandr --output HDMI-0 --mode 1920x1080 --pos 0x0 --rotate normal --output DP-0 --off --output DP-1 --off --output DP-2 --primary --mode 1920x1080 --pos 1920x0 --rotate normal --output DP-3 --off --output DP-4 --off --output DP-5 --off
+exec_always xrandr xrandr --output HDMI-0 --primary --mode 1920x1080 --pos 0x636 --rotate normal --output DP-0 --mode 1920x1080 --pos 1920x0 --rotate right --output DP-1 --off --output DP-2 --off --output DP-3 --off --output DP-4 --off --output DP-5 --off --output HDMI-1-0 --off --output DP-1-0 --off --output DP-1-1 --off --output DP-1-2 --off --output DP-1-3 --off --output DP-1-4 --off --output DP-1-5 --off
 
 # Fix bluetooth
 exec_always pactl load-module module-bluetooth-discover
