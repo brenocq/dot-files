@@ -2,6 +2,8 @@
 ":PlugInstall
 call plug#begin()
 Plug 'scrooloose/nerdtree'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'joshdick/onedark.vim'
@@ -9,24 +11,19 @@ Plug 'sheerun/vim-polyglot'
 Plug 'morhetz/gruvbox'
 Plug 'chiel92/vim-autoformat'
 Plug 'easymotion/vim-easymotion'
-Plug 'mattn/emmet-vim'
 Plug 'ericcurtin/CurtineIncSw.vim'
-"Plug 'ycm-core/YouCompleteMe'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'felixSchl/vim-gh-preview'
-Plug 'Jacotsu/CoVim-Neovim'
 call plug#end()
-
 
 "----------- NerdTree -----------
 syntax on
 filetype plugin indent on
 nnoremap <C-n> :NERDTreeToggle<CR>
+
 "---------- Theme ---------
 colorscheme gruvbox
 set bg=dark
-"colorscheme onedark
-"match keyword "\v<[A-Z]+>" 
+
 "---------- My commands ---------
 let mapleader = "'"
 set number
@@ -114,6 +111,3 @@ autocmd FileType cpp,c inoremap ,fun (<++>)<CR>{<CR><++><CR><Backspace><Backspac
 autocmd FileType cpp,c inoremap ,if if(<++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
 autocmd FileType cpp,c inoremap ,while while(<++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
 autocmd FileType cpp,c inoremap ,for for(<++>; <++>; <++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
-
-"---------- CoVim
-let g:python3_host_prog = '/usr/bin/python3'
