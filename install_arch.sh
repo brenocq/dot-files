@@ -6,7 +6,7 @@ ARCH_FOLDER="$SCRIPT_PATH/arch"
 
 # Downloading theme packages
 echo "Downloading environment packages"
-sudo pacman -Sy i3-gaps kitty picom-jonaburg-git polybar rofi nerd-fonts-roboto-mono ttf-roboto-mono ranger
+sudo pacman -Sy i3-gaps kitty picom-pijulius-git polybar rofi nerd-fonts-roboto-mono ttf-roboto-mono ranger
 echo "Finished downloading packages"
 
 # Copy configs

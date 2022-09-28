@@ -1,5 +1,20 @@
 set $mod Mod4
-font pango:monospace 8
+#---------- Theme ----------#
+# gruvbox colorscheme colors
+set $bg #282828
+set $bg1 #3c3836
+set $bg2 #504945
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d68
+set $gray #a89984
+set $darkgray #1d2021
+set $white #ebdbb2
+
+font pango:Roboto Mono Thin 8
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -12,9 +27,15 @@ exec --no-startup-id nm-applet
 exec_always --no-startup-id picom
 
 # Gaps
-for_window [class="^.*"] border pixel 0
 gaps inner 15
 gaps outer 0
+
+# Borders
+for_window [class="^.*"] border pixel 3
+# class                 border  backgr. text    indicator child_border
+client.focused 			$bg2 $bg2 $white #d79951 #d79951
+client.focused_inactive $bg $bg $white #928374 #928374
+client.unfocused 		$bg $bg $white #928374 #928374
 
 # Wallpaper
 exec_always --no-startup-id feh --randomize --bg-fill ~/Pictures/wallpapers/*
@@ -70,7 +91,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # Focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+z focus child
 
 # Define names for default workspaces
 set $ws1 "1"
@@ -117,15 +138,15 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # Resize window
 mode "resize" {
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+    bindsym h resize shrink width 30 px or 30 ppt
+    bindsym j resize grow height 30 px or 30 ppt
+    bindsym k resize shrink height 30 px or 30 ppt
+    bindsym l resize grow width 30 px or 30 ppt
 
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+    # back to normal: Enter or Escape or $mod+r
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
 }
 
 bindsym $mod+r mode "resize"
