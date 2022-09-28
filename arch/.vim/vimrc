@@ -9,10 +9,11 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'morhetz/gruvbox'
-Plug 'chiel92/vim-autoformat'
 Plug 'easymotion/vim-easymotion'
 Plug 'ericcurtin/CurtineIncSw.vim'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'iamcco/markdown-preview.vim' 
+Plug 'rhysd/vim-clang-format'
 call plug#end()
 
 "----------- NerdTree -----------
@@ -24,12 +25,10 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 colorscheme gruvbox
 set bg=dark
 
-"---------- My commands ---------
+"---------- Window style ---------
 let mapleader = "'"
 set number
 set relativenumber
-set tabstop=4
-set shiftwidth=4
 set iskeyword&
 set hlsearch
 no <down> ddp 
@@ -37,6 +36,7 @@ no <left> <Nop>
 no <right> <Nop>
 no <up> ddkP
 nnoremap ; :
+set encoding=UTF-8
 
 "----- Tabs
 nnoremap <leader>t :tabedit<CR>
@@ -57,8 +57,8 @@ nnoremap <leader>c zfa}
 nnoremap <leader>o zo
 
 "------ Save views
-au BufWinLeave * mkview
-au BufWinEnter * silent loadview
+"autocmd BufWinLeave *.* mkview!
+"autocmd BufWinEnter *.* silent loadview
 
 "---------- Motion + Writing ---------
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -74,11 +74,30 @@ map <F5> :call CurtineIncSw()<CR>
 "let g:ycm_semantic_triggers = { 'cpp': [ 're!.' ] }
 set timeoutlen=1000 ttimeoutlen=0
 
+"----------- Code style ------------
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
+set cindent
+set cinoptions=g0
+
+autocmd FileType h,hpp,c,cpp nnoremap <leader>f :<C-u>ClangFormat<CR>
+autocmd FileType h,hpp,c,cpp vnoremap <leader>f :ClangFormat<CR>
+let g:clang_format#detect_style_file = 1
+
 "----------- Syntax ------------
 "Basm
+"augroup twig_ft
+"  au!
+"  autocmd BufNewFile,BufRead *.basm set syntax=basm
+"augroup END
+
+" Asm
 augroup twig_ft
   au!
-  autocmd BufNewFile,BufRead *.basm   set syntax=basm
+  autocmd BufNewFile,BufRead *.s set syntax=asm
 augroup END
 
 " Vulkan
@@ -94,9 +113,17 @@ augroup twig_ft
 augroup END
 
 " Markdown
-let g:ghp_start_server = 1
-let g:ghp_open_browser = 1
-let g:ghp_port = 1234
+noremap <leader>m :MarkdownPreview<Enter>
+
+" Clang format
+let g:clang_format#style_options = {
+            \ "Language": "Cpp",
+            \ "BasedOnStyle": "LLVM",
+            \ "PointerAlignment": "Left",
+            \ "AlwaysBreakTemplateDeclarations": "true",
+            \ "ColumnLimit": 150,
+            \ "IndentWidth": 4,
+            \ "IndentCaseLabels": "true"}
 
 "----------- Code Generation ------------
 " Guide navigation

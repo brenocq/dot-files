@@ -1,14 +1,18 @@
 #!/bin/bash
 
-# Downloading packages
-echo "Downloading packages"
-sudo pacman -Sy i3-gaps rxvt-unicode picom polybar 
+SCRIPT=`realpath $0`
+SCRIPT_PATH=`dirname $SCRIPT` 
+ARCH_FOLDER="$SCRIPT_PATH/arch"
+
+# Downloading theme packages
+echo "Downloading environment packages"
+sudo pacman -Sy i3-gaps kitty picom-jonaburg-git polybar rofi nerd-fonts-roboto-mono ttf-roboto-mono ranger
 echo "Finished downloading packages"
 
 # Copy configs
 echo "Copying Configs"
-cd arch/
-cp -R .bashrc .vim/ .config/ .Xresources ~/
+cd $ARCH_FOLDER
+cp -R .vim/ .config/ ~/
 echo "Finished Copying Configs"
 
 # Install vim Plug
@@ -18,4 +22,9 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 vim +'PlugInstall --sync' +qa
 echo "Finished installing vim plug"
 
+# Downloading some more packages
+echo "Downloading some more packages"
+sudo pacman -Sy cmake gdb firefox
+
+# Finished
 echo "Done with setting up environment"
