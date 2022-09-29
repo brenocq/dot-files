@@ -34,3 +34,6 @@ cp -R ~/.config/fish $ARCH_FOLDER/.config
 
 echo "Copying .config/starship.toml"
 cp ~/.config/starship.toml $ARCH_FOLDER/.config
+
+echo "Copying .gitconfig"
+cp ~/.gitconfig $ARCH_FOLDER

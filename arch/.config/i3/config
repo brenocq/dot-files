@@ -150,3 +150,6 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+#---------- Windows ----------#
+for_window [class="atta" instance="atta"] floating enable

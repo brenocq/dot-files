@@ -12,7 +12,7 @@ echo "Finished downloading packages"
 # Copy configs
 echo "Copying Configs..."
 cd $ARCH_FOLDER
-cp -R .vim/ .config/ ~/
+cp -R .vim/ .config/ .gitconfig ~/
 echo "Finished Copying Configs"
 
 # Install vim Plug
