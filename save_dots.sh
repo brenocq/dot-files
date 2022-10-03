@@ -32,6 +32,9 @@ cp -R ~/.config/rofi $ARCH_FOLDER/.config
 echo "Copying .config/fish/"
 cp -R ~/.config/fish $ARCH_FOLDER/.config
 
+echo "Copying .config/autorandr/"
+cp -R ~/.config/autorandr $ARCH_FOLDER/.config
+
 echo "Copying .config/starship.toml"
 cp ~/.config/starship.toml $ARCH_FOLDER/.config
 

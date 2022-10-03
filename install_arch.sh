@@ -30,7 +30,7 @@ echo "Finished installing starship"
 # Downloading utils packages
 echo "Downloading utils packages..."
 sudo pacman -Sy yay
-yay -Sy cmake gdb firefox jump fortune cowsay
+yay -Sy cmake gdb firefox jump fortune cowsay flameshot-git peek autorandr
 
 # Finished
 echo "Done with setting up environment"
