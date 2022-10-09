@@ -23,6 +23,9 @@ exec --no-startup-id dex --autostart --environment i3
 # NetworkManager
 exec --no-startup-id nm-applet
 
+# Autorandr
+exec_always --no-startup-id autorandr --change
+
 # Compositor
 exec_always --no-startup-id picom
 
@@ -42,9 +45,6 @@ exec_always --no-startup-id feh --randomize --bg-fill ~/Pictures/wallpapers/*
 
 # Polybar
 exec_always --no-startup-id ~/.config/polybar/launch.sh &
-
-# Autorandr
-exec_always --no-startup-id autorandr --change
 
 # Drag floating windows to their wanted position
 floating_modifier $mod
@@ -163,3 +163,5 @@ for_window [class="Pen UI" instance="Pen UI"] floating enable
 bindsym $mod+s exec "flameshot gui"
 # GIF recording
 bindsym $mod+g exec "peek"
+# Language switch
+bindsym $mod+x exec "~/.config/i3/toggle-lang.sh"
