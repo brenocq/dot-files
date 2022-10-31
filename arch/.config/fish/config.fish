@@ -7,4 +7,5 @@ if status is-interactive
     if [ (math (random)'%10') -eq 0 ]
         fortune computers definitions disclaimer fortunes linux rules-of-acquisition wisdom work zippy paradoxum | cowsay -f $(ls /usr/share/cows/ | shuf -n1)
     end
+    alias emsdk_setup ". ~/Programs/emsdk/emsdk_env.fish"
 end
