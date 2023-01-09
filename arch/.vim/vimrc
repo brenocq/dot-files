@@ -15,6 +15,7 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'iamcco/markdown-preview.vim' 
 Plug 'rhysd/vim-clang-format'
 call plug#end()
+set tags=./tags;/
 
 "----------- NerdTree -----------
 syntax on
@@ -46,6 +47,7 @@ inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
 inoremap {}     {}
+
 "------ Window movement
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -65,6 +67,10 @@ let g:EasyMotion_do_mapping = 0 " Disable default mappings
 nmap s <Plug>(easymotion-overwin-f2)
 nnoremap <leader>k <c-u>
 nnoremap <leader>j <c-d>
+
+" Copy/paste clipboard
+vmap <leader>c :w !xclip -sel clip<CR><CR>
+nnoremap <leader>v :r !xclip -o -sel clip<CR>
 
 "---------- Emmet (html,css) ---------
 let g:user_emmet_install_global = 0
@@ -86,6 +92,7 @@ set cinoptions=g0
 autocmd FileType h,hpp,c,cpp nnoremap <leader>f :<C-u>ClangFormat<CR>
 autocmd FileType h,hpp,c,cpp vnoremap <leader>f :ClangFormat<CR>
 let g:clang_format#detect_style_file = 1
+autocmd FileType ts,js,py,json nnoremap <leader>f mfgg=G`f
 
 "----------- Syntax ------------
 "Basm
@@ -111,6 +118,9 @@ augroup twig_ft
   au!
   autocmd BufNewFile,BufRead *.rgen,*.rmiss,*.rchit,*.rint,*.vert,*.frag,*.comp   set syntax=glsl
 augroup END
+
+" Spell check
+set spell spelllang=en_us
 
 " Markdown
 noremap <leader>m :MarkdownPreview<Enter>
