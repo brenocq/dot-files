@@ -17,10 +17,11 @@ cp -R .vim/ .config/ .gitconfig .xinitrc ~/
 echo "Finished Copying Configs"
 
 # Copy fonts
-cp fonts/* ~/local/share/fonts/
+mkdir -p ~/.local/share/fonts/
+cp fonts/* ~/.local/share/fonts/
 
 # Copy wallpapers
-mkdir ~/Pictures/wallpapers
+mkdir -p ~/Pictures/wallpapers
 cp wallpapers/* ~/Pictures/wallpapers
 
 # Config terminal
@@ -41,7 +42,7 @@ echo "Finished installing starship"
 # Downloading utils packages
 echo "Downloading utils packages..."
 sudo pacman -Sy yay
-yay -Sy cmake gdb firefox jump fortune-mod cowsay flameshot peek autorandr gotop
+yay -Sy cmake gdb vivaldi jump fortune-mod cowsay flameshot peek autorandr gotop mpv feh
 
 # Finished
 echo "Done with setting up environment"
