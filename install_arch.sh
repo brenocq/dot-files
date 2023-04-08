@@ -15,6 +15,9 @@ cd $ARCH_FOLDER
 cp -R .vim/ .config/ .gitconfig .xinitrc ~/
 echo "Finished Copying Configs"
 
+# Config terminal
+chsh -s /usr/bin/fish
+
 # Install vim Plug
 echo "Installing vim plug..."
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -30,7 +33,7 @@ echo "Finished installing starship"
 # Downloading utils packages
 echo "Downloading utils packages..."
 sudo pacman -Sy yay
-yay -Sy cmake gdb firefox jump fortune cowsay flameshot-git peek autorandr
+yay -Sy cmake gdb firefox jump fortune-mod cowsay flameshot-git peek autorandr
 
 # Finished
 echo "Done with setting up environment"
