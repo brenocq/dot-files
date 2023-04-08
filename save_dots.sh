@@ -9,6 +9,8 @@ rm -r $ARCH_FOLDER
 mkdir $ARCH_FOLDER
 mkdir $ARCH_FOLDER/.vim
 mkdir $ARCH_FOLDER/.config
+mkdir $ARCH_FOLDER/fonts
+mkdir $ARCH_FOLDER/wallpapers
 
 echo "Copying .xinitrc"
 cp ~/.xinitrc $ARCH_FOLDER/
@@ -40,6 +42,12 @@ cp -R ~/.config/autorandr $ARCH_FOLDER/.config
 
 echo "Copying .config/starship.toml"
 cp ~/.config/starship.toml $ARCH_FOLDER/.config
+
+echo "Copying fonts"
+cp ~/.local/share/fonts/feather.ttf $ARCH_FOLDER/fonts
+
+echo "Copying wallpapers"
+cp ~/Pictures/wallpapers/* $ARCH_FOLDER/wallpapers
 
 echo "Copying .gitconfig"
 cp ~/.gitconfig $ARCH_FOLDER

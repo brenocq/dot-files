@@ -15,6 +15,13 @@ cd $ARCH_FOLDER
 cp -R .vim/ .config/ .gitconfig .xinitrc ~/
 echo "Finished Copying Configs"
 
+# Copy fonts
+cp fonts/* ~/local/share/fonts/
+
+# Copy wallpapers
+mkdir ~/Pictures/wallpapers
+cp wallpapers/* ~/Pictures/wallpapers
+
 # Config terminal
 chsh -s /usr/bin/fish
 
