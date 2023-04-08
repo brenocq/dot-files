@@ -10,6 +10,9 @@ mkdir $ARCH_FOLDER
 mkdir $ARCH_FOLDER/.vim
 mkdir $ARCH_FOLDER/.config
 
+echo "Copying .xinitrc"
+cp ~/.xinitrc $ARCH_FOLDER/
+
 echo "Copying .vim/"
 cp ~/.vim/vimrc $ARCH_FOLDER/.vim/vimrc
 cp -R ~/.vim/syntax $ARCH_FOLDER/.vim
