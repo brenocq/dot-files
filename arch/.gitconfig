@@ -12,3 +12,5 @@ lg = !"git lg1"
 	autoSetupRemote = true
 [pull]
 	rebase = true
+[safe]
+	directory = /opt/flutter
