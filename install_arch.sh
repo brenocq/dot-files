@@ -6,7 +6,8 @@ ARCH_FOLDER="$SCRIPT_PATH/arch"
 
 # Downloading theme packages
 echo "Downloading environment packages..."
-yay -Sy i3-gaps kitty picom-pijulius-git polybar rofi nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels ranger fish
+yay -Sy i3-gaps kitty picom-pijulius-git polybar rofi ranger fish
+yay -Sy nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels
 echo "Finished downloading packages"
 
 # Copy configs
