@@ -4,18 +4,12 @@ call plug#begin()
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'morhetz/gruvbox'
 Plug 'easymotion/vim-easymotion'
-Plug 'ericcurtin/CurtineIncSw.vim'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'iamcco/markdown-preview.vim' 
 Plug 'rhysd/vim-clang-format'
-Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'lervag/vimtex'
 call plug#end()
 set tags=./tags;/
 
@@ -34,10 +28,6 @@ set number
 set relativenumber
 set iskeyword&
 set hlsearch
-no <down> ddp 
-no <left> <Nop>
-no <right> <Nop>
-no <up> ddkP
 nnoremap ; :
 set encoding=UTF-8
 
@@ -60,10 +50,6 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>c zfa}
 nnoremap <leader>o zo
 
-"------ Save views
-"autocmd BufWinLeave *.* mkview!
-"autocmd BufWinEnter *.* silent loadview
-
 "---------- Motion + Writing ---------
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 nmap s <Plug>(easymotion-overwin-f2)
@@ -73,14 +59,6 @@ nnoremap <leader>j <c-d>
 " Copy/paste clipboard
 vmap <leader>c :w !xclip -sel clip<CR><CR>
 nnoremap <leader>v :r !xclip -o -sel clip<CR>
-
-"---------- Emmet (html,css) ---------
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
-
-map <F5> :call CurtineIncSw()<CR>
-"let g:ycm_semantic_triggers = { 'cpp': [ 're!.' ] }
-set timeoutlen=1000 ttimeoutlen=0
 
 "----------- Code style ------------
 set tabstop=4
@@ -97,12 +75,6 @@ let g:clang_format#detect_style_file = 1
 autocmd FileType ts,js,py,json nnoremap <leader>f mfgg=G`f
 
 "----------- Syntax ------------
-"Basm
-"augroup twig_ft
-"  au!
-"  autocmd BufNewFile,BufRead *.basm set syntax=basm
-"augroup END
-
 " Asm
 augroup twig_ft
   au!
@@ -111,15 +83,6 @@ augroup END
 
 " Vulkan
 autocmd FileType cpp,c source ~/.vim/syntax/vulkan.vim
-
-" Esp-idf
-autocmd FileType cpp,c source ~/.vim/syntax/espidf.vim
-
-" Ray tracing shaders
-"augroup twig_ft
-"  au!
-"  autocmd BufNewFile,BufRead *.rgen,*.rmiss,*.rchit,*.rint,*.vert,*.frag,*.comp   set syntax=glsl
-"augroup END
 
 " Spell check
 set spell spelllang=en_us
@@ -136,23 +99,6 @@ let g:clang_format#style_options = {
             \ "ColumnLimit": 150,
             \ "IndentWidth": 4,
             \ "IndentCaseLabels": "true"}
-
-" Doxygen
-let g:DoxygenToolkit_briefTag_pre="@brief "
-let g:DoxygenToolkit_briefTag_post = "<++>"
-let g:DoxygenToolkit_paramTag_pre="@param "
-let g:DoxygenToolkit_paramTag_post = " <++>"
-let g:DoxygenToolkit_templateParamTag_pre = " @tparam "
-let g:DoxygenToolkit_templateParamTag_post = " <++>"
-let g:DoxygenToolkit_returnTag="@return <++>"
-noremap <leader>d :Dox<CR><Esc>bcf>
-
-"----------- Latex ------------
-" filetype plugin indent on
-" syntax enable
-let g:vimtex_view_method = 'zathura'
-let g:vimtex_compiler_latexmk = { 'build_dir' : 'build' }
-nnoremap <C-m> :VimtexTocToggle<Enter>
 
 "----------- Code Generation ------------
 " Guide navigation
