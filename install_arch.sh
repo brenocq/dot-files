@@ -48,10 +48,14 @@ yay -Sy cmake gdb jump fortune-mod cowsay flameshot peek autorandr gotop mpv feh
 # Download applications
 yay -Sy google-chrome zotero-bin spotify discord_arch_electron
 
-# Setup bluetooth headset
+# Fix bluetooth
 yay -Sy bluez bluez-utils alsa-utils
 sudo systemctl start bluetooth
 sudo systemctl enable bluetooth
+
+# Fix wifi
+yay -Sy networkmanager
+sudo systemctl enable --now NetworkManager
 
 # X
 yay -Sy xorg-xinit
