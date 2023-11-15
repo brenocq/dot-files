@@ -4,9 +4,10 @@ SCRIPT=`realpath $0`
 SCRIPT_PATH=`dirname $SCRIPT` 
 ARCH_FOLDER="$SCRIPT_PATH/arch"
 
-# Downloading theme packages
-echo "Downloading environment packages..."
+# Download core packages
+echo "Downloading core packages..."
 yay -Sy i3-gaps kitty picom-pijulius-git polybar rofi ranger fish
+yay -Sy git gvim
 yay -Sy nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels
 echo "Finished downloading packages"
 
@@ -53,7 +54,7 @@ sudo systemctl start bluetooth
 sudo systemctl enable bluetooth
 
 # X
-yay -Sy xorg-xinit xorg-xclipboard
+yay -Sy xorg-xinit
 
 # C++
 yay -Sy cppcheck clang
