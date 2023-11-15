@@ -165,6 +165,7 @@ for_window [class="UGET Simulator" instance="UGET Simulator"] floating enable
 
 #---------- Apps shortcuts ----------#
 # Screenshots
+exec --no-startup-id flameshot &
 bindsym $mod+s exec "flameshot gui"
 # GIF recording
 bindsym $mod+g exec "peek"
