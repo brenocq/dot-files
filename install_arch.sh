@@ -52,5 +52,8 @@ yay -Sy bluez bluez-utils alsa-utils
 sudo systemctl start bluetooth
 sudo systemctl enable bluetooth
 
+# C++
+yay -Sy cppcheck clang
+
 # Finished
 echo "Done with setting up environment"
