@@ -52,8 +52,14 @@ yay -Sy bluez bluez-utils alsa-utils
 sudo systemctl start bluetooth
 sudo systemctl enable bluetooth
 
+# X
+yay -Sy xorg-xinit xorg-xclipboard
+
 # C++
 yay -Sy cppcheck clang
+
+# Git
+git config --global core.pager "vim -R -c 'set filetype=diff' -"
 
 # Finished
 echo "Done with setting up environment"

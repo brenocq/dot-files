@@ -10,6 +10,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'iamcco/markdown-preview.vim' 
 Plug 'rhysd/vim-clang-format'
+Plug 'powerman/vim-plugin-AnsiEsc'
 call plug#end()
 set tags=./tags;/
 
@@ -99,6 +100,9 @@ let g:clang_format#style_options = {
             \ "ColumnLimit": 150,
             \ "IndentWidth": 4,
             \ "IndentCaseLabels": "true"}
+
+" Git diff
+autocmd FileType diff AnsiEsc
 
 "----------- Code Generation ------------
 " Guide navigation
