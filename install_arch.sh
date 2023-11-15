@@ -48,7 +48,9 @@ yay -Sy cmake gdb jump fortune-mod cowsay flameshot peek autorandr gotop mpv feh
 yay -Sy google-chrome zotero-bin spotify discord_arch_electron
 
 # Setup bluetooth headset
-yay -Sy bluez-utils alsa-utils
+yay -Sy bluez bluez-utils alsa-utils
+sudo systemctl start bluetooth
+sudo systemctl enable bluetooth
 
 # Finished
 echo "Done with setting up environment"
