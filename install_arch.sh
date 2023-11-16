@@ -11,6 +11,11 @@ yay -Sy git gvim
 yay -Sy nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels
 echo "Finished downloading packages"
 
+# Download NVIDIA driver
+echo "Downloading NVDIA packages..."
+yay -Sy nvidia
+echo "Finished downloading NVIDIA package"
+
 # Copy configs
 echo "Copying Configs..."
 cd $ARCH_FOLDER
