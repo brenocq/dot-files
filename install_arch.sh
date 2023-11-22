@@ -6,7 +6,7 @@ ARCH_FOLDER="$SCRIPT_PATH/arch"
 
 # Download core packages
 echo "Downloading core packages..."
-yay -Sy i3-gaps kitty picom-pijulius-git polybar rofi ranger fish
+yay -Sy xorg-server i3-gaps kitty picom-pijulius-git polybar rofi ranger fish
 yay -Sy git gvim
 yay -Sy nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels
 echo "Finished downloading packages"
