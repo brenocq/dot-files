@@ -159,7 +159,7 @@ bindsym $mod+r mode "resize"
 
 #---------- Windows ----------#
 for_window [class="atta" instance="atta"] floating enable
-for_window [class="Pen UI" instance="Pen UI"] floating enable
+for_window [class="PenUI" instance="PenUI"] floating enable
 for_window [class="UGET Simulator" instance="UGET Simulator"] floating enable
 
 
