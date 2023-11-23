@@ -51,7 +51,7 @@ sudo pacman -Sy yay
 yay -Sy cmake gdb jump fortune-mod cowsay flameshot peek autorandr gotop mpv feh arandr
 
 # Download applications
-yay -Sy google-chrome zotero-bin spotify discord_arch_electron
+yay -Sy google-chrome zotero-bin spotify discord_arch_electron telegram-desktop-bin
 
 # Fix bluetooth
 yay -Sy bluez bluez-utils alsa-utils
@@ -66,7 +66,7 @@ sudo systemctl enable --now NetworkManager
 yay -Sy xorg-xinit
 
 # C++
-yay -Sy cppcheck clang
+yay -Sy cppcheck clang gcc-arm-none-eabi-bin
 
 # Git
 git config --global core.pager "vim -R -c 'set filetype=diff' -"
