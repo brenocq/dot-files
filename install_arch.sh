@@ -66,7 +66,10 @@ sudo systemctl enable --now NetworkManager
 yay -Sy xorg-xinit
 
 # C++
-yay -Sy cppcheck clang gcc-arm-none-eabi-bin
+yay -Sy cppcheck clang
+
+# Embedded
+yay -Sy gcc-arm-none-eabi-bin arm-none-eabi-gdb stlink
 
 # Git
 git config --global core.pager "vim -R -c 'set filetype=diff' -"
