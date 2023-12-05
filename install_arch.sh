@@ -74,5 +74,9 @@ yay -Sy gcc-arm-none-eabi-bin arm-none-eabi-gdb stlink
 # Git
 git config --global core.pager "vim -R -c 'set filetype=diff' -"
 
+# Latex
+yay -Sy pdfpc
+#yay -Sy texlive-full <- Takes a long time
+
 # Finished
 echo "Done with setting up environment"
