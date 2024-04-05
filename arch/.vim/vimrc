@@ -11,6 +11,7 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'iamcco/markdown-preview.vim' 
 Plug 'rhysd/vim-clang-format'
 Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'lervag/vimtex'
 call plug#end()
 set tags=./tags;/
 
@@ -61,6 +62,21 @@ nnoremap <leader>j <c-d>
 vnoremap <leader>c "+y
 nnoremap <leader>v "+p
 
+" Fix scroll down
+nnoremap <C-d> :call ScrollDownHalfPage()<CR>
+function! ScrollDownHalfPage()
+  let l:totalLines = line('$')
+  let l:currentLine = line('.')
+  let l:halfWinHeight = winheight(0) / 2
+  let l:targetLine = min([l:currentLine + l:halfWinHeight, l:totalLines])
+  " Move the cursor to the target line
+  execute 'normal! ' . l:targetLine . 'G'
+  " Move cursor to bottom of screen if last line
+  if l:targetLine == l:totalLines
+    execute "normal! zb"
+  endif
+endfunction
+
 "----------- Code style ------------
 set tabstop=4
 set softtabstop=4
@@ -82,14 +98,14 @@ augroup twig_ft
   autocmd BufNewFile,BufRead *.s set syntax=asm
 augroup END
 
+" Asm (Atta shading language)
+au BufRead,BufNewFile *.asl set filetype=glsl
+
 " Vulkan
 autocmd FileType cpp,c source ~/.vim/syntax/vulkan.vim
 
 " Spell check
 set spell spelllang=en_us
-
-" Markdown
-noremap <leader>m :MarkdownPreview<Enter>
 
 " Clang format
 let g:clang_format#style_options = {
@@ -103,6 +119,24 @@ let g:clang_format#style_options = {
 
 " Git diff
 autocmd FileType diff AnsiEsc
+
+"----------- Preview ------------
+" Markdown
+noremap <leader>m :MarkdownPreview<Enter>
+
+" Latex
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_compiler_latexmk = {
+  \ 'build_dir' : 'build',
+  \ 'options': [
+    \ '-shell-escape',
+    \ '-outdir=build',
+    \ '-pdf',
+    \ '-interaction=nonstopmode',
+    \ '-file-line-error',
+    \ '-synctex=1',
+    \ ]
+  \}
 
 "----------- Code Generation ------------
 " Guide navigation

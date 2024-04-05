@@ -8,6 +8,7 @@ if status is-interactive
         fortune computers definitions disclaimer fortunes linux rules-of-acquisition wisdom work zippy paradoxum | cowsay -f $(ls /usr/share/cows/ | shuf -n1)
     end
 
+    alias v "vim"
     alias r "ranger"
     alias wifi "nmtui"
     alias emsdk_setup ". ~/Programs/emsdk/emsdk_env.fish"
