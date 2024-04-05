@@ -8,7 +8,7 @@ ARCH_FOLDER="$SCRIPT_PATH/arch"
 echo "Downloading core packages..."
 yay -Sy xorg-server i3-gaps kitty picom-pijulius-git polybar rofi ranger fish
 yay -Sy git gvim
-yay -Sy nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels
+yay -Sy nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels ttf-nerd-fonts-symbols
 echo "Finished downloading packages"
 
 # Download NVIDIA driver
@@ -69,7 +69,7 @@ yay -Sy xorg-xinit
 yay -Sy cppcheck clang
 
 # Embedded
-yay -Sy gcc-arm-none-eabi-bin arm-none-eabi-gdb stlink
+yay -Sy arm-none-eabi-gcc arm-none-eabi-newlib arm-none-eabi-gdb stlink
 
 # Git
 git config --global core.pager "vim -R -c 'set filetype=diff' -"
