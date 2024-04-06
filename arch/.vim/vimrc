@@ -59,8 +59,8 @@ nnoremap <leader>k <c-u>
 nnoremap <leader>j <c-d>
 
 " Copy/paste clipboard
-vnoremap <leader>c "+y
-nnoremap <leader>v "+p
+vmap <leader>c :w !xclip -sel clip<CR><CR>
+nnoremap <leader>v :r !xclip -o -sel clip<CR>
 
 " Fix scroll down
 nnoremap <C-d> :call ScrollDownHalfPage()<CR>
