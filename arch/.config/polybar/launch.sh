@@ -4,6 +4,9 @@
 
 DIR="$HOME/.config/polybar"
 
+export POLYBAR_WIRED_INTERFACE=$(ip link show | awk '/state UP/ && /enp|eth|eno|ens/{print $2}' | tr -d ':' | head -n 1)
+export POLYBAR_WIRELESS_INTERFACE=$(ip link show | awk '/state UP/ && /wlan|wlp|wlx/{print $2}' | tr -d ':' | head -n 1)
+
 # Terminate already running bar instances
 killall -q polybar
 

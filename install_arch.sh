@@ -48,7 +48,7 @@ echo "Finished installing starship"
 # Downloading utils packages
 echo "Downloading utils packages..."
 sudo pacman -Sy yay
-yay -Sy cmake gdb jump fortune-mod cowsay flameshot peek autorandr gotop mpv feh arandr
+yay -Sy cmake gdb jump fortune-mod cowsay flameshot peek autorandr gotop mpv feh arandr brightnessctl
 
 # Download applications
 yay -Sy google-chrome zotero-bin spotify discord_arch_electron telegram-desktop-bin

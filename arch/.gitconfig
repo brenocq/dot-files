@@ -12,7 +12,7 @@ lg = !"git lg1"
 [push]
 	autoSetupRemote = true
 [pull]
-	rebase = true
+	rebase = false
 [safe]
 	directory = /opt/flutter
 [credential]
