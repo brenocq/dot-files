@@ -63,13 +63,13 @@ yay -Sy networkmanager
 sudo systemctl enable --now NetworkManager
 
 # X
-yay -Sy xorg-xinit
+yay -Sy xorg-xinit xclip
 
 # C++
 yay -Sy cppcheck clang
 
 # Embedded
-yay -Sy arm-none-eabi-gcc arm-none-eabi-newlib arm-none-eabi-gdb stlink
+yay -Sy gcc-arm-none-eabi-bin arm-none-eabi-gdb stlink
 
 # Git
 git config --global core.pager "vim -R -c 'set filetype=diff' -"

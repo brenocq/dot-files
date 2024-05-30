@@ -17,6 +17,6 @@ if status is-interactive
     alias cpptags "ctags -R --c++-kinds=+p --fields=+iaS --extras=+q ."
 
     set -x IDF_PATH "/home/breno/Programs/esp-idf"
-    set -x ANDROID_SDK "/home/breno/Programs/AndroidStudio"
-    set -x ANDROID_NDK_PATH "/home/breno/Programs/AndroidStudio/ndk/26.1.10909125"
+    set -x ANDROID_SDK "/home/breno/Android/Sdk"
+    set -x ANDROID_NDK_PATH "/home/breno/Android/Sdk/ndk/27.0.11718014"
 end

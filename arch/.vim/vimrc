@@ -49,8 +49,8 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
 "------ Folding
-nnoremap <leader>c zfa}
-nnoremap <leader>o zo
+"nnoremap <leader>c zfa}
+"nnoremap <leader>o zo
 
 "---------- Motion + Writing ---------
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
