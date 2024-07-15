@@ -63,7 +63,10 @@ yay -Sy networkmanager
 sudo systemctl enable --now NetworkManager
 
 # X
-yay -Sy xorg-xinit xclip
+yay -Sy xorg-xinit xorg-xev xclip i3lock-color
+
+# Media/brightness control
+yay -Sy playerctl brightnessctl
 
 # C++
 yay -Sy cppcheck clang
