@@ -54,7 +54,7 @@ nnoremap <C-l> <C-w>l
 
 "---------- Motion + Writing ---------
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
-nmap s <Plug>(easymotion-overwin-f2)
+nmap f <Plug>(easymotion-overwin-f2)
 nnoremap <leader>k <c-u>
 nnoremap <leader>j <c-d>
 
