@@ -32,6 +32,17 @@ exec_always --no-startup-id autorandr --change
 # Compositor
 exec_always --no-startup-id picom
 
+# Volume control
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Media control
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
 # Gaps
 gaps inner 15
 gaps outer 0
@@ -56,7 +67,7 @@ floating_modifier $mod
 bindsym $mod+Return exec kitty
 
 # Kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # Program launcher
 bindsym $mod+d exec "rofi -modi drun,run -show drun"
@@ -138,7 +149,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # Reload the configuration file
 bindsym $mod+Shift+c reload
 # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+r restart
 # Exit i3
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
@@ -152,10 +163,10 @@ mode "resize" {
     # back to normal: Enter or Escape or $mod+r
     bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym $mod+r mode "default"
+    bindsym $mod+Shift+r mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+Shift+r mode "resize"
 
 #---------- Windows ----------#
 for_window [class="atta" instance="atta"] floating enable
@@ -171,3 +182,5 @@ bindsym $mod+s exec "flameshot gui"
 bindsym $mod+g exec "peek"
 # Language switch
 bindsym $mod+x exec "~/.config/i3/toggle-lang.sh"
+#Lock
+bindsym $mod+Escape exec "~/.config/i3/lock.sh"
