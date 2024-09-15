@@ -13,15 +13,26 @@ Plug 'rhysd/vim-clang-format'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'lervag/vimtex'
 Plug 'tpope/vim-fugitive'
+" Telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+" ChatGPT
+Plug 'MunifTanjim/nui.nvim'
+Plug 'folke/trouble.nvim'
+Plug 'jackMort/ChatGPT.nvim'
 call plug#end()
 set tags=./tags;/
 
 "----------- NerdTree -----------
 syntax on
 filetype plugin indent on
+" NERDTree toggle
 nnoremap <C-n> :NERDTreeToggle<CR>
+" Start NERDTree when Vim is started without file arguments
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+" Exit Vim if NERDTree is the only window remaining in the only tab
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
 
 "---------- Theme ---------
 colorscheme gruvbox
@@ -58,13 +69,14 @@ nnoremap <leader>o zo
 
 "---------- Motion + Writing ---------
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
-nmap <leader>s <Plug>(easymotion-overwin-f2)
-nnoremap <leader>d :Telescope find_files<CR>
+nmap s <Plug>(easymotion-overwin-f2)
+nnoremap n :Telescope live_grep<CR>
+nnoremap m :Telescope find_files<CR>
 
-map <C-k> <C-u>
-map <C-j> <C-d>
-autocmd FileType nerdtree map <buffer> <C-k> <C-u>
-autocmd FileType nerdtree map <buffer> <C-j> <C-d>
+map <S-k> <C-u>
+map <S-j> <C-d>
+autocmd FileType nerdtree map <buffer> <S-k> <C-u>
+autocmd FileType nerdtree map <buffer> <S-j> <C-d>
 
 " Copy/paste clipboard
 vmap <leader>c :w !xclip -sel clip<CR><CR>
