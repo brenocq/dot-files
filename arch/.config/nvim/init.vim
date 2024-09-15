@@ -26,6 +26,7 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 "---------- Theme ---------
 colorscheme gruvbox
 set bg=dark
+set notermguicolors
 
 "---------- Window style ---------
 let mapleader = "'"
