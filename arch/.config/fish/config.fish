@@ -9,7 +9,7 @@ if status is-interactive
     end
 
     alias r "ranger"
-    alias v "vim"
+    alias v "nvim"
     alias wifi "nmtui"
     alias emsdk_setup ". ~/Programs/emsdk/emsdk_env.fish"
     alias ppk "sudo nrfconnect --no-sandbox"

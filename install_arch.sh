@@ -7,7 +7,7 @@ ARCH_FOLDER="$SCRIPT_PATH/arch"
 # Download core packages
 echo "Downloading core packages..."
 yay -Sy xorg-server i3-gaps kitty picom-pijulius-git polybar rofi ranger fish
-yay -Sy git gvim
+yay -Sy git nvim
 yay -Sy nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels ttf-nerd-fonts-symbols
 echo "Finished downloading packages"
 
@@ -19,7 +19,7 @@ echo "Finished downloading NVIDIA package"
 # Copy configs
 echo "Copying Configs..."
 cd $ARCH_FOLDER
-cp -R .vim/ .config/ .gitconfig .xinitrc ~/
+cp -R .config/ .gitconfig .xinitrc ~/
 echo "Finished Copying Configs"
 
 # Copy fonts
@@ -33,12 +33,12 @@ cp wallpapers/* ~/Pictures/wallpapers
 # Config terminal
 chsh -s /usr/bin/fish
 
-# Install vim Plug
-echo "Installing vim plug..."
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+# Install nvim Plug
+echo "Installing nvim plug..."
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-vim +'PlugInstall --sync' +qa
-echo "Finished installing vim plug"
+nvim +'PlugInstall --sync' +qa
+echo "Finished installing nvim plug"
 
 # Install starship
 echo "Installing starship..."
@@ -75,7 +75,7 @@ yay -Sy cppcheck clang
 yay -Sy gcc-arm-none-eabi-bin arm-none-eabi-gdb stlink
 
 # Git
-git config --global core.pager "vim -R -c 'set filetype=diff' -"
+git config --global core.pager "nvim -R -c 'set filetype=diff' -"
 
 # Latex
 yay -Sy pdfpc

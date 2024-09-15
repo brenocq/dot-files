@@ -7,17 +7,17 @@ ARCH_FOLDER="$SCRIPT_PATH/arch"
 echo "Deleting $ARCH_FOLDER"
 rm -r $ARCH_FOLDER
 mkdir $ARCH_FOLDER
-mkdir $ARCH_FOLDER/.vim
 mkdir $ARCH_FOLDER/.config
+mkdir $ARCH_FOLDER/.config/nvim
 mkdir $ARCH_FOLDER/fonts
 mkdir $ARCH_FOLDER/wallpapers
 
 echo "Copying .xinitrc"
 cp ~/.xinitrc $ARCH_FOLDER/
 
-echo "Copying .vim/"
-cp ~/.vim/vimrc $ARCH_FOLDER/.vim/vimrc
-cp -R ~/.vim/syntax $ARCH_FOLDER/.vim
+echo "Copying .config/nvim/"
+cp ~/.config/nvim/init.vim $ARCH_FOLDER/.config/nvim
+cp -R ~/.config/nvim/syntax $ARCH_FOLDER/.config/nvim
 
 echo "Copying .config/i3/"
 cp -R ~/.config/i3 $ARCH_FOLDER/.config
