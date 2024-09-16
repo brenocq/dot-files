@@ -7,14 +7,14 @@ ARCH_FOLDER="$SCRIPT_PATH/arch"
 # Download core packages
 echo "Downloading core packages..."
 yay -Sy xorg-server i3-gaps kitty picom-pijulius-git polybar rofi ranger fish
-yay -Sy git nvim
+yay -Sy git neovim
 yay -Sy nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels ttf-nerd-fonts-symbols
 echo "Finished downloading packages"
 
 # Download NVIDIA driver
-echo "Downloading NVDIA packages..."
-yay -Sy nvidia
-echo "Finished downloading NVIDIA package"
+# echo "Downloading NVDIA packages..."
+# yay -Sy nvidia
+# echo "Finished downloading NVIDIA package"
 
 # Copy configs
 echo "Copying Configs..."
@@ -32,13 +32,6 @@ cp wallpapers/* ~/Pictures/wallpapers
 
 # Config terminal
 chsh -s /usr/bin/fish
-
-# Install nvim Plug
-echo "Installing nvim plug..."
-curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-nvim +'PlugInstall --sync' +qa
-echo "Finished installing nvim plug"
 
 # Install starship
 echo "Installing starship..."

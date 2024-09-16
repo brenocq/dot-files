@@ -16,7 +16,7 @@ echo "Copying .xinitrc"
 cp ~/.xinitrc $ARCH_FOLDER/
 
 echo "Copying .config/nvim/"
-cp -R ~/.config/nvim $ARCH_FOLDER/.config/nvim
+cp -R ~/.config/nvim $ARCH_FOLDER/.config
 
 echo "Copying .config/i3/"
 cp -R ~/.config/i3 $ARCH_FOLDER/.config
