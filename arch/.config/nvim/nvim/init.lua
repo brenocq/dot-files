@@ -39,6 +39,8 @@ vim.o.shiftwidth = 4
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.encoding = 'UTF-8'
+vim.o.spell = true
+vim.o.spelllang = 'en_us'
 
 -- Remap ; to :
 vim.api.nvim_set_keymap('n', ';', ':', { noremap = true, silent = false })
