@@ -19,4 +19,5 @@ if status is-interactive
     set -x IDF_PATH "/home/breno/Programs/esp-idf"
     set -x ANDROID_SDK "/home/breno/Android/Sdk"
     set -x ANDROID_NDK_PATH "/home/breno/Android/Sdk/ndk/27.0.11718014"
+    source ~/.env
 end
