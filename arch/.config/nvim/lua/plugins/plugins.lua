@@ -130,7 +130,15 @@ return {
           top_p = 0.1,
           n = 1,
         },
-	keymaps = {
+        openai_edit_params = {
+          model = "gpt-4o",
+          frequency_penalty = 0,
+          presence_penalty = 0,
+          temperature = 0.2,
+          top_p = 1,
+          n = 1,
+        },
+	    keymaps = {
           close = { "<C-Esc>" },
           submit = "<C-CR>",
           yank_last = "<C-y>",
@@ -138,7 +146,7 @@ return {
         },
         actions_paths = {
             "~/.config/nvim/lua/plugins/chatgpt.json"
-        }
+        },
       })
     end,
     dependencies = {
