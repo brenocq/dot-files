@@ -2,17 +2,17 @@
   "bcq_complete": {
     "type": "chat",
     "opts": {
-      "template": "Complete the following code written in {{lang}} by pasting the existing code and continuing it.\n\nExisting code:\n```{{filetype}}\n{{input}}\n```\n\n```{{filetype}}\n",
+      "template": "Complete the following code written in {{lang}} by pasting the existing code and continuing it. Return ONLY the completed code. \n\nExisting code:\n```{{filetype}}\n{{input}}\n```\n\n```{{filetype}}\n",
       "strategy": "replace",
       "params": {
-        "model": "gpt-4o",
+        "model": "gpt-3.5-turbo",
         "stop": [
           "```"
         ]
       }
     }
   },
-  "bcq_explain_code": {
+  "bcq_explain": {
     "type": "chat",
     "opts": {
       "title": " Explain Code",

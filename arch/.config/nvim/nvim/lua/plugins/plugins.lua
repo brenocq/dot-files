@@ -130,6 +130,12 @@ return {
           top_p = 0.1,
           n = 1,
         },
+	keymaps = {
+          close = { "<C-Esc>" },
+          submit = "<C-CR>",
+          yank_last = "<C-y>",
+          next_screen = "<C-k>"
+        },
         actions_paths = {
             "~/.config/nvim/lua/plugins/chatgpt.json"
         }
@@ -149,10 +155,15 @@ return {
   {
     'powerman/vim-plugin-AnsiEsc',
     config = function()
-      -- Automatically enable AnsiEsc for files with ANSI color codes
       vim.cmd [[
         autocmd BufReadPost,BufNewFile *.log,*.out,*.diff,*.patch set ft=ansi
       ]]
     end
-  }
+  },
+  {
+    'https://github.com/github/copilot.vim',
+    config = function()
+      vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { expr = true, silent = true, noremap = true })
+    end,
+  },
 }

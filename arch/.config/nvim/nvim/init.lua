@@ -2,7 +2,7 @@ require("config.lazy")
 
 -- Neo-tree
 require("neo-tree").setup({
-    close_if_last_window = false,
+    close_if_last_window = true,
     popup_border_style = "rounded",
     enable_git_status = true,
     enable_diagnostics = true,
@@ -48,14 +48,23 @@ vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true 
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>t', ':tabnew<CR>', { noremap = true, silent = true })
+
+-- Remember last cursor position
+vim.api.nvim_exec([[
+  augroup RememberCursor
+    autocmd!
+    autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  augroup END
+]], false)
 
 -- Smooth scrolling
 vim.api.nvim_set_keymap('n', '<S-k>', '<C-u>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<S-j>', '<C-d>', { noremap = true, silent = true })
 
 -- Search
-vim.api.nvim_set_keymap('n', 'n', ':Telescope live_grep<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'm', ':Telescope find_files<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>s', ':Telescope live_grep<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>f', ':Telescope find_files<CR>', { noremap = true, silent = true })
 
 -- Toggle search highlight
 vim.o.hlsearch = true
@@ -78,3 +87,8 @@ vim.api.nvim_exec([[
   autocmd FileType cpp,c inoremap ,for for(<++>; <++>; <++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?(<++><CR>lcf>
 ]], false)
 
+-- ChatGPT
+vim.api.nvim_set_keymap('v', '<leader>gc', ':ChatGPTRun bcq_complete<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>ge', ':ChatGPTRun bcq_explain<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>gd', ':ChatGPTRun bcq_doxygen<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>gi', ':ChatGPTEditWithInstructions<CR>', { noremap = true, silent = true })
