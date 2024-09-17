@@ -166,4 +166,20 @@ return {
       vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { expr = true, silent = true, noremap = true })
     end,
   },
+  {
+    'neovim/nvim-lspconfig',
+    config = function()
+      local lspconfig = require('lspconfig')
+      lspconfig.clangd.setup{
+        cmd = { "clangd" },
+        filetypes = { "c", "cpp", "objc", "objcpp" },
+        root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
+        settings = {
+          clangd = {
+            fallbackFlags = { "-std=c++17" },
+          }
+        }
+      }
+    end
+  }
 }

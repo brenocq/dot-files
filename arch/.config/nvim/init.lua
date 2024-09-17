@@ -41,6 +41,7 @@ vim.o.softtabstop = 4
 vim.o.encoding = 'UTF-8'
 vim.o.spell = true
 vim.o.spelllang = 'en_us'
+vim.api.nvim_set_keymap('n', '<leader>c', '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', { noremap = true, silent = true })
 
 -- Remap ; to :
 vim.api.nvim_set_keymap('n', ';', ':', { noremap = true, silent = false })
@@ -75,6 +76,7 @@ vim.api.nvim_set_keymap('n', '<leader>h', ':set hlsearch!<CR>', { noremap = true
 -- Copy/paste
 vim.api.nvim_set_keymap('v', '<leader>c', '"+y', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>v', '"+p', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<leader>v', '"+p', { noremap = true, silent = true })
 
 -- Code Generation: Guide navigation
 vim.api.nvim_set_keymap('n', ',m', '<Esc>/<++><CR>cf>', { noremap = true, silent = true })
