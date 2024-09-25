@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT=`realpath $0`
-SCRIPT_PATH=`dirname $SCRIPT` 
+SCRIPT_PATH=`dirname $SCRIPT`
 ARCH_FOLDER="$SCRIPT_PATH/arch"
 
 # Download core packages

@@ -195,6 +195,24 @@ return {
           }
         }
       }
+      -- Dart Language Server
+      lspconfig.dartls.setup{
+        cmd = { "dart", "language-server" },
+        filetypes = { "dart" },
+        root_dir = lspconfig.util.root_pattern("pubspec.yaml"),
+        init_options = {
+          closingLabels = true,
+          flutterOutline = true,
+          onlyAnalyzeProjectsWithOpenFiles = true,
+          suggestFromUnimportedLibraries = true,
+        },
+        settings = {
+          dart = {
+            completeFunctionCalls = true,
+            enableSdkFormatter = true,
+          }
+        }
+      }
     end
   },
 }
