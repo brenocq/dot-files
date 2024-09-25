@@ -17,18 +17,18 @@ require("neo-tree").setup({
     },
 })
 
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    if vim.fn.argc() == 0 then
-      -- No files passed, open Neo-tree
-      vim.cmd("Neotree")
-    end
-  end
-})
-
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
   pattern = "*.log,*.out,*.diff,*.patch",
   command = "set ft=ansi",
+})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argc() == 0 and not filetype == "ansi" then
+      -- No files passed and not ansi file (git related file), open Neo-tree
+      vim.cmd("Neotree")
+    end
+  end
 })
 
 vim.api.nvim_set_keymap('n', '<C-n>', ':Neotree toggle<CR>', { noremap = true, silent = true })
