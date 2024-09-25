@@ -48,6 +48,10 @@ vim.o.spell = true
 vim.o.spelllang = 'en_us'
 vim.api.nvim_set_keymap('n', '<leader>c', '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', { noremap = true, silent = true })
 
+-- Highlight trailing spaces
+vim.cmd [[highlight TrailingSpaces ctermbg=red guibg=red]]
+vim.cmd [[match TrailingSpaces /\s\+$/]]
+
 -- Remap ; to :
 vim.api.nvim_set_keymap('n', ';', ':', { noremap = true, silent = false })
 
@@ -66,9 +70,11 @@ vim.api.nvim_exec([[
   augroup END
 ]], false)
 
--- Smooth scrolling
+-- Scrolling
 vim.api.nvim_set_keymap('n', '<S-k>', '<C-u>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<S-j>', '<C-d>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<S-k>', '<C-u>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<S-j>', '<C-d>', { noremap = true, silent = true })
 
 -- Search
 vim.api.nvim_set_keymap('n', '<leader>s', ':Telescope live_grep<CR>', { noremap = true, silent = true })
@@ -81,7 +87,6 @@ vim.api.nvim_set_keymap('n', '<leader>h', ':set hlsearch!<CR>', { noremap = true
 -- Copy/paste
 vim.api.nvim_set_keymap('v', '<leader>c', '"+y', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>v', '"+p', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<leader>v', '"+p', { noremap = true, silent = true })
 
 -- Code Generation: Guide navigation
 vim.api.nvim_set_keymap('n', ',m', '<Esc>/<++><CR>cf>', { noremap = true, silent = true })

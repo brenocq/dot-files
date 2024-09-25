@@ -64,6 +64,9 @@ yay -Sy playerctl brightnessctl
 # C++
 yay -Sy cppcheck clang
 
+# Verilog
+yay -Sy verible-bin
+
 # Embedded
 yay -Sy gcc-arm-none-eabi-bin arm-none-eabi-gdb stlink
 

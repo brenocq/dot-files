@@ -179,6 +179,12 @@ return {
     'neovim/nvim-lspconfig',
     config = function()
       local lspconfig = require('lspconfig')
+      -- Verilog Language Server
+      lspconfig.verible.setup{
+        cmd = { "verible-verilog-ls", "--rules_config_search", "--indentation_spaces=4" },
+        filetypes = { "verilog", "systemverilog" },
+      }
+      -- C++ Language Server
       lspconfig.clangd.setup{
         cmd = { "clangd" },
         filetypes = { "c", "cpp", "objc", "objcpp" },
@@ -190,5 +196,5 @@ return {
         }
       }
     end
-  }
+  },
 }
