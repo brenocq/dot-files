@@ -16,8 +16,25 @@ return {
       config = function()
         vim.g.gruvbox_material_enable_italic = true
         vim.g.gruvbox_material_background = 'hard'
+        vim.o.termguicolors = true
         vim.cmd.colorscheme('gruvbox-material')
-        vim.o.termguicolors = false
+
+        -- Reapply Git diff highlights after colorscheme loads
+        vim.api.nvim_create_autocmd("ColorScheme", {
+          pattern = "*",
+          callback = function()
+            vim.cmd [[
+                highlight DiffAdd    ctermbg=22 guibg=#b8bb26
+                highlight DiffChange ctermbg=22 guibg=#fabd2f
+                highlight DiffDelete ctermbg=124 guibg=#cc241d
+                highlight DiffText   cterm=bold gui=bold
+                highlight CommitHash  ctermfg=130 guifg=#d65d0e
+                highlight CommitAuthor ctermfg=117 guifg=#fabd2f
+                highlight CommitDate   ctermfg=109 guifg=#b8bb26
+            ]]
+          end
+        })
+
       end
     },
     {
@@ -157,10 +174,10 @@ return {
       "nvim-telescope/telescope.nvim"
     }
   },
-  {
-    "tpope/vim-fugitive",
-    cmd = { "Gdiffsplit", "Gvdiffsplit", "Gdiff" }, -- Lazy load when running these commands
-  },
+  --{
+  --  "tpope/vim-fugitive",
+  --  cmd = { "Gdiffsplit", "Gvdiffsplit", "Gdiff" },
+  --},
   {
     'powerman/vim-plugin-AnsiEsc',
     config = function()
@@ -214,5 +231,5 @@ return {
         }
       }
     end
-  },
+  }
 }

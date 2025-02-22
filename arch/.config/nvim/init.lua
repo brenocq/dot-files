@@ -101,6 +101,9 @@ vim.api.nvim_exec([[
   autocmd FileType cpp,c inoremap ,for for(<++>; <++>; <++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?(<++><CR>lcf>
 ]], false)
 
+-- Git
+vim.api.nvim_set_keymap('n', '<leader>d', ':vertical Gitsigns diffthis<CR>', { noremap = true, silent = true })
+
 -- ChatGPT
 vim.api.nvim_set_keymap('v', '<leader>gc', ':ChatGPTRun bcq_complete<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<leader>ge', ':ChatGPTRun bcq_explain<CR>', { noremap = true, silent = true })
