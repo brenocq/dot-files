@@ -1,85 +1,121 @@
 return {
-    {
-	  "nvim-neo-tree/neo-tree.nvim",
-      branch = "v3.x",
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-web-devicons",
-        "MunifTanjim/nui.nvim",
-        "3rd/image.nvim",
-      }
-    },
-    {
-      'sainnhe/gruvbox-material',
-      lazy = false,
-      priority = 1000,
-      config = function()
-        vim.g.gruvbox_material_enable_italic = true
-        vim.g.gruvbox_material_background = 'hard'
-        vim.o.termguicolors = true
-        vim.cmd.colorscheme('gruvbox-material')
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+      "3rd/image.nvim",
+    }
+  },
+  {
+    'sainnhe/gruvbox-material',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.g.gruvbox_material_enable_italic = true
+      vim.g.gruvbox_material_background = 'hard'
+      vim.o.termguicolors = true
+      vim.cmd.colorscheme('gruvbox-material')
 
-        -- Reapply Git diff highlights after colorscheme loads
-        vim.api.nvim_create_autocmd("ColorScheme", {
-          pattern = "*",
-          callback = function()
-            vim.cmd [[
-                highlight DiffAdd    ctermbg=22 guibg=#b8bb26
-                highlight DiffChange ctermbg=22 guibg=#fabd2f
-                highlight DiffDelete ctermbg=124 guibg=#cc241d
-                highlight DiffText   cterm=bold gui=bold
-                highlight CommitHash  ctermfg=130 guifg=#d65d0e
-                highlight CommitAuthor ctermfg=117 guifg=#fabd2f
-                highlight CommitDate   ctermfg=109 guifg=#b8bb26
-            ]]
-          end
-        })
+      -- Reapply Git diff highlights after colorscheme loads
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "*",
+        callback = function()
+          vim.cmd [[
+              highlight DiffAdd    ctermbg=22 guibg=#b8bb26
+              highlight DiffChange ctermbg=22 guibg=#fabd2f
+              highlight DiffDelete ctermbg=124 guibg=#cc241d
+              highlight DiffText   cterm=bold gui=bold
+              highlight CommitHash  ctermfg=130 guifg=#d65d0e
+              highlight CommitAuthor ctermfg=117 guifg=#fabd2f
+              highlight CommitDate   ctermfg=109 guifg=#b8bb26
+          ]]
+        end
+      })
 
-      end
+    end
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" }, -- Loads when a buffer is opened or created
+    config = function()
+      require("gitsigns").setup()
+    end,
+  },
+  {
+    "olimorris/codecompanion.nvim",
+    config = function()
+      require("codecompanion").setup({
+        strategies = {
+          chat = {
+            roles = {
+              llm =  function(adapter)
+                return string.format(
+                  '  %s%s',
+                  adapter.formatted_name,
+                  adapter.parameters.model and ' (' .. adapter.parameters.model .. ')' or ''
+                )
+              end,
+              user = "👤 brenocq",
+            }
+          }
+        }
+      })
+    end,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
     },
-    {
-      "lewis6991/gitsigns.nvim",
-      event = { "BufReadPre", "BufNewFile" }, -- Loads when a buffer is opened or created
-      config = function()
-        require("gitsigns").setup()
-      end,
-    },
-    {
-      "hrsh7th/nvim-cmp",
-      event = "InsertEnter", -- Lazy load on Insert mode start
-      dependencies = {
-        "hrsh7th/cmp-buffer",         -- Buffer completions
-        "hrsh7th/cmp-path",           -- Path completions
-        "hrsh7th/cmp-nvim-lsp",       -- LSP completions
-        "hrsh7th/cmp-nvim-lua",       -- Lua API completions for Neovim config
-        "saadparwaiz1/cmp_luasnip",   -- Snippet completions
-        "L3MON4D3/LuaSnip",           -- Snippet engine
-        "rafamadriz/friendly-snippets" -- Collection of snippets
+  },
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    opts = {
+      preview = {
+        filetypes = { "markdown", "codecompanion" },
+        ignore_buftypes = {},
       },
-      config = function()
-        local cmp = require("cmp")
-        cmp.setup({
-          snippet = {
-            expand = function(args)
-              require("luasnip").lsp_expand(args.body) -- Use LuaSnip for snippet expansion
-            end,
-          },
-          mapping = cmp.mapping.preset.insert({
-            ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-            ["<C-f>"] = cmp.mapping.scroll_docs(4),
-            ["<C-Space>"] = cmp.mapping.complete(),
-            ["<C-e>"] = cmp.mapping.abort(),
-            ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          }),
-          sources = cmp.config.sources({
-            { name = "nvim_lsp" },
-            { name = "luasnip" },
-          }, {
-            { name = "buffer" },
-            { name = "path" },
-          })
+    },
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter", -- Lazy load on Insert mode start
+    dependencies = {
+      "hrsh7th/cmp-buffer",         -- Buffer completions
+      "hrsh7th/cmp-path",           -- Path completions
+      "hrsh7th/cmp-nvim-lsp",       -- LSP completions
+      "hrsh7th/cmp-nvim-lua",       -- Lua API completions for Neovim config
+      "saadparwaiz1/cmp_luasnip",   -- Snippet completions
+      "L3MON4D3/LuaSnip",           -- Snippet engine
+      "rafamadriz/friendly-snippets" -- Collection of snippets
+    },
+    config = function()
+      local cmp = require("cmp")
+      cmp.setup({
+        snippet = {
+          expand = function(args)
+            require("luasnip").lsp_expand(args.body) -- Use LuaSnip for snippet expansion
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        }),
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "codecompanion" },
+        }, {
+          { name = "buffer" },
+          { name = "path" },
         })
-      end,
+      })
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -133,46 +169,6 @@ return {
         desc = "Buffer Local Keymaps (which-key)",
       },
     },
-  },
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("chatgpt").setup({
-        openai_params = {
-            model = "gpt-4o",
-            frequency_penalty = 0,
-            presence_penalty = 0,
-            max_tokens = 4095,
-            temperature = 0.2,
-            top_p = 0.1,
-            n = 1,
-        },
-        openai_edit_params = {
-            model = "gpt-4o",
-            frequency_penalty = 0,
-            presence_penalty = 0,
-            temperature = 0.2,
-            top_p = 1,
-            n = 1,
-        },
-	    keymaps = {
-            close = { "<C-Esc>" },
-            submit = "<C-CR>",
-            yank_last = "<C-y>",
-            next_screen = "<C-k>"
-        },
-        actions_paths = {
-            "~/.config/nvim/lua/plugins/chatgpt.json"
-        }
-      })
-    end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "folke/trouble.nvim",
-      "nvim-telescope/telescope.nvim"
-    }
   },
   --{
   --  "tpope/vim-fugitive",
@@ -231,5 +227,5 @@ return {
         }
       }
     end
-  }
+  },
 }
