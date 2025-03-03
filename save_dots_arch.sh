@@ -29,6 +29,10 @@ cp -R ~/.config/kitty $SHARED_FOLDER/.config
 echo "Copying .gitconfig"
 cp ~/.gitconfig $SHARED_FOLDER
 
+# Starship
+echo "Copying .config/starship.toml"
+cp ~/.config/starship.toml $SHARED_FOLDER/.config
+
 ##### Arch-specific configs #####
 
 # XInit
@@ -56,10 +60,6 @@ echo "Copying .config/fish/"
 cp -R ~/.config/fish $ARCH_FOLDER/.config
 rm $ARCH_FOLDER/.config/fish/fish_plugins
 rm $ARCH_FOLDER/.config/fish/fish_variables
-
-# Starship
-echo "Copying .config/starship.toml"
-cp ~/.config/starship.toml $ARCH_FOLDER/.config
 
 # Fonts
 echo "Copying fonts"

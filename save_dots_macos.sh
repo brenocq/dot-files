@@ -26,6 +26,10 @@ cp -R ~/.config/kitty $SHARED_FOLDER/.config
 echo "Copying .gitconfig"
 cp ~/.gitconfig $SHARED_FOLDER
 
+# Starship
+echo "Copying .config/starship.toml"
+cp ~/.config/starship.toml $SHARED_FOLDER/.config
+
 ##### MacOS-specific configs #####
 
 # Zsh
