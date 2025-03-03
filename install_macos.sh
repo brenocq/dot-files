@@ -6,9 +6,9 @@ SHARED_FOLDER="$SCRIPT_PATH/shared"
 MACOS_FOLDER="$SCRIPT_PATH/macos"
 
 # Install core packages using Homebrew
-echo "Installing core packages..."
-brew install cmake git neovim
-echo "Finished installing core packages"
+echo "Installing brew packages..."
+brew install cmake git neovim neofetch starship
+echo "Finished installing brew packages"
 
 # Copy configs
 echo "Copying Configs..."
