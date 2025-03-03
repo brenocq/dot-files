@@ -3,6 +3,7 @@
 SCRIPT=`realpath $0`
 SCRIPT_PATH=`dirname $SCRIPT`
 ARCH_FOLDER="$SCRIPT_PATH/arch"
+SHARED_FOLDER="$SCRIPT_PATH/shared"
 
 # Download core packages
 echo "Downloading core packages..."
@@ -18,8 +19,10 @@ echo "Finished downloading packages"
 
 # Copy configs
 echo "Copying Configs..."
+cd $SHARED_FOLDER
+cp -R .config/ .gitconfig ~/
 cd $ARCH_FOLDER
-cp -R .config/ .gitconfig .xinitrc ~/
+cp -R .config/ .xinitrc ~/
 echo "Finished Copying Configs"
 
 # Copy fonts
