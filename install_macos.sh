@@ -8,6 +8,7 @@ MACOS_FOLDER="$SCRIPT_PATH/macos"
 # Install core packages using Homebrew
 echo "Installing brew packages..."
 brew install cmake git neovim neofetch starship
+brew install ripgrep # Dependency for nvim telescope grep
 echo "Finished installing brew packages"
 
 # Copy configs
