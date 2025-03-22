@@ -125,7 +125,7 @@ return {
       require("nvim-treesitter.configs").setup({
         -- List of parsers to install
         ensure_installed = {
-          "bash", "c", "cpp", "cuda", "cmake", "javascript", "typescript", "python", "lua", "html", "css"
+          "bash", "c", "cpp", "cuda", "cmake", "javascript", "typescript", "tsx", "python", "lua", "html", "css", "glsl", "ini"
         },
         highlight = {
           enable = true,              -- Enable Treesitter-based syntax highlighting

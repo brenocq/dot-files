@@ -57,9 +57,8 @@ cp -R ~/.config/rofi $ARCH_FOLDER/.config
 
 # Fish
 echo "Copying .config/fish/"
-cp -R ~/.config/fish $ARCH_FOLDER/.config
-rm $ARCH_FOLDER/.config/fish/fish_plugins
-rm $ARCH_FOLDER/.config/fish/fish_variables
+mkdir $ARCH_FOLDER/.config/fish
+cp ~/.config/fish/config.fish $ARCH_FOLDER/.config/fish
 
 # Fonts
 echo "Copying fonts"

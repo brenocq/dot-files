@@ -52,6 +52,17 @@ vim.api.nvim_set_keymap('n', '<leader>c', '<cmd>lua vim.lsp.buf.format({ async =
 vim.cmd [[highlight TrailingSpaces ctermbg=red guibg=red]]
 vim.cmd [[match TrailingSpaces /\s\+$/]]
 
+-- Highlight Atta files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.asl",
+  command = "set filetype=glsl",
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.atta",
+  command = "set filetype=ini",
+})
+
 -- Remap ; to :
 vim.api.nvim_set_keymap('n', ';', ':', { noremap = true, silent = false })
 
