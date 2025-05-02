@@ -7,7 +7,24 @@ return {
       "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
       "3rd/image.nvim",
-    }
+    },
+    config = function()
+      require("neo-tree").setup({
+        close_if_last_window = true,
+        popup_border_style = "rounded",
+        enable_git_status = true,
+        enable_diagnostics = true,
+        sort_case_insensitive = false,
+        filesystem = {
+          use_libuv_file_watcher = true,
+            filtered_items = {
+                visible = true,
+                hide_dotfiles = false,
+                hide_gitignored = false,
+            },
+        },
+      })
+    end
   },
   {
     'sainnhe/gruvbox-material',
@@ -45,29 +62,68 @@ return {
     end,
   },
   {
+    "Davidyz/VectorCode",
+    version = "*",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = "VectorCode",
+  },
+  {
     "olimorris/codecompanion.nvim",
-    config = function()
-      require("codecompanion").setup({
-        strategies = {
-          chat = {
-            roles = {
-              llm =  function(adapter)
-                return string.format(
-                  '  %s%s',
-                  adapter.formatted_name,
-                  adapter.parameters.model and ' (' .. adapter.parameters.model .. ')' or ''
-                )
-              end,
-              user = "👤 brenocq",
-            }
+    dependencies = {
+      { "nvim-lua/plenary.nvim", branch = "master" },
+      { "nvim-treesitter/nvim-treesitter" },
+      { "ravitemer/mcphub.nvim" },
+    },
+    opts = {
+      strategies = {
+        chat = {
+          adapter = "gemini",
+          roles = {
+            llm =  function(adapter)
+              return string.format(
+                '✨ %s%s',
+                adapter.formatted_name,
+                adapter.parameters.model and ' (' .. adapter.parameters.model .. ')' or ''
+              )
+            end,
+            user = "👤 brenocq",
+          }
+        },
+        inline = {
+          keymaps = {
+            accept_change = {
+              modes = { n = "<leader>a" },
+              description = "Accept the suggested change",
+            },
+            reject_change = {
+              modes = { n = "<leader>r" },
+              description = "Reject the suggested change",
+            },
+          },
+        },
+      },
+      adapters = {
+        gemini = function()
+          return require("codecompanion.adapters").extend("gemini", {
+            schema = {
+              model = {
+                default = "gemini-2.5-pro-preview-03-25",
+              },
+            },
+          })
+        end,
+      },
+      extensions = {
+        mcphub = {
+          callback = "mcphub.extensions.codecompanion",
+          opts = {
+            make_vars = true,
+            make_slash_commands = true,
+            show_result_in_chat = true
           }
         }
-      })
-    end,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
+      }
+    }
   },
   {
     "OXY2DEV/markview.nvim",
@@ -170,10 +226,6 @@ return {
       },
     },
   },
-  --{
-  --  "tpope/vim-fugitive",
-  --  cmd = { "Gdiffsplit", "Gvdiffsplit", "Gdiff" },
-  --},
   {
     'powerman/vim-plugin-AnsiEsc',
     config = function()
@@ -228,4 +280,22 @@ return {
       }
     end
   },
+  {
+    "lervag/vimtex",
+    lazy = false,
+    init = function()
+      vim.g.vimtex_view_method = 'zathura'
+      vim.g.vimtex_compiler_latexmk = {
+        build_dir = 'build',
+        out_dir = 'build',
+        options = {
+          '-outdir=build',
+          '-pdf',
+          '-interaction=nonstopmode',
+          '-file-line-error',
+          '-synctex=1',
+        }
+      }
+    end
+  }
 }

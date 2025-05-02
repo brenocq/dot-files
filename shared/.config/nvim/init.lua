@@ -1,27 +1,14 @@
 require("config.lazy")
 
--- Neo-tree
-require("neo-tree").setup({
-    close_if_last_window = true,
-    popup_border_style = "rounded",
-    enable_git_status = true,
-    enable_diagnostics = true,
-    sort_case_insensitive = false,
-    filesystem = {
-	    use_libuv_file_watcher = true,
-        filtered_items = {
-            visible = true,
-            hide_dotfiles = false,
-            hide_gitignored = false,
-        },
-    },
-})
-
 vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
   pattern = "*.log,*.out,*.diff,*.patch",
   command = "set ft=ansi",
 })
 
+-- Set the leader key to space
+vim.g.mapleader = ' '
+
+--- Filesystem tree config
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     if vim.fn.argc() == 0 and not filetype == "ansi" then
@@ -30,11 +17,10 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
   end
 })
+vim.api.nvim_set_keymap('n', '<leader>n', ':Neotree toggle<CR>', { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<C-n>', ':Neotree toggle<CR>', { noremap = true, silent = true })
-
--- Set the leader key to space
-vim.g.mapleader = ' '
+--- LLM config
+vim.api.nvim_set_keymap('n', '<leader>l', '<cmd>CodeCompanionChat Toggle<CR>', { noremap = true, silent = true })
 
 -- Code style
 vim.o.number = true
@@ -99,24 +85,5 @@ vim.api.nvim_set_keymap('n', '<leader>h', ':set hlsearch!<CR>', { noremap = true
 vim.api.nvim_set_keymap('v', '<leader>c', '"+y', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>v', '"+p', { noremap = true, silent = true })
 
--- Code Generation: Guide navigation
-vim.api.nvim_set_keymap('n', ',m', '<Esc>/<++><CR>cf>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', ',m', '<Esc>/<++><CR>cf>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', ',m', '<Esc>/<++><CR>cf>', { noremap = true, silent = true })
-
--- Code Generation for C++ using autocommands
-vim.api.nvim_exec([[
-  autocmd FileType cpp,c inoremap ,fun (<++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?(<++>)<CR>i
-  autocmd FileType cpp,c inoremap ,if if(<++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
-  autocmd FileType cpp,c inoremap ,while while(<++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?<++>)<CR>cf>
-  autocmd FileType cpp,c inoremap ,for for(<++>; <++>; <++>)<CR>{<CR><++><CR><Backspace><Backspace>}<CR><CR><++><Esc>?(<++><CR>lcf>
-]], false)
-
 -- Git
 vim.api.nvim_set_keymap('n', '<leader>d', ':vertical Gitsigns diffthis<CR>', { noremap = true, silent = true })
-
--- ChatGPT
-vim.api.nvim_set_keymap('v', '<leader>gc', ':ChatGPTRun bcq_complete<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<leader>ge', ':ChatGPTRun bcq_explain<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<leader>gd', ':ChatGPTRun bcq_doxygen<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<leader>gi', ':ChatGPTEditWithInstructions<CR>', { noremap = true, silent = true })
