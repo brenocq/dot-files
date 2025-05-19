@@ -73,11 +73,19 @@ return {
       { "nvim-lua/plenary.nvim", branch = "master" },
       { "nvim-treesitter/nvim-treesitter" },
       { "ravitemer/mcphub.nvim" },
+      { "ravitemer/codecompanion-history.nvim" }
     },
     opts = {
+      display = {
+        chat = {
+          window = {
+            width = 0.35,
+          }
+        },
+      },
       strategies = {
         chat = {
-          adapter = "gemini",
+          adapter = "openai",
           roles = {
             llm =  function(adapter)
               return string.format(
@@ -86,7 +94,7 @@ return {
                 adapter.parameters.model and ' (' .. adapter.parameters.model .. ')' or ''
               )
             end,
-            user = "👤 brenocq",
+            user = "🌳🐵 brenocq",
           }
         },
         inline = {
@@ -112,6 +120,15 @@ return {
             },
           })
         end,
+        openai = function()
+          return require("codecompanion.adapters").extend("openai", {
+            schema = {
+              model = {
+                default = "gpt-4.1",
+              },
+            },
+          })
+        end,
       },
       extensions = {
         mcphub = {
@@ -120,6 +137,13 @@ return {
             make_vars = true,
             make_slash_commands = true,
             show_result_in_chat = true
+          }
+        },
+        history = {
+          enabled = true,
+          opts = {
+            keymap = "gh",
+            continue_last_chat = true,
           }
         }
       }
@@ -202,16 +226,6 @@ return {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.8',
     dependencies = { 'nvim-lua/plenary.nvim' }
-  },
-  {
-    "easymotion/vim-easymotion",
-    keys = { "s" },  -- Lazy load when 's' is pressed
-    config = function()
-      -- Disable default EasyMotion mappings
-      vim.g.EasyMotion_do_mapping = 0
-      -- Custom EasyMotion mapping
-      vim.api.nvim_set_keymap('n', 's', '<Plug>(easymotion-overwin-f2)', {})
-    end,
   },
   {
     "folke/which-key.nvim",
@@ -297,5 +311,23 @@ return {
         }
       }
     end
+  },
+  {
+    "ggandor/leap.nvim",
+  },
+  {
+    "ThePrimeagen/harpoon",
+    config = function()
+      require("harpoon").setup({
+        settings = {
+          save_on_toggle = true,
+          save_on_change = true,
+          return_to_original_window = true
+        }
+      })
+    end
+  },
+  {
+    "ThePrimeagen/vim-be-good",
   }
 }

@@ -17,10 +17,33 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
   end
 })
-vim.api.nvim_set_keymap('n', '<leader>n', ':Neotree toggle<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>n', ':Neotree toggle<CR>', { noremap = true, silent = true })
+
+--- Navigation
+-- Leap
+vim.keymap.set({'n', 'x', 'o'}, '<leader>s', '<Plug>(leap)')
+vim.keymap.set({'n', 'x', 'o'}, '<leader>w', '<Plug>(leap-from-window)')
+-- Harpoon
+vim.keymap.set("n", "<leader>a", require("harpoon.mark").add_file)
+vim.keymap.set("n", "<leader>q", require("harpoon.ui").toggle_quick_menu)
+for i = 0, 4 do
+  vim.keymap.set("n", "<leader>" .. i, function() require("harpoon.ui").nav_file(i+1) end)
+end
 
 --- LLM config
-vim.api.nvim_set_keymap('n', '<leader>l', '<cmd>CodeCompanionChat Toggle<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>l', '<cmd>CodeCompanionChat Toggle<CR>', { noremap = true, silent = true })
+
+--- LSP config
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    local bufnr = args.buf
+    local opts = { buffer = bufnr, noremap = true, silent = true }
+    vim.keymap.set('n', '<leader>d', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', '<leader>i', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', '<leader>r', vim.lsp.buf.references, opts)
+  end,
+})
+vim.keymap.set('n', '<leader>c', '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', { noremap = true, silent = true })
 
 -- Code style
 vim.o.number = true
@@ -32,7 +55,6 @@ vim.o.softtabstop = 4
 vim.o.encoding = 'UTF-8'
 vim.o.spell = true
 vim.o.spelllang = 'en_us'
-vim.api.nvim_set_keymap('n', '<leader>c', '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', { noremap = true, silent = true })
 
 -- Highlight trailing spaces
 vim.cmd [[highlight TrailingSpaces ctermbg=red guibg=red]]
@@ -50,40 +72,32 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 })
 
 -- Remap ; to :
-vim.api.nvim_set_keymap('n', ';', ':', { noremap = true, silent = false })
+vim.keymap.set('n', ';', ':', { noremap = true, silent = false })
 
 -- Window movement keybindings
-vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>t', ':tabnew<CR>', { noremap = true, silent = true })
-
--- Remember last cursor position
-vim.api.nvim_exec([[
-  augroup RememberCursor
-    autocmd!
-    autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-  augroup END
-]], false)
+vim.keymap.set('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>t', ':tabnew<CR>', { noremap = true, silent = true })
 
 -- Scrolling
-vim.api.nvim_set_keymap('n', '<S-k>', '<C-u>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<S-j>', '<C-d>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<S-k>', '<C-u>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<S-j>', '<C-d>', { noremap = true, silent = true })
+vim.keymap.set('n', '<S-k>', '<C-u>', { noremap = true, silent = true })
+vim.keymap.set('n', '<S-j>', '<C-d>', { noremap = true, silent = true })
+vim.keymap.set('v', '<S-k>', '<C-u>', { noremap = true, silent = true })
+vim.keymap.set('v', '<S-j>', '<C-d>', { noremap = true, silent = true })
 
 -- Search
-vim.api.nvim_set_keymap('n', '<leader>s', ':Telescope live_grep<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>f', ':Telescope find_files<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>g', ':Telescope live_grep<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>f', ':Telescope find_files<CR>', { noremap = true, silent = true })
 
 -- Toggle search highlight
 vim.o.hlsearch = true
-vim.api.nvim_set_keymap('n', '<leader>h', ':set hlsearch!<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>h', ':set hlsearch!<CR>', { noremap = true, silent = true })
 
 -- Copy/paste
-vim.api.nvim_set_keymap('v', '<leader>c', '"+y', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>v', '"+p', { noremap = true, silent = true })
+vim.keymap.set('v', '<leader>c', '"+y', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>v', '"+p', { noremap = true, silent = true })
 
 -- Git
-vim.api.nvim_set_keymap('n', '<leader>d', ':vertical Gitsigns diffthis<CR>', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<leader>d', ':vertical Gitsigns diffthis<CR>', { noremap = true, silent = true })

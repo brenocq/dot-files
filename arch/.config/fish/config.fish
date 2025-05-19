@@ -14,9 +14,6 @@ if status is-interactive
     alias t "btop"
     alias wifi "nmtui"
     alias emsdk_setup ". ~/Programs/emsdk/emsdk_env.fish"
-    alias ppk "sudo nrfconnect --no-sandbox"
-    alias saleae "sudo saleae-logic2 --no-sandbox"
-    alias cpptags "ctags -R --c++-kinds=+p --fields=+iaS --extras=+q ."
 
     # Load environment variables
     if test -f ~/.env
