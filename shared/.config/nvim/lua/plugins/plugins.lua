@@ -188,13 +188,13 @@ return {
             show_result_in_chat = true
           }
         },
-        --history = {
-        --  enabled = true,
-        --  opts = {
-        --    keymap = "gh",
-        --    continue_last_chat = true,
-        --  }
-        --}
+        -- history = {
+        --   enabled = true,
+        --   opts = {
+        --     keymap = "gh",
+        --     continue_last_chat = true,
+        --   }
+        -- }
       }
     }
   },

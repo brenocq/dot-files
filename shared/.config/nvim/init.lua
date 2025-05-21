@@ -98,15 +98,17 @@ vim.keymap.set('v', '<S-k>', '<C-u>', { noremap = true, silent = true })
 vim.keymap.set('v', '<S-j>', '<C-d>', { noremap = true, silent = true })
 
 -- Search
-local builtin = require('telescope.builtin') -- Ensure this is required
-
+local buildin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>g', ':Telescope live_grep<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>f', function()
-    builtin.find_files({
+vim.keymap.set('n', '<leader>f',function()
+    buildin.find_files({
         hidden = true,
-        no_ignore = true
+        no_ignore = true,
+        no_ignore_parent = true,
+        follow = true,
+        file_ignore_patterns = { ".git/" },
     })
-end, { desc = "Find all files, including ignored ones" })
+end, { noremap = true, silent = true })
 
 -- Toggle search highlight
 vim.o.hlsearch = true
