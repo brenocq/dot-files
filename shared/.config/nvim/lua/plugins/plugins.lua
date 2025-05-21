@@ -73,7 +73,7 @@ return {
       { "nvim-lua/plenary.nvim", branch = "master" },
       { "nvim-treesitter/nvim-treesitter" },
       { "ravitemer/mcphub.nvim" },
-      { "ravitemer/codecompanion-history.nvim" }
+      -- { "ravitemer/codecompanion-history.nvim" }
     },
     opts = {
       display = {
@@ -139,13 +139,13 @@ return {
             show_result_in_chat = true
           }
         },
-        history = {
-          enabled = true,
-          opts = {
-            keymap = "gh",
-            continue_last_chat = true,
-          }
-        }
+        --history = {
+        --  enabled = true,
+        --  opts = {
+        --    keymap = "gh",
+        --    continue_last_chat = true,
+        --  }
+        --}
       }
     }
   },
