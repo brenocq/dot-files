@@ -5,25 +5,41 @@ SCRIPT_PATH=`dirname $SCRIPT`
 ARCH_FOLDER="$SCRIPT_PATH/arch"
 SHARED_FOLDER="$SCRIPT_PATH/shared"
 
-# Download core packages
-echo "Downloading core packages..."
-yay -Sy xorg-server i3-gaps kitty picom-pijulius-git polybar rofi ranger fish ripgrep
-yay -Sy git neovim
-yay -Sy nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels ttf-nerd-fonts-symbols
-echo "Finished downloading packages"
+# Function to print styled log messages
+log_step() {
+    local message="$1"
+    local bold_green='\033[1;32m'
+    local reset='\033[0m'
+    local separator="##########"
 
-# Download NVIDIA driver
-# echo "Downloading NVDIA packages..."
-# yay -Sy nvidia
-# echo "Finished downloading NVIDIA package"
+    # The entire line of separators and message will be bold green
+    echo -e "\n${bold_green}${separator} ${message} ${separator}${reset}"
+}
+
+# Download core packages
+log_step "Downloading core packages..."
+yay -Sy --noconfirm xorg-server i3-gaps kitty picom-pijulius-git polybar rofi ranger fish ripgrep
+yay -Sy --noconfirm git neovim
+yay -Sy --noconfirm nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels ttf-nerd-fonts-symbols
+log_step "Finished downloading packages"
+
+# Check for NVIDIA GPU
+if lspci | grep -iq 'nvidia'; then
+    # Download NVIDIA driver
+    log_step "Downloading NVDIA packages..."
+    yay -Sy --noconfirm nvidia
+    log_step "Finished downloading NVIDIA package"
+else
+    log_step "No NVIDIA GPU detected. Skipping NVIDIA driver installation."
+fi
 
 # Copy configs
-echo "Copying Configs..."
+log_step "Copying Configs..."
 cd $SHARED_FOLDER
 cp -R .config/ .gitconfig ~/
 cd $ARCH_FOLDER
 cp -R .config/ .xinitrc ~/
-echo "Finished Copying Configs"
+log_step "Finished Copying Configs"
 
 # Copy fonts
 mkdir -p ~/.local/share/fonts/
@@ -37,48 +53,54 @@ cp wallpapers/* ~/Pictures/wallpapers
 chsh -s /usr/bin/fish
 
 # Install starship
-echo "Installing starship..."
+log_step "Installing starship..."
 curl -sS https://starship.rs/install.sh | sh
-echo "Finished installing starship"
+log_step "Finished installing starship"
 
 # Downloading utils packages
-echo "Downloading utils packages..."
+log_step "Downloading utils packages..."
 sudo pacman -Sy yay
-yay -Sy cmake gdb jump fortune-mod cowsay flameshot peek autorandr btop mpv feh arandr brightnessctl
+yay -Sy --noconfirm jump fortune-mod cowsay flameshot peek autorandr btop mpv feh arandr
 
 # Download applications
-yay -Sy google-chrome zotero-bin spotify discord_arch_electron telegram-desktop-bin
+log_step "Downloading applications..."
+yay -Sy --noconfirm google-chrome zotero-bin spotify discord telegram-desktop-bin
 
 # Fix bluetooth
-yay -Sy bluez bluez-utils alsa-utils
+log_step "Setting up bluetooth..."
+yay -Sy --noconfirm bluez bluez-utils alsa-utils
 sudo systemctl start bluetooth
 sudo systemctl enable bluetooth
 
 # Fix wifi
-yay -Sy networkmanager
+log_step "Setting up wifi..."
+yay -Sy --noconfirm networkmanager
 sudo systemctl enable --now NetworkManager
 
 # X
-yay -Sy xorg-xinit xorg-xev xclip i3lock-color
+log_step "Setting up X..."
+yay -Sy --noconfirm xorg-xinit xorg-xev xclip i3lock-color
 
 # Media/brightness control
-yay -Sy playerctl brightnessctl
+log_step "Setting up media/brightness control..."
+yay -Sy --noconfirm playerctl brightnessctl
 
 # C++
-yay -Sy cppcheck clang
+log_step "Setting up C++ environment..."
+yay -Sy --noconfirm cmake gdb cppcheck clang
 
 # Verilog
-yay -Sy verible-bin
+log_step "Setting up verilog..."
+yay -Sy --noconfirm verible-bin
 
 # Embedded
-yay -Sy gcc-arm-none-eabi-bin arm-none-eabi-gdb stlink
-
-# Git
-git config --global core.pager "nvim -R -c 'set filetype=diff' -"
+log_step "Setting up embedded environment..."
+yay -Sy --noconfirm gcc-arm-none-eabi-bin arm-none-eabi-gdb stlink
 
 # Latex
-yay -Sy pdfpc
+log_step "Setting up latex..."
+yay -Sy --noconfirm pdfpc
 #yay -Sy texlive-full <- Takes a long time
 
 # Finished
-echo "Done with setting up environment"
+log_step "Done with setting up environment"

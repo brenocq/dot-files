@@ -32,6 +32,8 @@ end
 
 --- LLM config
 vim.keymap.set('n', '<leader>l', '<cmd>CodeCompanionChat Toggle<CR>', { noremap = true, silent = true })
+vim.keymap.set('v', '<leader>e', '<cmd>CodeCompanion /explain<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>C', '<cmd>CodeCompanion /commit<CR>', { noremap = true, silent = true })
 
 --- LSP config
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -55,10 +57,18 @@ vim.o.softtabstop = 4
 vim.o.encoding = 'UTF-8'
 vim.o.spell = true
 vim.o.spelllang = 'en_us'
+vim.api.nvim_set_keymap('n', '<leader>c', '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', { noremap = true, silent = true })
 
 -- Highlight trailing spaces
-vim.cmd [[highlight TrailingSpaces ctermbg=red guibg=red]]
-vim.cmd [[match TrailingSpaces /\s\+$/]]
+vim.cmd [[highlight TrailingSpaces gui=underline guisp=red cterm=underline ctermfg=red]]
+vim.api.nvim_create_autocmd({'BufWinEnter','ColorScheme'}, {
+  callback = function()
+    if vim.bo.filetype == 'neo-tree' then
+      return
+    end
+    vim.fn.matchadd('TrailingSpaces', '\\s\\+$')
+  end,
+})
 
 -- Highlight Atta files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
@@ -100,4 +110,4 @@ vim.keymap.set('v', '<leader>c', '"+y', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>v', '"+p', { noremap = true, silent = true })
 
 -- Git
--- vim.keymap.set('n', '<leader>d', ':vertical Gitsigns diffthis<CR>', { noremap = true, silent = true })
+--- vim.keymap.set('n', '<leader>d', ':vertical Gitsigns diffthis<CR>', { noremap = true, silent = true })

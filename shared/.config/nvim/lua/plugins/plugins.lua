@@ -8,23 +8,72 @@ return {
       "MunifTanjim/nui.nvim",
       "3rd/image.nvim",
     },
+    lazy = false, -- neo-tree will lazily load itself
     config = function()
       require("neo-tree").setup({
+        source_selector = {
+            winbar = false,
+            statusline = true
+        },
+        window = {
+          mappings = {
+            ['e'] = function() vim.api.nvim_exec("Neotree focus filesystem left", true) end,
+            ['b'] = function() vim.api.nvim_exec("Neotree focus buffers left", true) end,
+            ['g'] = function() vim.api.nvim_exec("Neotree focus git_status left", true) end,
+            ['p'] = {
+                   "toggle_preview",
+                   config = {
+                     use_float = false,
+                     use_image_nvim = true,
+                     title = 'Neo-tree Preview',
+                   },
+                 },
+          },
+        },
         close_if_last_window = true,
         popup_border_style = "rounded",
         enable_git_status = true,
         enable_diagnostics = true,
-        sort_case_insensitive = false,
+        sort_case_insensitive = true,
         filesystem = {
           use_libuv_file_watcher = true,
-            filtered_items = {
-                visible = true,
-                hide_dotfiles = false,
-                hide_gitignored = false,
-            },
+          filtered_items = {
+              visible = true,
+              hide_gitignored = false,
+              hide_dotfiles = false,
+          },
         },
       })
     end
+  },
+  {
+    "3rd/image.nvim",
+    opts = {
+      backend = "kitty",
+      processor = "magick_rock",
+      integrations = {
+        markdown = {
+          enabled = true,
+          clear_in_insert_mode = false,
+          download_remote_images = true,
+          only_render_image_at_cursor = false,
+          filetypes = { "markdown", "vimwiki" },
+        },
+        neorg = {
+          enabled = true,
+          clear_in_insert_mode = false,
+          download_remote_images = true,
+          only_render_image_at_cursor = false,
+          filetypes = { "norg" },
+        },
+      },
+      max_width = nil,
+      max_height = nil,
+      max_width_window_percentage = nil,
+      max_height_window_percentage = 50,
+      kitty_method = "normal",
+      hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" },
+    }
   },
   {
     'sainnhe/gruvbox-material',
@@ -85,7 +134,7 @@ return {
       },
       strategies = {
         chat = {
-          adapter = "openai",
+          adapter = "gemini",
           roles = {
             llm =  function(adapter)
               return string.format(
