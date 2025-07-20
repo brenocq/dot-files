@@ -5,15 +5,22 @@
 	editor = nvim
     commentChar = ";"
 [alias]
-lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
-lg = !"git lg1"
+    s = status -sb
+    l = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    a = add
+    c = commit
+    cm = commit -m
+    cam = commit -am
+    ca = commit -a
+    sw = switch
+    p = pull
+    pu = push
+    amend = commit --amend --no-edit
+    standup = "!git log --since='7 days ago' --pretty=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s %C(dim white)- %an%C(reset)' --author=$(git config user.email)"
 [push]
 	autoSetupRemote = true
 [pull]
-	rebase = false
-[safe]
-	directory = /opt/flutter
+	rebase = true
 [credential]
 	helper = cache --timeout=3600
 [filter "lfs"]
@@ -21,3 +28,5 @@ lg = !"git lg1"
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+[init]
+	defaultBranch = main
