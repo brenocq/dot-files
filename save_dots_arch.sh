@@ -60,6 +60,10 @@ echo "Copying .config/fish/"
 mkdir $ARCH_FOLDER/.config/fish
 cp ~/.config/fish/config.fish $ARCH_FOLDER/.config/fish
 
+# TMUX
+echo "Copying .tmux.conf"
+cp ~/.tmux.conf $ARCH_FOLDER/
+
 # Fonts
 echo "Copying fonts"
 cp ~/.local/share/fonts/feather.ttf $ARCH_FOLDER/fonts

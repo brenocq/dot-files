@@ -64,7 +64,7 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh &
 floating_modifier $mod
 
 # Start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec kitty tmux new-session -A -s main
 
 # Kill focused window
 bindsym $mod+q kill

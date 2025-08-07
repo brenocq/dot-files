@@ -19,7 +19,7 @@ log_step() {
 # Download core packages
 log_step "Downloading core packages..."
 yay -Sy --noconfirm xorg-server i3-gaps kitty picom-pijulius-git polybar rofi ranger fish ripgrep
-yay -Sy --noconfirm git neovim
+yay -Sy --noconfirm git neovim tmux
 yay -Sy --noconfirm nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels ttf-nerd-fonts-symbols
 log_step "Finished downloading packages"
 
