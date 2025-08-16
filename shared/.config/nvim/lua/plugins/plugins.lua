@@ -6,7 +6,7 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
-      "3rd/image.nvim",
+      -- "3rd/image.nvim",
     },
     lazy = false, -- neo-tree will lazily load itself
     config = function()
@@ -23,8 +23,8 @@ return {
             ['p'] = {
                    "toggle_preview",
                    config = {
-                     use_float = false,
-                     use_image_nvim = true,
+                     use_float = true,
+                     -- use_image_nvim = true,
                      title = 'Neo-tree Preview',
                    },
                  },
@@ -46,35 +46,35 @@ return {
       })
     end
   },
-  {
-    "3rd/image.nvim",
-    opts = {
-      backend = "kitty",
-      processor = "magick_rock",
-      integrations = {
-        markdown = {
-          enabled = true,
-          clear_in_insert_mode = false,
-          download_remote_images = true,
-          only_render_image_at_cursor = false,
-          filetypes = { "markdown", "vimwiki" },
-        },
-        neorg = {
-          enabled = true,
-          clear_in_insert_mode = false,
-          download_remote_images = true,
-          only_render_image_at_cursor = false,
-          filetypes = { "norg" },
-        },
-      },
-      max_width = nil,
-      max_height = nil,
-      max_width_window_percentage = nil,
-      max_height_window_percentage = 50,
-      kitty_method = "normal",
-      hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" },
-    }
-  },
+  -- {
+  --   "3rd/image.nvim",
+  --   opts = {
+  --     backend = "kitty",
+  --     processor = "magick_rock",
+  --     integrations = {
+  --       markdown = {
+  --         enabled = true,
+  --         clear_in_insert_mode = false,
+  --         download_remote_images = true,
+  --         only_render_image_at_cursor = false,
+  --         filetypes = { "markdown", "vimwiki" },
+  --       },
+  --       neorg = {
+  --         enabled = true,
+  --         clear_in_insert_mode = false,
+  --         download_remote_images = true,
+  --         only_render_image_at_cursor = false,
+  --         filetypes = { "norg" },
+  --       },
+  --     },
+  --     max_width = nil,
+  --     max_height = nil,
+  --     max_width_window_percentage = nil,
+  --     max_height_window_percentage = 50,
+  --     kitty_method = "normal",
+  --     hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" },
+  --   }
+  -- },
   {
     'sainnhe/gruvbox-material',
     lazy = false,
@@ -147,6 +147,7 @@ return {
           }
         },
         inline = {
+          adapter = "gemini",
           keymaps = {
             accept_change = {
               modes = { n = "<leader>a" },
@@ -158,13 +159,16 @@ return {
             },
           },
         },
+        cmd = {
+            adapter = "gemini",
+        },
       },
       adapters = {
         gemini = function()
           return require("codecompanion.adapters").extend("gemini", {
             schema = {
               model = {
-                default = "gemini-2.5-pro-preview-03-25",
+                default = "gemini-2.5-pro-preview-05-06",
               },
             },
           })
@@ -197,16 +201,6 @@ return {
         -- }
       }
     }
-  },
-  {
-    "OXY2DEV/markview.nvim",
-    lazy = false,
-    opts = {
-      preview = {
-        filetypes = { "markdown", "codecompanion" },
-        ignore_buftypes = {},
-      },
-    },
   },
   {
     "hrsh7th/nvim-cmp",
@@ -246,6 +240,17 @@ return {
       })
     end,
   },
+  -- {
+  --   "OXY2DEV/markview.nvim",
+  --   lazy = false,
+  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
+  --   opts = {
+  --     preview = {
+  --       filetypes = { "markdown", "codecompanion" },
+  --       ignore_buftypes = {},
+  --     },
+  --   },
+  -- },
   {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" }, -- Load Treesitter when opening a buffer
@@ -297,12 +302,12 @@ return {
       ]]
     end
   },
-  {
-    'https://github.com/github/copilot.vim',
-    config = function()
-      vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { expr = true, silent = true, noremap = true })
-    end,
-  },
+  --{
+  --  'https://github.com/github/copilot.vim',
+  --  config = function()
+  --    vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { expr = true, silent = true, noremap = true })
+  --  end,
+  --},
   {
     'neovim/nvim-lspconfig',
     config = function()
@@ -378,5 +383,23 @@ return {
   },
   {
     "ThePrimeagen/vim-be-good",
+  },
+  {
+    "christoomey/vim-tmux-navigator",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+      "TmuxNavigatorProcessList",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
   }
 }

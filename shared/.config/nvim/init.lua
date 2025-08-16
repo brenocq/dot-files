@@ -84,11 +84,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- Remap ; to :
 vim.keymap.set('n', ';', ':', { noremap = true, silent = false })
 
--- Window movement keybindings
-vim.keymap.set('n', '<C-j>', '<C-w>j', { noremap = true, silent = true })
-vim.keymap.set('n', '<C-k>', '<C-w>k', { noremap = true, silent = true })
-vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true })
-vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true })
+-- Window movement key bindings are managed by vim-tmux-navigator
 vim.keymap.set('n', '<leader>t', ':tabnew<CR>', { noremap = true, silent = true })
 
 -- Scrolling
@@ -98,9 +94,9 @@ vim.keymap.set('v', '<S-k>', '<C-u>', { noremap = true, silent = true })
 vim.keymap.set('v', '<S-j>', '<C-d>', { noremap = true, silent = true })
 
 -- Search
-local buildin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>g', ':Telescope live_grep<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>f',function()
+    local buildin = require('telescope.builtin')
     buildin.find_files({
         hidden = true,
         no_ignore = true,
