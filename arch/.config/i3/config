@@ -63,8 +63,8 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh &
 # Drag floating windows to their wanted position
 floating_modifier $mod
 
-# Start a terminal
-bindsym $mod+Return exec kitty tmux new-session -A -s main
+# Start a terminal with a tmux session named after the current workspace
+bindsym $mod+Return exec --no-startup-id sh -c 'ws=$(i3-msg -t get_workspaces | jq -r ".[] | select(.focused==true).name") && kitty tmux new-session -A -s "ws_$ws"'
 
 # Kill focused window
 bindsym $mod+q kill

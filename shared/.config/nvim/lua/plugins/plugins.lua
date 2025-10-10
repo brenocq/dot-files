@@ -13,13 +13,10 @@ return {
       require("neo-tree").setup({
         source_selector = {
             winbar = false,
-            statusline = true
+            statusline = false
         },
         window = {
           mappings = {
-            ['e'] = function() vim.api.nvim_exec("Neotree focus filesystem left", true) end,
-            ['b'] = function() vim.api.nvim_exec("Neotree focus buffers left", true) end,
-            ['g'] = function() vim.api.nvim_exec("Neotree focus git_status left", true) end,
             ['p'] = {
                    "toggle_preview",
                    config = {
@@ -164,24 +161,26 @@ return {
         },
       },
       adapters = {
-        gemini = function()
-          return require("codecompanion.adapters").extend("gemini", {
-            schema = {
-              model = {
-                default = "gemini-2.5-pro-preview-05-06",
+        http = {
+          gemini = function()
+            return require("codecompanion.adapters").extend("gemini", {
+              schema = {
+                model = {
+                  default = "gemini-2.5-pro",
+                },
               },
-            },
-          })
-        end,
-        openai = function()
-          return require("codecompanion.adapters").extend("openai", {
-            schema = {
-              model = {
-                default = "gpt-4.1",
+            })
+          end,
+          openai = function()
+            return require("codecompanion.adapters").extend("openai", {
+              schema = {
+                model = {
+                  default = "gpt-4.1",
+                },
               },
-            },
-          })
-        end,
+            })
+          end,
+        },
       },
       extensions = {
         mcphub = {
@@ -302,12 +301,12 @@ return {
       ]]
     end
   },
-  --{
-  --  'https://github.com/github/copilot.vim',
-  --  config = function()
-  --    vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { expr = true, silent = true, noremap = true })
-  --  end,
-  --},
+  {
+    'https://github.com/github/copilot.vim',
+    config = function()
+      vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { expr = true, silent = true, noremap = true })
+    end,
+  },
   {
     'neovim/nvim-lspconfig',
     config = function()
@@ -401,5 +400,18 @@ return {
       { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
+  },
+  {
+  'mfussenegger/nvim-dap',
+    config = function()
+      local dap = require('dap')
+      -- Add keymaps for easy debugging
+      vim.keymap.set('n', '<leader>0', dap.continue, { desc = 'Debug: Continue' })
+      vim.keymap.set('n', '<leader>1', dap.step_over, { desc = 'Debug: Step Over' })
+      vim.keymap.set('n', '<leader>2', dap.step_into, { desc = 'Debug: Step Into' })
+      vim.keymap.set('n', '<leader>3', dap.step_out, { desc = 'Debug: Step Out' })
+      vim.keymap.set('n', '<leader>9', dap.terminate, { desc = 'Debug: Terminate' })
+      vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
+    end
   }
 }

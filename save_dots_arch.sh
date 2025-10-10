@@ -62,7 +62,7 @@ cp ~/.config/fish/config.fish $ARCH_FOLDER/.config/fish
 
 # TMUX
 echo "Copying .config/tmux/"
-cp ~/.config/tmux/tmux.conf $ARCH_FOLDER/.config/tmux
+cp -R ~/.config/tmux $ARCH_FOLDER/.config
 
 # Fonts
 echo "Copying fonts"
