@@ -117,9 +117,8 @@ return {
     "olimorris/codecompanion.nvim",
     dependencies = {
       { "nvim-lua/plenary.nvim", branch = "master" },
-      { "nvim-treesitter/nvim-treesitter" },
+      { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
       { "ravitemer/mcphub.nvim" },
-      -- { "ravitemer/codecompanion-history.nvim" }
     },
     opts = {
       display = {
@@ -191,13 +190,6 @@ return {
             show_result_in_chat = true
           }
         },
-        -- history = {
-        --   enabled = true,
-        --   opts = {
-        --     keymap = "gh",
-        --     continue_last_chat = true,
-        --   }
-        -- }
       }
     }
   },
