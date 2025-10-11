@@ -20,6 +20,7 @@ mkdir $ARCH_FOLDER/wallpapers
 # Neovim
 echo "Copying .config/nvim/"
 cp -R ~/.config/nvim $SHARED_FOLDER/.config
+rm $SHARED_FOLDER/.config/nvim/lazy-lock.json
 
 # Kitty
 echo "Copying .config/kitty/"

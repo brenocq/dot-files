@@ -310,28 +310,24 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function()
-      local lspconfig = require('lspconfig')
       -- Verilog Language Server
-      lspconfig.verible.setup{
+      vim.lsp.config('verible', {
         cmd = { "verible-verilog-ls", "--rules_config_search", "--indentation_spaces=4" },
         filetypes = { "verilog", "systemverilog" },
-      }
+      })
+      -- vim.lsp.enable('verible')
       -- C++ Language Server
-      lspconfig.clangd.setup{
+      vim.lsp.config('clangd', {
         cmd = { "clangd" },
         filetypes = { "c", "cpp", "objc", "objcpp" },
-        root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
-        settings = {
-          clangd = {
-            fallbackFlags = { "-std=c++17" },
-          }
-        }
-      }
+        root_markers = {".clangd", "compile_commands.json", "compile_flags.txt", ".git"},
+      })
+      vim.lsp.enable('clangd')
       -- Dart Language Server
-      lspconfig.dartls.setup{
+      vim.lsp.config('dartls', {
         cmd = { "dart", "language-server" },
         filetypes = { "dart" },
-        root_dir = lspconfig.util.root_pattern("pubspec.yaml"),
+        root_markers = { "pubspec.yaml" },
         init_options = {
           closingLabels = true,
           flutterOutline = true,
@@ -344,7 +340,8 @@ return {
             enableSdkFormatter = true,
           }
         }
-      }
+      })
+      vim.lsp.enable('dartls')
     end
   },
   {
