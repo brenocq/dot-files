@@ -2,10 +2,11 @@ set fish_greeting
 if status is-interactive
     eval "$(starship init fish)"
     eval "$(jump shell fish)"
+    fzf --fish | source
 
     # Show fortune message
     if [ (math (random)'%10') -eq 0 ]
-        fortune computers definitions disclaimer fortunes linux rules-of-acquisition wisdom work zippy paradoxum | cowsay -f $(ls /usr/share/cows/ | shuf -n1)
+        fortune computers definitions disclaimer fortunes linux rules-of-acquisition wisdom work zippy paradoxum | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
     end
 
     # Aliases
