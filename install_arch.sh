@@ -66,6 +66,10 @@ yay -Sy --noconfirm jump fzf fortune-mod cowsay flameshot peek autorandr btop mp
 log_step "Downloading applications..."
 yay -Sy --noconfirm google-chrome zotero-bin spotify discord telegram-desktop-bin
 
+# Setup nvim
+log_step "Setting up nvim..."
+yay -Sy --noconfirm nvim gemini-cli
+
 # Fix bluetooth
 log_step "Setting up bluetooth..."
 yay -Sy --noconfirm bluez bluez-utils alsa-utils

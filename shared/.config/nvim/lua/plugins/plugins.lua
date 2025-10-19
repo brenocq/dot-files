@@ -130,7 +130,7 @@ return {
       },
       strategies = {
         chat = {
-          adapter = "gemini",
+          adapter = "gemini_cli",
           roles = {
             llm =  function(adapter)
               return string.format(
@@ -143,7 +143,7 @@ return {
           }
         },
         inline = {
-          adapter = "gemini",
+          adapter = "gemini_cli",
           keymaps = {
             accept_change = {
               modes = { n = "<leader>a" },
@@ -179,7 +179,7 @@ return {
               },
             })
           end,
-        },
+        }
       },
       extensions = {
         mcphub = {
