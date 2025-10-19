@@ -60,7 +60,7 @@ log_step "Finished installing starship"
 # Downloading utils packages
 log_step "Downloading utils packages..."
 sudo pacman -Sy yay
-yay -Sy --noconfirm jump fzf fortune-mod cowsay flameshot peek autorandr btop mpv feh arandr jq
+yay -Sy --noconfirm jump fzf fortune-mod cowsay flameshot simplescreenrecorder autorandr btop mpv feh arandr jq
 
 # Download applications
 log_step "Downloading applications..."

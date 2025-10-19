@@ -172,14 +172,14 @@ bindsym $mod+Shift+r mode "resize"
 for_window [class="atta" instance="atta"] floating enable
 for_window [class="PenUI" instance="PenUI"] floating enable
 for_window [class="UGET Simulator" instance="UGET Simulator"] floating enable
-
+for_window [class="SimpleScreenRecorder"] floating enable
 
 #---------- Apps shortcuts ----------#
 # Screenshots
 exec --no-startup-id flameshot &
 bindsym $mod+s exec "flameshot gui"
 # GIF recording
-bindsym $mod+g exec "peek"
+bindsym $mod+g exec "simplescreenrecorder"
 # Language switch
 bindsym $mod+x exec "~/.config/i3/toggle-lang.sh"
 #Lock
