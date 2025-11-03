@@ -18,9 +18,8 @@ log_step() {
 
 # Download wayland packages
 log_step "Setting up wayland..."
-yay -Sy --noconfirm hyprland waybar wofi xdg-desktop-portal-hyprland
+yay -Sy --noconfirm hyprland waybar wofi swaylock hyprpaper mako xorg-wayland yazi
 yay -Sy --noconfirm qt5-wayland qt6-wayland # For Qt apps to run natively
-yay -Sy --noconfrm swaylock-effects
 log_step "Finished setting up wayland packages"
 
 # Download core packages
