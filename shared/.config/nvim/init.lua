@@ -35,6 +35,7 @@ vim.keymap.set('n', '<leader>l', '<cmd>CodeCompanionChat Toggle<CR>', { noremap 
 vim.keymap.set('v', '<leader>e', '<cmd>CodeCompanion /explain<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>C', '<cmd>CodeCompanion /commit<CR>', { noremap = true, silent = true })
 
+
 --- LSP config
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
@@ -60,15 +61,8 @@ vim.o.spelllang = 'en_us'
 vim.api.nvim_set_keymap('n', '<leader>c', '<cmd>lua vim.lsp.buf.format({ async = true })<CR>', { noremap = true, silent = true })
 
 -- Highlight trailing spaces
-vim.cmd [[highlight TrailingSpaces gui=underline guisp=red cterm=underline ctermfg=red]]
-vim.api.nvim_create_autocmd({'BufWinEnter','ColorScheme'}, {
-  callback = function()
-    if vim.bo.filetype == 'neo-tree' then
-      return
-    end
-    vim.fn.matchadd('TrailingSpaces', '\\s\\+$')
-  end,
-})
+vim.cmd [[highlight TrailingSpaces ctermbg=red guibg=red]]
+vim.cmd [[match TrailingSpaces /\s\+$/]]
 
 -- Highlight Atta files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
@@ -84,7 +78,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- Remap ; to :
 vim.keymap.set('n', ';', ':', { noremap = true, silent = false })
 
--- Window movement key bindings are managed by vim-tmux-navigator
+--- Window movement key bindings are managed by vim-tmux-navigator
 vim.keymap.set('n', '<leader>t', ':tabnew<CR>', { noremap = true, silent = true })
 
 -- Scrolling
@@ -94,17 +88,15 @@ vim.keymap.set('v', '<S-k>', '<C-u>', { noremap = true, silent = true })
 vim.keymap.set('v', '<S-j>', '<C-d>', { noremap = true, silent = true })
 
 -- Search
+local builtin = require('telescope.builtin') -- Ensure this is required
+
 vim.keymap.set('n', '<leader>g', ':Telescope live_grep<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>f',function()
-    local buildin = require('telescope.builtin')
-    buildin.find_files({
+vim.keymap.set('n', '<leader>f', function()
+    builtin.find_files({
         hidden = true,
-        no_ignore = true,
-        no_ignore_parent = true,
-        follow = true,
-        file_ignore_patterns = { ".git/" },
+        no_ignore = true
     })
-end, { noremap = true, silent = true })
+end, { desc = "Find all files, including ignored ones" })
 
 -- Toggle search highlight
 vim.o.hlsearch = true
@@ -115,4 +107,4 @@ vim.keymap.set('v', '<leader>c', '"+y', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>v', '"+p', { noremap = true, silent = true })
 
 -- Git
---- vim.keymap.set('n', '<leader>d', ':vertical Gitsigns diffthis<CR>', { noremap = true, silent = true })
+-- vim.keymap.set('n', '<leader>d', ':vertical Gitsigns diffthis<CR>', { noremap = true, silent = true })

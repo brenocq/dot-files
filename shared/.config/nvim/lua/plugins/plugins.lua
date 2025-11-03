@@ -6,72 +6,26 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
-      -- "3rd/image.nvim",
+      "3rd/image.nvim",
     },
-    lazy = false, -- neo-tree will lazily load itself
     config = function()
       require("neo-tree").setup({
-        source_selector = {
-            winbar = false,
-            statusline = false
-        },
-        window = {
-          mappings = {
-            ['p'] = {
-                   "toggle_preview",
-                   config = {
-                     use_float = true,
-                     -- use_image_nvim = true,
-                     title = 'Neo-tree Preview',
-                   },
-                 },
-          },
-        },
         close_if_last_window = true,
         popup_border_style = "rounded",
         enable_git_status = true,
         enable_diagnostics = true,
-        sort_case_insensitive = true,
+        sort_case_insensitive = false,
         filesystem = {
           use_libuv_file_watcher = true,
-          filtered_items = {
-              visible = true,
-              hide_gitignored = false,
-              hide_dotfiles = false,
-          },
+            filtered_items = {
+                visible = true,
+                hide_dotfiles = false,
+                hide_gitignored = false,
+            },
         },
       })
     end
   },
-  -- {
-  --   "3rd/image.nvim",
-  --   opts = {
-  --     backend = "kitty",
-  --     processor = "magick_rock",
-  --     integrations = {
-  --       markdown = {
-  --         enabled = true,
-  --         clear_in_insert_mode = false,
-  --         download_remote_images = true,
-  --         only_render_image_at_cursor = false,
-  --         filetypes = { "markdown", "vimwiki" },
-  --       },
-  --       neorg = {
-  --         enabled = true,
-  --         clear_in_insert_mode = false,
-  --         download_remote_images = true,
-  --         only_render_image_at_cursor = false,
-  --         filetypes = { "norg" },
-  --       },
-  --     },
-  --     max_width = nil,
-  --     max_height = nil,
-  --     max_width_window_percentage = nil,
-  --     max_height_window_percentage = 50,
-  --     kitty_method = "normal",
-  --     hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" },
-  --   }
-  -- },
   {
     'sainnhe/gruvbox-material',
     lazy = false,
@@ -117,8 +71,9 @@ return {
     "olimorris/codecompanion.nvim",
     dependencies = {
       { "nvim-lua/plenary.nvim", branch = "master" },
-      { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+      { "nvim-treesitter/nvim-treesitter" },
       { "ravitemer/mcphub.nvim" },
+      -- { "ravitemer/codecompanion-history.nvim" }
     },
     opts = {
       display = {
@@ -130,7 +85,7 @@ return {
       },
       strategies = {
         chat = {
-          adapter = "gemini_cli",
+          adapter = "claude_code",
           roles = {
             llm =  function(adapter)
               return string.format(
@@ -143,7 +98,7 @@ return {
           }
         },
         inline = {
-          adapter = "gemini_cli",
+          adapter = "gemini",
           keymaps = {
             accept_change = {
               modes = { n = "<leader>a" },
@@ -190,8 +145,26 @@ return {
             show_result_in_chat = true
           }
         },
+        -- history = {
+        --   enabled = true,
+        --   opts = {
+        --     keymap = "gh",
+        --     continue_last_chat = true,
+        --   }
+        -- }
       }
     }
+  },
+  {
+    "OXY2DEV/markview.nvim",
+    lazy = false,
+    priority = 49, -- Make sure it is loaded after treesitter
+    opts = {
+      preview = {
+        filetypes = { "markdown", "codecompanion" },
+        ignore_buftypes = {},
+      },
+    },
   },
   {
     "hrsh7th/nvim-cmp",
@@ -231,17 +204,6 @@ return {
       })
     end,
   },
-  -- {
-  --   "OXY2DEV/markview.nvim",
-  --   lazy = false,
-  --   dependencies = { "nvim-treesitter/nvim-treesitter" },
-  --   opts = {
-  --     preview = {
-  --       filetypes = { "markdown", "codecompanion" },
-  --       ignore_buftypes = {},
-  --     },
-  --   },
-  -- },
   {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPost", "BufNewFile" }, -- Load Treesitter when opening a buffer
@@ -258,11 +220,6 @@ return {
         },
         indent = {
           enable = true,              -- Enable Treesitter-based indentation
-        },
-        -- Optional: Enable other features like rainbow brackets or text objects
-        rainbow = {
-          enable = true,              -- Enable rainbow parentheses
-          extended_mode = true,       -- Highlight beyond parentheses
         },
       })
     end,
@@ -310,9 +267,9 @@ return {
       -- vim.lsp.enable('verible')
       -- C++ Language Server
       vim.lsp.config('clangd', {
-        cmd = { "clangd" },
+        cmd = { "clangd", "--experimental-modules-support" },
         filetypes = { "c", "cpp", "objc", "objcpp" },
-        root_markers = {".clangd", "compile_commands.json", "compile_flags.txt", ".git"},
+        root_markers = { ".clangd", "compile_commands.json", ".git" },
       })
       vim.lsp.enable('clangd')
       -- Dart Language Server
@@ -333,7 +290,7 @@ return {
           }
         }
       })
-      vim.lsp.enable('dartls')
+      -- vim.lsp.enable('dartls')
     end
   },
   {
@@ -402,5 +359,5 @@ return {
       vim.keymap.set('n', '<leader>9', dap.terminate, { desc = 'Debug: Terminate' })
       vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
     end
-  }
+   }
 }

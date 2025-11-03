@@ -36,25 +36,9 @@ cp ~/.config/starship.toml $SHARED_FOLDER/.config
 
 ##### Arch-specific configs #####
 
-# XInit
-echo "Copying .xinitrc"
-cp ~/.xinitrc $ARCH_FOLDER/
-
-# I3
-echo "Copying .config/i3/"
-cp -R ~/.config/i3 $ARCH_FOLDER/.config
-
-# Picom
-echo "Copying .config/picom/"
-cp -R ~/.config/picom $ARCH_FOLDER/.config
-
-# Polybar
-echo "Copying .config/polybar/"
-cp -R ~/.config/polybar $ARCH_FOLDER/.config
-
-# Rofi
-echo "Copying .config/rofi/"
-cp -R ~/.config/rofi $ARCH_FOLDER/.config
+# Hyprland
+echo "Copying .config/hypr/"
+cp -R ~/.config/hypr $ARCH_FOLDER/.config
 
 # Fish
 echo "Copying .config/fish/"

@@ -18,14 +18,15 @@ log_step() {
 
 # Download wayland packages
 log_step "Setting up wayland..."
-yay -Sy --noconfirm hyprland waybar wofi swaylock hyprpaper mako xorg-wayland yazi
+yay -Sy --noconfirm hyprland waybar wofi hyprpaper mako xorg-wayland yazi
+yay -Sy --noconfirm swaylock-effects grim imagemagick
 yay -Sy --noconfirm qt5-wayland qt6-wayland # For Qt apps to run natively
 log_step "Finished setting up wayland packages"
 
 # Download core packages
 log_step "Setting up core packages..."
-yay -Sy --noconfirm kitty fish ripgrep
-yay -Sy --noconfirm git neovim tmux
+yay -Sy --noconfirm kitty fish git tmux
+yay -Sy --noconfirm neovim wl-clipboard ripgrep
 yay -Sy --noconfirm nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels ttf-nerd-fonts-symbols
 log_step "Finished setting up core packages"
 

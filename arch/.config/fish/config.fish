@@ -2,7 +2,6 @@ set fish_greeting
 if status is-interactive
     eval "$(starship init fish)"
     eval "$(jump shell fish)"
-    fzf --fish | source
 
     # Show fortune message
     if [ (math (random)'%10') -eq 0 ]
@@ -16,8 +15,16 @@ if status is-interactive
     alias wifi "nmtui"
     alias emsdk_setup ". ~/Programs/emsdk/emsdk_env.fish"
 
+    # Setup fuzzy finder
+    fzf --fish | source
+
     # Load environment variables
     if test -f ~/.env
         source ~/.env
+    end
+
+    # Configure X11 permissions for docker
+    if status is-interactive; and set -q DISPLAY
+        xhost +local: > /dev/null 2>&1
     end
 end
