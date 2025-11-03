@@ -1,0 +1,112 @@
+/* --- Use Gruvbox Colors --- */
+@define-color bg #282828;
+@define-color bg1 #3c3836;
+@define-color fg #ebdbb2;
+@define-color red #cc241d;
+@define-color green #98971a;
+@define-color yellow #d79921;
+@define-color blue #458588;
+@define-color purple #b16286;
+@define-color aqua #689d68;
+
+/* --- Base Bar Style --- */
+* {
+    border: none;
+    border-radius: 0;
+    font-family: 'JetBrainsMono Nerd Font', 'sans-serif';
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: @bg;
+    color: @fg;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+/* --- Module Pill Styling --- */
+#workspaces,
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#tray,
+#language {
+    background-color: @bg1;
+    color: @fg;
+    padding: 2px 12px;
+    margin: 4px 6px;
+    border-radius: 12px;
+}
+
+/* --- Workspace Styling --- */
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: @fg;
+    border-radius: 10px;
+}
+
+#workspaces button:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#workspaces button.focused {
+    background-color: @aqua;
+    color: @bg;
+}
+
+#workspaces button.urgent {
+    background-color: @red;
+}
+
+/* --- Specific Module Colors --- */
+#clock {
+    background-color: @aqua;
+    color: @bg;
+}
+
+#battery {
+    background-color: @green;
+    color: @bg;
+}
+
+#battery.charging, #battery.plugged {
+    background-color: @green;
+    color: @bg;
+}
+
+#battery.critical:not(.charging) {
+    background-color: @red;
+    color: @fg;
+}
+
+#cpu {
+    background-color: @yellow;
+    color: @bg;
+}
+
+#memory {
+    background-color: @purple;
+    color: @bg;
+}
+
+#network {
+    background-color: @blue;
+}
+
+#network.disconnected {
+    background-color: @red;
+}
+
+#pulseaudio {
+    background-color: @purple;
+}
+
+#pulseaudio.muted {
+    background-color: @bg1;
+    color: @red;
+}

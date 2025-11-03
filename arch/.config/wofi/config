@@ -1,0 +1,4 @@
+# This tells wofi to show the application list (drun)
+mode=drun
+allow_images=true
+show_icons=true

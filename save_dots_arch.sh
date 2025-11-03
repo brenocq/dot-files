@@ -40,6 +40,14 @@ cp ~/.config/starship.toml $SHARED_FOLDER/.config
 echo "Copying .config/hypr/"
 cp -R ~/.config/hypr $ARCH_FOLDER/.config
 
+# Waybar
+echo "Copying .config/waybar/"
+cp -R ~/.config/waybar $ARCH_FOLDER/.config
+
+# Wofi
+echo "Copying .config/wofi/"
+cp -R ~/.config/wofi $ARCH_FOLDER/.config
+
 # Fish
 echo "Copying .config/fish/"
 mkdir $ARCH_FOLDER/.config/fish

@@ -1,0 +1,59 @@
+/* --- Use Gruvbox Colors --- */
+@define-color bg #282828;
+@define-color bg1 #3c3836;
+@define-color fg #ebdbb2;
+@define-color red #cc241d;
+@define-color green #98971a;
+@define-color yellow #d79921;
+@define-color blue #458588;
+@define-color purple #b16286;
+@define-color aqua #689d68;
+
+/* --- Base Wofi Style --- */
+window {
+    background-color: @bg;
+    border: 2px solid @bg1;
+    border-radius: 12px;
+    font-family: 'JetBrainsMono Nerd Font', 'sans-serif';
+    font-size: 14px;
+}
+
+/* --- Input Bar --- */
+#input {
+    background-color: @bg1;
+    color: @fg;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+    outline: none;
+}
+
+#inner-box {
+    margin: 5px;
+}
+
+#scroll {
+    margin: 0 10px 10px 10px;
+}
+
+#text {
+    color: @fg;
+    padding: 5px;
+}
+
+/* --- Entry List --- */
+#entry {
+    border-radius: 8px;
+    padding: 10px;
+}
+
+#entry:selected {
+    background-color: @aqua;
+    color: @bg;
+}
+
+#entry:selected #text {
+    color: @bg;
+}
+
