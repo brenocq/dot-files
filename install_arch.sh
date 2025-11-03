@@ -16,18 +16,25 @@ log_step() {
     echo -e "\n${bold_green}${separator} ${message} ${separator}${reset}"
 }
 
+# Download wayland packages
+log_step "Setting up wayland..."
+yay -Sy --noconfirm hyprland waybar wofi xdg-desktop-portal-hyprland
+yay -Sy --noconfirm qt5-wayland qt6-wayland # For Qt apps to run natively
+yay -Sy --noconfrm swaylock-effects
+log_step "Finished setting up wayland packages"
+
 # Download core packages
-log_step "Downloading core packages..."
-yay -Sy --noconfirm xorg-server i3-gaps kitty picom-pijulius-git polybar rofi ranger fish ripgrep
+log_step "Setting up core packages..."
+yay -Sy --noconfirm kitty fish ripgrep
 yay -Sy --noconfirm git neovim tmux
 yay -Sy --noconfirm nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels ttf-nerd-fonts-symbols
-log_step "Finished downloading packages"
+log_step "Finished setting up core packages"
 
 # Check for NVIDIA GPU
 if lspci | grep -iq 'nvidia'; then
     # Download NVIDIA driver
     log_step "Downloading NVDIA packages..."
-    yay -Sy --noconfirm nvidia
+    yay -Sy --noconfirm nvidia-dkms nvidia-utils egl-wayland libva-nvidia-driver
     log_step "Finished downloading NVIDIA package"
 else
     log_step "No NVIDIA GPU detected. Skipping NVIDIA driver installation."
@@ -44,6 +51,7 @@ log_step "Finished Copying Configs"
 # Copy fonts
 mkdir -p ~/.local/share/fonts/
 cp fonts/* ~/.local/share/fonts/
+fc-cache -fv
 
 # Copy wallpapers
 mkdir -p ~/Pictures/wallpapers
@@ -60,7 +68,7 @@ log_step "Finished installing starship"
 # Downloading utils packages
 log_step "Downloading utils packages..."
 sudo pacman -Sy yay
-yay -Sy --noconfirm jump fzf fortune-mod cowsay flameshot simplescreenrecorder autorandr btop mpv feh arandr jq
+yay -Sy --noconfirm jump fzf fortune-mod cowsay btop mpv jq swww wdisplays wl-clipboard
 
 # Download applications
 log_step "Downloading applications..."
@@ -68,7 +76,7 @@ yay -Sy --noconfirm google-chrome zotero-bin spotify discord telegram-desktop-bi
 
 # Setup nvim
 log_step "Setting up nvim..."
-yay -Sy --noconfirm nvim gemini-cli
+yay -Sy --noconfirm nvim
 
 # Fix bluetooth
 log_step "Setting up bluetooth..."
@@ -80,10 +88,6 @@ sudo systemctl enable bluetooth
 log_step "Setting up wifi..."
 yay -Sy --noconfirm networkmanager
 sudo systemctl enable --now NetworkManager
-
-# X
-log_step "Setting up X..."
-yay -Sy --noconfirm xorg-xinit xorg-xev xclip i3lock-color
 
 # Media/brightness control
 log_step "Setting up media/brightness control..."
