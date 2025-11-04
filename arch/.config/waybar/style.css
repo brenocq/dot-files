@@ -19,7 +19,7 @@
 }
 
 window#waybar {
-    background: @bg;
+    background: transparent;
     color: @fg;
     transition-property: background-color;
     transition-duration: .5s;
@@ -33,13 +33,13 @@ window#waybar {
 #memory,
 #network,
 #pulseaudio,
-#tray,
+#backlight,
 #language {
     background-color: @bg1;
     color: @fg;
     padding: 2px 12px;
     margin: 4px 6px;
-    border-radius: 12px;
+    border-radius: 24px;
 }
 
 /* --- Workspace Styling --- */
@@ -47,63 +47,42 @@ window#waybar {
     padding: 0 5px;
     background-color: transparent;
     color: @fg;
-    border-radius: 10px;
+    border-radius: 0px;
 }
 
 #workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    text-shadow: none;
+    color: @green;
 }
 
+#workspaces button.active,
 #workspaces button.focused {
-    background-color: @aqua;
-    color: @bg;
+    color: @yellow;
 }
 
 #workspaces button.urgent {
-    background-color: @red;
+    color: @red;
 }
 
 /* --- Specific Module Colors --- */
 #clock {
     background-color: @aqua;
-    color: @bg;
-}
-
-#battery {
-    background-color: @green;
-    color: @bg;
+    color: @bg
 }
 
 #battery.charging, #battery.plugged {
     background-color: @green;
-    color: @bg;
 }
 
 #battery.critical:not(.charging) {
     background-color: @red;
-    color: @fg;
-}
-
-#cpu {
-    background-color: @yellow;
-    color: @bg;
-}
-
-#memory {
-    background-color: @purple;
-    color: @bg;
-}
-
-#network {
-    background-color: @blue;
 }
 
 #network.disconnected {
     background-color: @red;
-}
-
-#pulseaudio {
-    background-color: @purple;
 }
 
 #pulseaudio.muted {

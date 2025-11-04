@@ -12,6 +12,7 @@ if status is-interactive
     alias v "nvim"
     alias t "btop"
     alias wifi "nmtui"
+    alias lesgo "Hyprland"
     alias emsdk_setup ". ~/Programs/emsdk/emsdk_env.fish"
 
     # Change directory with yazi
