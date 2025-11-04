@@ -15,7 +15,7 @@ log_step() {
 
 # --- 1. Install Core Dependencies ---
 log_step "Installing core dependencies (git, stow)..."
-sudo pacman -Syu --noconfirm --needed git stow
+sudo pacman -Syu --noconfirm --needed git stow base-devel
 
 # --- 2. Install Yay (AUR Helper) ---
 if ! command -v yay &> /dev/null; then
