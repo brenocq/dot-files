@@ -45,6 +45,8 @@ mpv
 jq
 swww
 wdisplays
+neofetch
+tree
 less
 git-lfs
 docker
