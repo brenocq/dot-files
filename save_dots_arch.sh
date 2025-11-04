@@ -48,6 +48,10 @@ cp -R ~/.config/waybar $ARCH_FOLDER/.config
 echo "Copying .config/wofi/"
 cp -R ~/.config/wofi $ARCH_FOLDER/.config
 
+# Yazi
+echo "Copying .config/yazi/"
+cp -R ~/.config/yazi $ARCH_FOLDER/.config
+
 # Fish
 echo "Copying .config/fish/"
 mkdir $ARCH_FOLDER/.config/fish

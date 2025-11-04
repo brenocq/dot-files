@@ -25,8 +25,9 @@
 
     // --- Module-Specific Settings ---
     "hyprland/workspaces": {
-        "format": "{id}",
-        "on-click": "activate"
+        "format": "{name}",
+        "on-click": "activate",
+        "all-outputs": true
     },
 
     "tray": {
