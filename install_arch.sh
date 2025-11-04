@@ -19,7 +19,8 @@ log_step() {
 # Download wayland packages
 log_step "Setting up wayland..."
 yay -Sy --noconfirm hyprland waybar wofi hyprpaper mako xorg-wayland yazi
-yay -Sy --noconfirm swaylock-effects grim imagemagick
+yay -Sy --noconfirm swaylock-effects imagemagick
+yay -Sy --noconfirm grim slurp swappy # Screenshot tools
 yay -Sy --noconfirm nwg-displays # GUI for display management
 yay -Sy --noconfirm nautilus # Being friendly with Ubuntu ppl :)
 yay -Sy --noconfirm qt5-wayland qt6-wayland # For Qt apps to run natively
