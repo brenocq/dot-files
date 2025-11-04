@@ -1,9 +1,8 @@
 #!/bin/bash
 
-SCRIPT=`realpath $0`
-SCRIPT_PATH=`dirname $SCRIPT`
-ARCH_FOLDER="$SCRIPT_PATH/arch"
-SHARED_FOLDER="$SCRIPT_PATH/shared"
+# Get the directory of the currently executing script
+SCRIPT_PATH=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+cd "$SCRIPT_PATH" || exit
 
 # Function to print styled log messages
 log_step() {
@@ -11,108 +10,70 @@ log_step() {
     local bold_green='\033[1;32m'
     local reset='\033[0m'
     local separator="##########"
-
-    # The entire line of separators and message will be bold green
     echo -e "\n${bold_green}${separator} ${message} ${separator}${reset}"
 }
 
-# Download wayland packages
-log_step "Setting up wayland..."
-yay -Sy --noconfirm hyprland waybar wofi hyprpaper mako xorg-wayland yazi
-yay -Sy --noconfirm swaylock-effects imagemagick
-yay -Sy --noconfirm grim slurp swappy # Screenshot tools
-yay -Sy --noconfirm xdg-desktop-portal-hyprland kooha # Screen recording tools
-yay -Sy --noconfirm nwg-displays # GUI for display management
-yay -Sy --noconfirm nautilus # Being friendly with Ubuntu ppl :)
-yay -Sy --noconfirm qt5-wayland qt6-wayland # For Qt apps to run natively
-log_step "Finished setting up wayland packages"
+# --- 1. Install Core Dependencies ---
+log_step "Installing core dependencies (git, stow)..."
+sudo pacman -Syu --noconfirm --needed git stow
 
-# Download core packages
-log_step "Setting up core packages..."
-yay -Sy --noconfirm kitty fish git tmux
-yay -Sy --noconfirm neovim wl-clipboard ripgrep
-yay -Sy --noconfirm nerd-fonts-roboto-mono ttf-roboto-mono ttf-joypixels ttf-nerd-fonts-symbols
-log_step "Finished setting up core packages"
-
-# Check for NVIDIA GPU
-if lspci | grep -iq 'nvidia'; then
-    # Download NVIDIA driver
-    log_step "Downloading NVDIA packages..."
-    yay -Sy --noconfirm nvidia-dkms nvidia-utils egl-wayland libva-nvidia-driver
-    log_step "Finished downloading NVIDIA package"
+# --- 2. Install Yay (AUR Helper) ---
+if ! command -v yay &> /dev/null; then
+    log_step "yay not found. Installing..."
+    git clone https://aur.archlinux.org/yay.git /tmp/yay
+    (cd /tmp/yay && makepkg -si --noconfirm)
+    rm -rf /tmp/yay
 else
-    log_step "No NVIDIA GPU detected. Skipping NVIDIA driver installation."
+    log_step "yay is already installed."
 fi
 
-# Copy configs
-log_step "Copying Configs..."
-cd $SHARED_FOLDER
-cp -R .config/ .gitconfig ~/
-cd $ARCH_FOLDER
-cp -R .config/ .xinitrc ~/
-log_step "Finished Copying Configs"
+# --- 3. Install Packages from Lists ---
+log_step "Installing all packages from lists with yay..."
+yay -S --noconfirm --needed - < "$SCRIPT_PATH/arch_pkglist.txt"
 
-# Copy fonts
-mkdir -p ~/.local/share/fonts/
-cp fonts/* ~/.local/share/fonts/
+# --- 4. Install Starship ---
+if ! command -v starship &> /dev/null; then
+    log_step "Installing starship prompt..."
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes
+else
+    log_step "Starship is already installed."
+fi
+
+# --- 5. Check for NVIDIA ---
+if lspci | grep -iq 'nvidia'; then
+    log_step "NVIDIA GPU detected. Installing drivers..."
+    # If nvidia GPU is detected, install the NVIDIA drivers
+    yay -S --noconfirm --needed nvidia-dkms nvidia-utils egl-wayland libva-nvidia-driver
+else
+    log_step "No NVIDIA GPU detected. Skipping NVIDIA drivers."
+fi
+
+# --- 6. Set fish as default shell ---
+if [ "$SHELL" != "/usr/bin/fish" ]; then
+    log_step "Setting fish as default shell..."
+    chsh -s /usr/bin/fish
+else
+    log_step "Fish is already the default shell."
+fi
+
+# --- 7. Stow (Symlink) Configs ---
+log_step "Symlinking config files with stow..."
+# Make sure we are in the dotfiles directory
+cd "$SCRIPT_PATH" || exit
+
+# Stow all shared configs and all arch-specific configs
+# -R = Re-stow (deletes old symlinks and creates new ones)
+# -t ~ = Target the home directory
+stow -R -t ~ shared
+stow -R -t ~ arch
+
+# --- 8. Reload Font Cache ---
+log_step "Reloading font cache..."
 fc-cache -fv
 
-# Copy wallpapers
-mkdir -p ~/Pictures/wallpapers
-cp wallpapers/* ~/Pictures/wallpapers
-
-# Config terminal
-chsh -s /usr/bin/fish
-
-# Install starship
-log_step "Installing starship..."
-curl -sS https://starship.rs/install.sh | sh
-log_step "Finished installing starship"
-
-# Downloading utils packages
-log_step "Downloading utils packages..."
-sudo pacman -Sy yay
-yay -Sy --noconfirm jump fzf fortune-mod cowsay btop mpv jq swww wdisplays wl-clipboard
-
-# Download applications
-log_step "Downloading applications..."
-yay -Sy --noconfirm zen-browser-bin zotero-bin spotify discord telegram-desktop-bin
-
-# Setup nvim
-log_step "Setting up nvim..."
-yay -Sy --noconfirm nvim
-
-# Fix bluetooth
-log_step "Setting up bluetooth..."
-yay -Sy --noconfirm bluez bluez-utils alsa-utils
-sudo systemctl start bluetooth
-sudo systemctl enable bluetooth
-
-# Fix wifi
-log_step "Setting up wifi..."
-yay -Sy --noconfirm networkmanager
+# --- 9. Enable System Services ---
+log_step "Enabling systemd services..."
+sudo systemctl enable --now bluetooth
 sudo systemctl enable --now NetworkManager
 
-# Media/brightness control
-log_step "Setting up media/brightness control..."
-yay -Sy --noconfirm playerctl brightnessctl
-
-# C++
-log_step "Setting up C++ environment..."
-yay -Sy --noconfirm cmake gdb cppcheck clang
-
-# Verilog
-log_step "Setting up verilog..."
-yay -Sy --noconfirm verible-bin
-
-# Embedded
-log_step "Setting up embedded environment..."
-yay -Sy --noconfirm gcc-arm-none-eabi-bin arm-none-eabi-gdb stlink
-
-# Latex
-log_step "Setting up latex..."
-yay -Sy --noconfirm pdfpc
-#yay -Sy texlive-full <- Takes a long time
-
-# Finished
-log_step "Done with setting up environment"
+log_step "Done! Please log out and log back in for all changes to take effect."

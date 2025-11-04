@@ -1,36 +1,66 @@
 #!/bin/bash
 
-SCRIPT=$(realpath "$0")
-SCRIPT_PATH=$(dirname "$SCRIPT")
-SHARED_FOLDER="$SCRIPT_PATH/shared"
+# Get the directory of the currently executing script
+SCRIPT_PATH=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+cd "$SCRIPT_PATH" || exit
 
-# Update package lists and install core packages
-echo "Updating package lists and installing core packages..."
-sudo apt update
-sudo apt upgrade
-sudo apt install -y cmake git neovim neofetch starship ripgrep
-echo "Finished installing core packages"
+# Function to print styled log messages
+log_step() {
+    local message="$1"
+    local bold_green='\033[1;32m'
+    local reset='\033[0m'
+    local separator="##########"
+    echo -e "\n${bold_green}${separator} ${message} ${separator}${reset}"
+}
 
-# Copy configs
-echo "Copying Configs..."
-cp -r "$SHARED_FOLDER/.config" "$HOME/"
-cp "$SHARED_FOLDER/.gitconfig" "$HOME/"
-echo "Finished Copying Configs"
+# --- 1. Update Apt and Install Core Dependencies ---
+log_step "Updating package lists and installing core dependencies..."
+sudo apt-get update
+sudo apt-get install -y git stow build-essential curl
 
-# Install kitty
-echo "Installing kitty terminal..."
-sudo apt install -y kitty
-echo "Finished installing kitty terminal"
+# --- 2. Install Packages from List ---
+log_step "Installing all packages from ubuntu_pkglist.txt..."
+# We filter out comments (#) and empty lines
+grep -vE "^\s*#|^\s*$" "$SCRIPT_PATH/ubuntu_pkglist.txt" | sudo xargs apt-get install -y
 
-# Install powerline fonts (if needed for Starship)
-echo "Installing powerline fonts..."
-sudo apt install -y fonts-powerline
-echo "Finished installing powerline fonts"
+# --- 3. Install Starship ---
+if ! command -v starship &> /dev/null; then
+    log_step "Installing starship prompt..."
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes
+else
+    log_step "Starship is already installed."
+fi
 
-# Install build essential
-echo "Installing build essential."
-sudo apt install -y build-essential
-echo "Finished installing build essential."
+# --- 4. Set fish as default shell ---
+if [ "$SHELL" != "/usr/bin/fish" ]; then
+    log_step "Setting fish as default shell..."
+    if ! grep -Fxq "/usr/bin/fish" /etc/shells; then
+        log_step "Adding /usr/bin/fish to /etc/shells"
+        echo "/usr/bin/fish" | sudo tee -a /etc/shells
+    fi
+    chsh -s /usr/bin/fish
+else
+    log_step "Fish is already the default shell."
+fi
 
-# Finished
-echo "Ubuntu setup completed successfully!"
+# --- 5. Stow (Symlink) Configs ---
+log_step "Symlinking config files with stow..."
+# Make sure we are in the dotfiles directory
+cd "$SCRIPT_PATH" || exit
+
+# Stow all shared configs.
+# Note: No "ubuntu" folder for stow yet, so we only stow "shared".
+# -R = Re-stow (deletes old symlinks and creates new ones)
+# -t ~ = Target the home directory
+stow -R -t ~ shared
+
+# --- 6. Reload Font Cache ---
+log_step "Reloading font cache..."
+fc-cache -fv
+
+# --- 7. Enable System Services ---
+log_step "Enabling systemd services..."
+sudo systemctl enable --now bluetooth
+sudo systemctl enable --now NetworkManager
+
+log_step "Done! Please log out and log back in for all changes to take effect."

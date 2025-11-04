@@ -1,0 +1,49 @@
+# This file lists all official (apt) packages
+# Install with: grep -vE "^\s*#|^\s*$" ubuntu_pkglist.txt | sudo xargs apt-get install -y
+# Or just run ./install_ubuntu.sh
+
+# Core
+
+git
+stow
+build-essential
+curl
+
+# Shell
+
+kitty
+fish
+tmux
+neovim
+ripgrep
+fonts-powerline # For starship icons
+fzf
+fortune-mod
+cowsay
+btop
+mpv
+jq
+xclip # Replaces wl-clipboard for X11/Ubuntu
+
+# System
+
+bluez
+bluez-utils
+alsa-utils
+network-manager
+playerctl
+brightnessctl
+
+# Dev
+
+cmake
+gdb
+cppcheck
+clang
+
+# Apps (These are often installed via .deb or Snap)
+# spotify-client (snap or deb)
+# discord (snap or deb)
+# telegram-desktop (snap or deb)
+# Wayland-specific tools are not included,
+# as Ubuntu defaults to X11 or a non-Hyprland Wayland session.

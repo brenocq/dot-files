@@ -1,0 +1,86 @@
+# This file lists all official (pacman) and AUR packages
+# Install with: yay -S --needed - < pkglist.txt
+# Or just run ./install_arch.sh
+
+base-devel
+git
+stow
+
+# Wayland
+
+hyprland
+waybar
+wofi
+hyprpaper
+mako
+xorg-wayland
+yazi
+swaylock-effects
+imagemagick
+grim
+slurp
+swappy
+xdg-desktop-portal-hyprland
+kooha
+nwg-displays
+nautilus
+qt5-wayland
+qt6-wayland
+
+# Terminal
+
+kitty
+fish
+tmux
+neovim
+wl-clipboard
+ripgrep
+
+# Fonts
+
+ttf-roboto-mono
+ttf-joypixels
+nerd-fonts-roboto-mono
+ttf-nerd-fonts-symbols
+
+# Utils
+
+jump
+fzf
+fortune-mod
+cowsay
+btop
+mpv
+jq
+swww
+wdisplays
+
+# Apps
+
+zotero-bin
+spotify
+discord
+telegram-desktop-bin
+zen-browser-bin
+
+# System
+
+bluez
+bluez-utils
+alsa-utils
+networkmanager
+playerctl
+brightnessctl
+
+# Dev
+
+cmake
+gdb
+cppcheck
+clang
+verible-bin
+gcc-arm-none-eabi-bin
+arm-none-eabi-gdb
+stlink
+pdfpc
+#texlive-full
