@@ -32,9 +32,4 @@ if status is-interactive
     if test -f ~/.env
         source ~/.env
     end
-
-    # Configure X11 permissions for docker
-    if status is-interactive; and set -q DISPLAY
-        xhost +local: > /dev/null 2>&1
-    end
 end
