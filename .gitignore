@@ -3,4 +3,6 @@ arch/.config/fish/**/nvm.fish
 arch/.config/fish/**/_nvm_*.fish
 arch/.config/fish/fish_variables
 arch/.local/share/*
+arch/.local/state/*
 !arch/.local/share/fonts
+shared/.config/nvim/lazy-lock.json

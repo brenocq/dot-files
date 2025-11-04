@@ -26,6 +26,7 @@ kitty
 fish
 tmux
 neovim
+luarocks
 wl-clipboard
 ripgrep
 ##### Fonts #####
@@ -44,6 +45,7 @@ mpv
 jq
 swww
 wdisplays
+less
 ##### Apps #####
 zotero-bin
 spotify
