@@ -75,5 +75,6 @@ fc-cache -fv
 log_step "Enabling systemd services..."
 sudo systemctl enable --now bluetooth
 sudo systemctl enable --now NetworkManager
+systemctl --user enable --now wireplumber.service
 
 log_step "Done! Please log out and log back in for all changes to take effect."
