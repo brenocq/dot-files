@@ -48,6 +48,7 @@ wdisplays
 less
 git-lfs
 docker
+docker-compose
 ##### Apps #####
 zotero-bin
 spotify

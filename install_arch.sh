@@ -76,5 +76,7 @@ log_step "Enabling systemd services..."
 sudo systemctl enable --now bluetooth
 sudo systemctl enable --now NetworkManager
 systemctl --user enable --now wireplumber.service
+sudo systemctl enable --now docker.service
+sudo usermod -aG docker $USER
 
 log_step "Done! Please log out and log back in for all changes to take effect."
