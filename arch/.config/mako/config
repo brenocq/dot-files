@@ -1,0 +1,29 @@
+# --- Mako Config (Gruvbox) ---
+# Use colors from your theme
+background-color=#282828
+text-color=#ebdbb2
+border-color=#3c3836
+
+# Sizing and Font
+font=JetBrainsMono Nerd Font 10
+border-size=2
+padding=10
+border-radius=12
+default-timeout=5000
+
+# Position on screen
+# 0=top-right, 1=top-center, 2=top-left, 3=bottom-right, etc.
+anchor=top-right
+
+# Style different notification levels
+[urgency=low]
+border-color=#458588
+text-color=#ebdbb2
+
+[urgency=normal]
+border-color=#d79921
+text-color=#ebdbb2
+
+[urgency=high]
+border-color=#cc241d
+text-color=#ebdbb2
