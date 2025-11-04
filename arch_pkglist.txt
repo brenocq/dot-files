@@ -10,7 +10,7 @@ hyprpaper
 mako
 xorg-wayland
 yazi
-swaylock-effects
+hyprlock
 imagemagick
 grim
 slurp
