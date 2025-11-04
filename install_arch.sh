@@ -21,6 +21,7 @@ log_step "Setting up wayland..."
 yay -Sy --noconfirm hyprland waybar wofi hyprpaper mako xorg-wayland yazi
 yay -Sy --noconfirm swaylock-effects imagemagick
 yay -Sy --noconfirm grim slurp swappy # Screenshot tools
+yay -Sy --noconfirm xdg-desktop-portal-hyprland kooha # Screen recording tools
 yay -Sy --noconfirm nwg-displays # GUI for display management
 yay -Sy --noconfirm nautilus # Being friendly with Ubuntu ppl :)
 yay -Sy --noconfirm qt5-wayland qt6-wayland # For Qt apps to run natively
@@ -75,7 +76,7 @@ yay -Sy --noconfirm jump fzf fortune-mod cowsay btop mpv jq swww wdisplays wl-cl
 
 # Download applications
 log_step "Downloading applications..."
-yay -Sy --noconfirm google-chrome zotero-bin spotify discord telegram-desktop-bin
+yay -Sy --noconfirm zen-browser-bin zotero-bin spotify discord telegram-desktop-bin
 
 # Setup nvim
 log_step "Setting up nvim..."
