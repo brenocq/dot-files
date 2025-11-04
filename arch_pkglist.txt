@@ -1,11 +1,8 @@
-# Essential
-
+##### Essential #####
 base-devel
 git
 stow
-
-# Wayland
-
+##### Wayland #####
 hyprland
 waybar
 wofi
@@ -24,26 +21,20 @@ nwg-displays
 nautilus
 qt5-wayland
 qt6-wayland
-
-# Terminal
-
+##### Terminal #####
 kitty
 fish
 tmux
 neovim
 wl-clipboard
 ripgrep
-
-# Fonts
-
+##### Fonts #####
 fontconfig
 ttf-roboto-mono
 ttf-joypixels
 nerd-fonts-roboto-mono
 ttf-nerd-fonts-symbols
-
-# Utils
-
+##### Utils #####
 jump
 fzf
 fortune-mod
@@ -53,26 +44,20 @@ mpv
 jq
 swww
 wdisplays
-
-# Apps
-
+##### Apps #####
 zotero-bin
 spotify
 discord
 telegram-desktop-bin
 zen-browser-bin
-
-# System
-
+##### System #####
 bluez
 bluez-utils
 alsa-utils
 networkmanager
 playerctl
 brightnessctl
-
-# Dev
-
+##### Dev #####
 cmake
 gdb
 cppcheck
