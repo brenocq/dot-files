@@ -1,6 +1,4 @@
-# This file lists all official (pacman) and AUR packages
-# Install with: yay -S --needed - < pkglist.txt
-# Or just run ./install_arch.sh
+# Essential
 
 base-devel
 git
