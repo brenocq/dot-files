@@ -38,6 +38,7 @@ ripgrep
 
 # Fonts
 
+fontconfig
 ttf-roboto-mono
 ttf-joypixels
 nerd-fonts-roboto-mono
