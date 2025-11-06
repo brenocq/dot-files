@@ -9,6 +9,7 @@ wofi
 hyprpaper
 mako
 xorg-wayland
+xorg-xhost
 yazi
 hyprlock
 imagemagick
