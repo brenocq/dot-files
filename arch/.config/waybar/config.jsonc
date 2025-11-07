@@ -93,8 +93,8 @@
 
     "backlight": {
         "format": " {percent}%",
-        "on-scroll-up": "~/.config/waybar/scripts/brightness-control.sh up",
-        "on-scroll-down": "~/.config/waybar/scripts/brightness-control.sh down"
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "brightnessctl set 5%-"
     },
 
     "hyprland/language": {
