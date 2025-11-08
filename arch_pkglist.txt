@@ -1,8 +1,6 @@
-##### Essential #####
 base-devel
 git
 stow
-##### Wayland #####
 hyprland
 waybar
 wofi
@@ -22,7 +20,6 @@ nwg-displays
 nautilus
 qt5-wayland
 qt6-wayland
-##### Terminal #####
 kitty
 fish
 tmux
@@ -30,13 +27,11 @@ neovim
 luarocks
 wl-clipboard
 ripgrep
-##### Fonts #####
 fontconfig
 ttf-roboto-mono
 ttf-joypixels
 nerd-fonts-roboto-mono
 ttf-nerd-fonts-symbols
-##### Utils #####
 jump
 fzf
 fortune-mod
@@ -52,13 +47,11 @@ less
 git-lfs
 docker
 docker-compose
-##### Apps #####
 zotero-bin
 spotify
 discord
 telegram-desktop-bin
 zen-browser-bin
-##### System #####
 bluez
 bluez-utils
 alsa-utils
@@ -68,7 +61,6 @@ brightnessctl
 wireplumber
 pipewire-pulse
 pavucontrol
-##### Dev #####
 cmake
 gdb
 cppcheck
@@ -78,4 +70,3 @@ gcc-arm-none-eabi-bin
 arm-none-eabi-gdb
 stlink
 pdfpc
-#texlive-full
