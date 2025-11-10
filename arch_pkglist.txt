@@ -70,3 +70,7 @@ gcc-arm-none-eabi-bin
 arm-none-eabi-gdb
 stlink
 pdfpc
+nordvpn-bin
+openssh
+mosh
+ufw
