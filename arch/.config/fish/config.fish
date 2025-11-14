@@ -28,6 +28,9 @@ if status is-interactive
     # Setup fuzzy finder
     fzf --fish | source
 
+    # Setup better colors for ls
+    set -x LS_COLORS (vivid generate gruvbox-dark)
+
     # Load environment variables
     if test -f ~/.env
         source ~/.env
