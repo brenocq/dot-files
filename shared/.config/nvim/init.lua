@@ -108,3 +108,14 @@ vim.keymap.set('n', '<leader>v', '"+p', { noremap = true, silent = true })
 
 -- Git
 -- vim.keymap.set('n', '<leader>d', ':vertical Gitsigns diffthis<CR>', { noremap = true, silent = true })
+
+-- Auto reload
+vim.o.autoread = true
+vim.api.nvim_create_autocmd(
+  -- A list of events that trigger the check
+  { "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" },
+  {
+    command = "if mode() != 'c' | checktime | endif",
+    pattern = "*",
+  }
+)
