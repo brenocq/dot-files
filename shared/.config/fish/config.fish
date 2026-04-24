@@ -8,7 +8,8 @@ if status is-interactive
 
     # Show fortune message
     if [ (math (random)'%10') -eq 0 ]
-        fortune computers definitions disclaimer fortunes linux rules-of-acquisition wisdom work zippy paradoxum | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
+        set -l cows (cowsay -l | tail -n +2 | string split ' ' | string match -rv '^$')
+        fortune computers definitions fortunes wisdom work zippy | cowsay -f $cows[(random 1 (count $cows))]
     end
 
     # Aliases
