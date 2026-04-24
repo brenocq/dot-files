@@ -3,3 +3,4 @@ eval "$(starship init zsh)"
 alias ls='ls --color=auto'
 alias v='nvim'
 [ -f ~/.env ] && source ~/.env
+export PATH="/Users/breno/.local/bin:$PATH"
