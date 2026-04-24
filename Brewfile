@@ -3,8 +3,6 @@
 # Install all packages with: brew bundle install
 # Or just run ./install_macos.sh
 #
-tap "homebrew/cask-fonts"
-
 # Core Utils
 brew "git"
 brew "stow"
@@ -16,6 +14,9 @@ brew "cmake"
 brew "pkg-config"
 brew "ripgrep"
 brew "node"
+brew "fish"
+brew "fzf"
+brew "vivid"
 
 # Casks (GUI Apps)
 cask "kitty"

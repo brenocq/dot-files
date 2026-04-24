@@ -28,29 +28,25 @@ fi
 
 # --- 2. Install Packages from Brewfile ---
 log_step "Updating Homebrew and installing packages from Brewfile..."
-# Make sure brew bundle is available
-brew tap homebrew/bundle
 # Install all packages listed in the Brewfile
 brew bundle install --file="$SCRIPT_PATH/Brewfile"
 
-# --- 3. Set zsh as default shell (if not already) ---
-# Homebrew installs zsh to a different path
-local zsh_path
-if [ -x "/opt/homebrew/bin/zsh" ]; then
-  zsh_path="/opt/homebrew/bin/zsh" # Apple Silicon
+# --- 3. Set fish as default shell (if not already) ---
+if [ -x "/opt/homebrew/bin/fish" ]; then
+  fish_path="/opt/homebrew/bin/fish" # Apple Silicon
 else
-  zsh_path="/usr/local/bin/zsh" # Intel
+  fish_path="/usr/local/bin/fish" # Intel
 fi
 
-if [ "$SHELL" != "$zsh_path" ]; then
-    log_step "Setting $zsh_path as default shell..."
-    if ! grep -Fxq "$zsh_path" /etc/shells; then
-        log_step "Adding $zsh_path to /etc/shells"
-        echo "$zsh_path" | sudo tee -a /etc/shells
+if [ "$SHELL" != "$fish_path" ]; then
+    log_step "Setting $fish_path as default shell..."
+    if ! grep -Fxq "$fish_path" /etc/shells; then
+        log_step "Adding $fish_path to /etc/shells"
+        echo "$fish_path" | sudo tee -a /etc/shells
     fi
-    chsh -s "$zsh_path"
+    chsh -s "$fish_path"
 else
-    log_step "zsh is already the default shell."
+    log_step "fish is already the default shell."
 fi
 
 # --- 4. Stow (Symlink) Configs ---

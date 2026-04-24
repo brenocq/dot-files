@@ -1,4 +1,7 @@
 set fish_greeting
+eval "$(/opt/homebrew/bin/brew shellenv)"
+fish_add_path $HOME/.local/bin
+
 if status is-interactive
     eval "$(starship init fish)"
     eval "$(jump shell fish)"
