@@ -36,6 +36,11 @@ return {
       vim.o.termguicolors = true
       vim.cmd.colorscheme('gruvbox-material')
 
+      -- gruvbox-material gives Visual and NormalFloat the SAME bg (#3c3836),
+      -- so selections are invisible inside floating windows (e.g. the
+      -- ipynb.nvim output float). Lift Visual one step to bg2.
+      vim.api.nvim_set_hl(0, 'Visual', { bg = '#504945' })
+
       -- Reapply Git diff highlights after colorscheme loads
       vim.api.nvim_create_autocmd("ColorScheme", {
         pattern = "*",
@@ -67,94 +72,94 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = "VectorCode",
   },
-  {
-    "olimorris/codecompanion.nvim",
-    dependencies = {
-      { "nvim-lua/plenary.nvim", branch = "master" },
-      { "nvim-treesitter/nvim-treesitter" },
-      { "ravitemer/mcphub.nvim" },
-      -- { "ravitemer/codecompanion-history.nvim" }
-    },
-    opts = {
-      display = {
-        chat = {
-          window = {
-            width = 0.35,
-          }
-        },
-      },
-      strategies = {
-        chat = {
-          adapter = "claude_code",
-          roles = {
-            llm =  function(adapter)
-              return string.format(
-                '✨ %s%s',
-                adapter.formatted_name,
-                adapter.parameters.model and ' (' .. adapter.parameters.model .. ')' or ''
-              )
-            end,
-            user = "🌳🐵 brenocq",
-          }
-        },
-        inline = {
-          adapter = "gemini",
-          keymaps = {
-            accept_change = {
-              modes = { n = "<leader>a" },
-              description = "Accept the suggested change",
-            },
-            reject_change = {
-              modes = { n = "<leader>r" },
-              description = "Reject the suggested change",
-            },
-          },
-        },
-        cmd = {
-            adapter = "gemini",
-        },
-      },
-      adapters = {
-        http = {
-          gemini = function()
-            return require("codecompanion.adapters").extend("gemini", {
-              schema = {
-                model = {
-                  default = "gemini-2.5-pro",
-                },
-              },
-            })
-          end,
-          openai = function()
-            return require("codecompanion.adapters").extend("openai", {
-              schema = {
-                model = {
-                  default = "gpt-4.1",
-                },
-              },
-            })
-          end,
-        }
-      },
-      extensions = {
-        mcphub = {
-          callback = "mcphub.extensions.codecompanion",
-          opts = {
-            make_vars = true,
-            make_slash_commands = true,
-            show_result_in_chat = true
-          }
-        },
-        -- history = {
-        --   enabled = true,
-        --   opts = {
-        --     keymap = "gh",
-        --     continue_last_chat = true,
-        --   }
-        -- }
-      }
-    }
-  },
+  --{
+  --  "olimorris/codecompanion.nvim",
+  --  dependencies = {
+  --    { "nvim-lua/plenary.nvim", branch = "master" },
+  --    { "nvim-treesitter/nvim-treesitter" },
+  --    { "ravitemer/mcphub.nvim" },
+  --    -- { "ravitemer/codecompanion-history.nvim" }
+  --  },
+  --  opts = {
+  --    display = {
+  --      chat = {
+  --        window = {
+  --          width = 0.35,
+  --        }
+  --      },
+  --    },
+  --    strategies = {
+  --      chat = {
+  --        adapter = "claude_code",
+  --        roles = {
+  --          llm =  function(adapter)
+  --            return string.format(
+  --              '✨ %s%s',
+  --              adapter.formatted_name,
+  --              adapter.parameters.model and ' (' .. adapter.parameters.model .. ')' or ''
+  --            )
+  --          end,
+  --          user = "🌳🐵 brenocq",
+  --        }
+  --      },
+  --      inline = {
+  --        adapter = "gemini",
+  --        keymaps = {
+  --          accept_change = {
+  --            modes = { n = "<leader>a" },
+  --            description = "Accept the suggested change",
+  --          },
+  --          reject_change = {
+  --            modes = { n = "<leader>r" },
+  --            description = "Reject the suggested change",
+  --          },
+  --        },
+  --      },
+  --      cmd = {
+  --          adapter = "gemini",
+  --      },
+  --    },
+  --    adapters = {
+  --      http = {
+  --        gemini = function()
+  --          return require("codecompanion.adapters").extend("gemini", {
+  --            schema = {
+  --              model = {
+  --                default = "gemini-2.5-pro",
+  --              },
+  --            },
+  --          })
+  --        end,
+  --        openai = function()
+  --          return require("codecompanion.adapters").extend("openai", {
+  --            schema = {
+  --              model = {
+  --                default = "gpt-4.1",
+  --              },
+  --            },
+  --          })
+  --        end,
+  --      }
+  --    },
+  --    extensions = {
+  --      mcphub = {
+  --        callback = "mcphub.extensions.codecompanion",
+  --        opts = {
+  --          make_vars = true,
+  --          make_slash_commands = true,
+  --          show_result_in_chat = true
+  --        }
+  --      },
+  --      -- history = {
+  --      --   enabled = true,
+  --      --   opts = {
+  --      --     keymap = "gh",
+  --      --     continue_last_chat = true,
+  --      --   }
+  --      -- }
+  --    }
+  --  }
+  --},
   {
     "OXY2DEV/markview.nvim",
     lazy = false,
@@ -206,6 +211,8 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master", -- legacy branch: the `main` rewrite removed
+                       -- nvim-treesitter.configs, which this config uses
     event = { "BufReadPost", "BufNewFile" }, -- Load Treesitter when opening a buffer
     build = ":TSUpdate",                     -- Automatically update Treesitter parsers
     config = function()
@@ -250,12 +257,12 @@ return {
       ]]
     end
   },
-  {
-    'https://github.com/github/copilot.vim',
-    config = function()
-      vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { expr = true, silent = true, noremap = true })
-    end,
-  },
+  --{
+  --  'https://github.com/github/copilot.vim',
+  --  config = function()
+  --    vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { expr = true, silent = true, noremap = true })
+  --  end,
+  --},
   {
     'neovim/nvim-lspconfig',
     config = function()
@@ -359,5 +366,87 @@ return {
       vim.keymap.set('n', '<leader>9', dap.terminate, { desc = 'Debug: Terminate' })
       vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
     end
-   }
+   },
+  {
+    -- Modal Jupyter notebook editor: cell-isolated editing buffers, kernel
+    -- execution (<C-CR> run cell, <S-CR> run + next, <leader>ks start kernel),
+    -- ]] / [[ cell navigation. Needs python3 with jupyter_client.
+    "ajbucci/ipynb.nvim",
+    -- No `ft` lazy-trigger: nvim detects .ipynb as json, and the plugin
+    -- registers its own notebook handling at setup time.
+    --
+    -- build: compile the bundled ipynb treesitter grammar with cc. The
+    -- plugin's own auto-compile registers via the nvim-treesitter MAIN-branch
+    -- API and silently does nothing on the legacy `master` branch this config
+    -- pins; compiling here sidesteps that and re-runs on every plugin update.
+    build = "cd tree-sitter-ipynb && mkdir -p parser"
+      .. " && cc -O2 -shared -fPIC -I src src/parser.c src/scanner.c -o parser/ipynb.so",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "neovim/nvim-lspconfig",
+      "nvim-tree/nvim-web-devicons",
+      "folke/snacks.nvim", -- inline image rendering (kitty graphics protocol)
+    },
+    opts = {
+      keymaps = {
+        execute_cell = "<leader><CR>",     -- simple execute (replaces <C-CR>)
+        execute_all_below = "<leader>kb",  -- current cell + everything after
+        -- Defaults displaced by the execute bindings above/below, relocated
+        -- so nothing races: add cell Above/Below -> kA/kB, make raw -> kt
+        -- (its default kr stays free).
+        add_cell_above = "<leader>kA",
+        add_cell_below = "<leader>kB",
+        make_raw = "<leader>kt",
+      },
+    },
+    config = function(_, opts)
+      require("ipynb").setup(opts)
+
+      -- Run ALL cells from the top (no keymap slot exists for this command,
+      -- so bind it per notebook buffer). <leader>ka is free because
+      -- add_cell_above was relocated to kA above.
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "ipynb",
+        group = vim.api.nvim_create_augroup("ipynb_execute_all_map", { clear = true }),
+        callback = function(ev)
+          vim.schedule(function()
+            if vim.api.nvim_buf_is_valid(ev.buf) then
+              vim.keymap.set("n", "<leader>ka", "<cmd>NotebookExecuteAll<cr>",
+                { buffer = ev.buf, desc = "Notebook: run all cells from top" })
+            end
+          end)
+        end,
+      })
+      -- Auto-start the Jupyter kernel when a notebook opens. The plugin's
+      -- kernel.auto_connect option is declared but not implemented (v. c35d3d9),
+      -- so do it ourselves. Python is discovered per notebook: walks up from
+      -- the notebook's dir for a .venv (e.g. analysis/.venv), else system.
+      --
+      -- NOTE: the plugin sets the filetype EARLY and creates its buffer-local
+      -- commands asynchronously afterwards, so :NotebookKernelStart does not
+      -- exist yet when FileType fires (a plain vim.schedule loses that race).
+      -- Poll for the command (50 ms, up to 5 s) before invoking it.
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "ipynb",
+        group = vim.api.nvim_create_augroup("ipynb_kernel_autostart", { clear = true }),
+        callback = function(ev)
+          local tries = 0
+          local function try_start()
+            if not vim.api.nvim_buf_is_valid(ev.buf) then
+              return
+            end
+            if vim.api.nvim_buf_get_commands(ev.buf, {}).NotebookKernelStart then
+              vim.api.nvim_buf_call(ev.buf, function()
+                pcall(vim.cmd, "NotebookKernelStart")
+              end)
+            elseif tries < 100 then
+              tries = tries + 1
+              vim.defer_fn(try_start, 50)
+            end
+          end
+          try_start()
+        end,
+      })
+    end,
+  }
 }
