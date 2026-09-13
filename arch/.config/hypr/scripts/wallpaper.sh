@@ -1,46 +1,35 @@
 #!/bin/bash
 
 # ---
-# Wait for hyprpaper to be ready.
-# Apply the *same* random wallpaper to *all* monitors.
+# Set a FIXED wallpaper on all monitors once hyprpaper is ready.
+#
+# Why this script exists instead of just hyprpaper.conf:
+#   On this setup (hyprpaper 0.8.4) the `wallpaper = ,<path>` line in
+#   hyprpaper.conf doesn't reliably apply ("Monitor X has no target") because
+#   it races the async image preload. Setting the wallpaper over IPC after the
+#   socket is up works reliably. hyprpaper.conf still `preload`s the image.
+#
+# To change the wallpaper, edit WALLPAPER below.
 # ---
 
-# Function to wait for the hyprpaper socket
-wait_for_socket() {
-    local max_attempts=10
-    local attempt=1
-    local socket_path="$HYPRLAND_INSTANCE_SIGNATURE/.hyprpaper.sock"
+WALLPAPER="$HOME/Pictures/wallpapers/golden-duck.jpg"
 
-    while [ $attempt -le $max_attempts ]; do
-        if [ -S "/run/user/$UID/hypr/$socket_path" ]; then
-            return 0
-        fi
-        sleep 1
-        ((attempt++))
-    done
-
-    echo "Error: hyprpaper socket not found after $max_attempts seconds." >&2
-    return 1
-}
-
-# Wait for the socket
-if ! wait_for_socket; then
+# Wait for the hyprpaper IPC socket to appear.
+SOCKET="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.hyprpaper.sock"
+for _ in $(seq 1 20); do
+    [ -S "$SOCKET" ] && break
+    sleep 0.5
+done
+if [ ! -S "$SOCKET" ]; then
+    echo "Error: hyprpaper socket not found." >&2
     exit 1
 fi
 
-# --- Your original script logic ---
-WALLPAPER_DIR="$HOME/Pictures/wallpapers"
-CURRENT_WALL=$(hyprctl hyprpaper listloaded)
+# Make sure the image is loaded (hyprpaper.conf also preloads it; the IPC
+# preload is rejected on some hyprpaper builds, so don't fail on it).
+hyprctl hyprpaper preload "$WALLPAPER" >/dev/null 2>&1
 
-RANDOM_WALLPAPER=$(find "$WALLPAPER_DIR" -type f ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
-
-# Tell hyprpaper to preload the new wallpaper
-hyprctl hyprpaper preload "$RANDOM_WALLPAPER"
-
-# Apply the wallpaper to all monitors
-for monitor in $(hyprctl monitors | grep 'Monitor' | awk '{ print $2 }'); do
-    hyprctl hyprpaper wallpaper "$monitor, $RANDOM_WALLPAPER"
+# Apply to every connected monitor.
+for monitor in $(hyprctl monitors -j | jq -r '.[].name'); do
+    hyprctl hyprpaper wallpaper "$monitor,$WALLPAPER"
 done
-
-# Unload the old (unused) wallpapers
-hyprctl hyprpaper unload all
