@@ -72,101 +72,13 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     cmd = "VectorCode",
   },
-  --{
-  --  "olimorris/codecompanion.nvim",
-  --  dependencies = {
-  --    { "nvim-lua/plenary.nvim", branch = "master" },
-  --    { "nvim-treesitter/nvim-treesitter" },
-  --    { "ravitemer/mcphub.nvim" },
-  --    -- { "ravitemer/codecompanion-history.nvim" }
-  --  },
-  --  opts = {
-  --    display = {
-  --      chat = {
-  --        window = {
-  --          width = 0.35,
-  --        }
-  --      },
-  --    },
-  --    strategies = {
-  --      chat = {
-  --        adapter = "claude_code",
-  --        roles = {
-  --          llm =  function(adapter)
-  --            return string.format(
-  --              '✨ %s%s',
-  --              adapter.formatted_name,
-  --              adapter.parameters.model and ' (' .. adapter.parameters.model .. ')' or ''
-  --            )
-  --          end,
-  --          user = "🌳🐵 brenocq",
-  --        }
-  --      },
-  --      inline = {
-  --        adapter = "gemini",
-  --        keymaps = {
-  --          accept_change = {
-  --            modes = { n = "<leader>a" },
-  --            description = "Accept the suggested change",
-  --          },
-  --          reject_change = {
-  --            modes = { n = "<leader>r" },
-  --            description = "Reject the suggested change",
-  --          },
-  --        },
-  --      },
-  --      cmd = {
-  --          adapter = "gemini",
-  --      },
-  --    },
-  --    adapters = {
-  --      http = {
-  --        gemini = function()
-  --          return require("codecompanion.adapters").extend("gemini", {
-  --            schema = {
-  --              model = {
-  --                default = "gemini-2.5-pro",
-  --              },
-  --            },
-  --          })
-  --        end,
-  --        openai = function()
-  --          return require("codecompanion.adapters").extend("openai", {
-  --            schema = {
-  --              model = {
-  --                default = "gpt-4.1",
-  --              },
-  --            },
-  --          })
-  --        end,
-  --      }
-  --    },
-  --    extensions = {
-  --      mcphub = {
-  --        callback = "mcphub.extensions.codecompanion",
-  --        opts = {
-  --          make_vars = true,
-  --          make_slash_commands = true,
-  --          show_result_in_chat = true
-  --        }
-  --      },
-  --      -- history = {
-  --      --   enabled = true,
-  --      --   opts = {
-  --      --     keymap = "gh",
-  --      --     continue_last_chat = true,
-  --      --   }
-  --      -- }
-  --    }
-  --  }
-  --},
   {
     "OXY2DEV/markview.nvim",
     lazy = false,
     priority = 49, -- Make sure it is loaded after treesitter
     opts = {
       preview = {
-        filetypes = { "markdown", "codecompanion" },
+        filetypes = { "markdown" },
         ignore_buftypes = {},
       },
     },
@@ -201,7 +113,6 @@ return {
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "codecompanion" },
         }, {
           { name = "buffer" },
           { name = "path" },
@@ -211,23 +122,20 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master", -- legacy branch: the `main` rewrite removed
-                       -- nvim-treesitter.configs, which this config uses
-    event = { "BufReadPost", "BufNewFile" }, -- Load Treesitter when opening a buffer
-    build = ":TSUpdate",                     -- Automatically update Treesitter parsers
+    branch = "main",
+    lazy = false,
+    build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter.configs").setup({
-        -- List of parsers to install
-        ensure_installed = {
-          "bash", "c", "cpp", "cuda", "cmake", "javascript", "typescript", "tsx", "python", "lua", "html", "css", "glsl", "ini"
-        },
-        highlight = {
-          enable = true,              -- Enable Treesitter-based syntax highlighting
-          additional_vim_regex_highlighting = false, -- Use only Treesitter, no fallback to regex
-        },
-        indent = {
-          enable = true,              -- Enable Treesitter-based indentation
-        },
+      require("nvim-treesitter").install({
+        "bash", "c", "cpp", "cuda", "cmake", "javascript", "typescript",
+        "tsx", "python", "lua", "html", "css", "glsl", "ini",
+      })
+      -- Highlighting is no longer a plugin option; it's started per-buffer
+      -- through the core API.
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(ev)
+          pcall(vim.treesitter.start, ev.buf)
+        end,
       })
     end,
   },
@@ -266,20 +174,42 @@ return {
   {
     'neovim/nvim-lspconfig',
     config = function()
-      -- Verilog Language Server
+      -- 1. Verible
+      -- Define the configuration
       vim.lsp.config('verible', {
         cmd = { "verible-verilog-ls", "--rules_config_search", "--indentation_spaces=4" },
         filetypes = { "verilog", "systemverilog" },
+        -- root_markers helps Neovim know when to start the server (replaces root_dir)
+        root_markers = { ".git", "verible.filelist" },
       })
-      -- vim.lsp.enable('verible')
-      -- C++ Language Server
+      -- Enable it (activates filetype detection)
+      vim.lsp.enable('verible')
+
+      -- 2. Clangd (C++)
       vim.lsp.config('clangd', {
-        cmd = { "clangd", "--experimental-modules-support" },
+        cmd = { "clangd" },
         filetypes = { "c", "cpp", "objc", "objcpp" },
         root_markers = { ".clangd", "compile_commands.json", ".git" },
       })
       vim.lsp.enable('clangd')
-      -- Dart Language Server
+
+      -- 3. CMake
+      vim.lsp.config('neocmakelsp', {
+        cmd = { "neocmakelsp", "--stdio" },
+        filetypes = { "cmake" },
+        root_markers = { "CMakeLists.txt", "CMakePresets.json" },
+        init_options = {
+          format = {
+            enable = true, -- Auto-formatting
+          },
+          lint = {
+            enable = true,
+          },
+        }
+      })
+      vim.lsp.enable('neocmakelsp')
+
+      -- 4. Dart (Flutter)
       vim.lsp.config('dartls', {
         cmd = { "dart", "language-server" },
         filetypes = { "dart" },
@@ -297,7 +227,7 @@ return {
           }
         }
       })
-      -- vim.lsp.enable('dartls')
+      vim.lsp.enable('dartls')
     end
   },
   {

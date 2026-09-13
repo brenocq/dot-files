@@ -76,3 +76,5 @@ nordvpn-bin
 openssh
 mosh
 ufw
+neocmakelsp-bin
+cmake-format
