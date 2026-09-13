@@ -1,5 +1,10 @@
 set fish_greeting
-eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Homebrew (macOS only)
+if test -x /opt/homebrew/bin/brew
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+end
+
 fish_add_path $HOME/.local/bin
 
 if status is-interactive
@@ -32,8 +37,10 @@ if status is-interactive
     # Setup fuzzy finder
     fzf --fish | source
 
-    # Setup better colors for ls
-    set -x LS_COLORS (vivid generate gruvbox-dark)
+    # Setup better colors for ls (vivid is optional)
+    if command -q vivid
+        set -x LS_COLORS (vivid generate gruvbox-dark)
+    end
 
     # Load environment variables
     if test -f ~/.env
@@ -41,8 +48,10 @@ if status is-interactive
     end
 end
 
-# OpenClaw Completion
-source "/home/breno/.openclaw/completions/openclaw.fish"
+# OpenClaw completion (only where installed)
+if test -f ~/.openclaw/completions/openclaw.fish
+    source ~/.openclaw/completions/openclaw.fish
+end
 
-# kimi-code
-fish_add_path -g "/home/breno/.kimi-code/bin"
+# kimi-code (fish_add_path skips directories that do not exist)
+fish_add_path -g ~/.kimi-code/bin
