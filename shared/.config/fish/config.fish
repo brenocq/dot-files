@@ -16,7 +16,7 @@ if status is-interactive
     alias v "nvim"
     alias t "btop"
     alias wifi "nmtui"
-    alias lesgo "Hyprland"
+    alias lesgo "start-hyprland"
     alias emsdk_setup ". ~/Programs/emsdk/emsdk_env.fish"
 
     # Change directory with yazi
@@ -40,3 +40,9 @@ if status is-interactive
         source ~/.env
     end
 end
+
+# OpenClaw Completion
+source "/home/breno/.openclaw/completions/openclaw.fish"
+
+# kimi-code
+fish_add_path -g "/home/breno/.kimi-code/bin"
