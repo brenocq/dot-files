@@ -1,0 +1,44 @@
+# Sci-fi quotes for the login banner.
+# Format: one quote per line. Blank lines and lines starting with # are ignored.
+# Add more freely; long lines wrap inside the cowsay bubble.
+
+# --- The Hitchhiker's Guide to the Galaxy (Douglas Adams) ---
+Don't Panic.  -- The Hitchhiker's Guide to the Galaxy
+The answer to life, the universe, and everything is 42.  -- HHGTG
+So long, and thanks for all the fish.  -- HHGTG
+Time is an illusion. Lunchtime doubly so.  -- Ford Prefect
+The ships hung in the sky in much the same way that bricks don't.  -- HHGTG
+Space is big. You just won't believe how vastly, hugely, mind-bogglingly big it is.  -- HHGTG
+In the beginning the Universe was created. This has made a lot of people very angry and been widely regarded as a bad move.  -- HHGTG
+For a moment, nothing happened. Then, after a second or so, nothing continued to happen.  -- HHGTG
+I'd far rather be happy than right any day.  -- Slartibartfast
+This must be Thursday. I never could get the hang of Thursdays.  -- Arthur Dent
+Life? Don't talk to me about life.  -- Marvin
+It is a mistake to think you can solve any major problems just with potatoes.  -- HHGTG
+Reality is frequently inaccurate.  -- HHGTG
+Would it save you a lot of time if I just gave up and went mad now?  -- Marvin
+I love deadlines. I love the whooshing noise they make as they go by.  -- Douglas Adams
+Anyone who is capable of getting themselves made President should on no account be allowed to do the job.  -- HHGTG
+
+# --- 2001: A Space Odyssey (Arthur C. Clarke) ---
+Open the pod bay doors, HAL.  -- Dave Bowman
+I'm sorry, Dave. I'm afraid I can't do that.  -- HAL 9000
+My mind is going. I can feel it.  -- HAL 9000
+The thing's hollow -- it goes on forever -- and, oh my God, it's full of stars!  -- Dave Bowman
+Just what do you think you're doing, Dave?  -- HAL 9000
+This mission is too important for me to allow you to jeopardize it.  -- HAL 9000
+Behind every man now alive stand thirty ghosts, for that is the ratio by which the dead outnumber the living.  -- 2001: A Space Odyssey
+Daisy, Daisy, give me your answer, do...  -- HAL 9000
+
+# --- Project Hail Mary (Andy Weir) ---
+Question?  -- Rocky
+Amaze!  -- Rocky
+You, are, my, friend.  -- Rocky
+Fear is stupid. So are regrets.  -- Ryland Grace
+Science!  -- Ryland Grace
+That's what humans do. We solve problems.  -- Ryland Grace
+Human physics is amaze.  -- Rocky
+Sad. Understand.  -- Rocky
+I am the last hope of humanity.  -- Ryland Grace
+Fist my ass, Rocky.  -- Ryland Grace
+Good good good.  -- Rocky

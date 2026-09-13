@@ -11,10 +11,15 @@ if status is-interactive
     eval "$(starship init fish)"
     eval "$(jump shell fish)"
 
-    # Show fortune message
+    # Show a random sci-fi quote (edit ~/.config/fish/scifi-quotes.txt to
+    # add your own; one quote per line, blank lines and # comments ignored).
     if [ (math (random)'%10') -eq 0 ]
-        set -l cows (cowsay -l | tail -n +2 | string split ' ' | string match -rv '^$')
-        fortune computers definitions fortunes wisdom work zippy | cowsay -f $cows[(random 1 (count $cows))]
+        set -l quotes_file ~/.config/fish/scifi-quotes.txt
+        if test -f $quotes_file
+            set -l quotes (string match -rv '^\\s*(#|$)' < $quotes_file)
+            set -l cows (cowsay -l | tail -n +2 | string split ' ' | string match -rv '^$')
+            echo $quotes[(random 1 (count $quotes))] | cowsay -f $cows[(random 1 (count $cows))]
+        end
     end
 
     # Aliases

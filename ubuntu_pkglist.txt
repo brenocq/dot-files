@@ -18,7 +18,6 @@ neovim
 ripgrep
 fonts-powerline # For starship icons
 fzf
-fortune-mod
 cowsay
 btop
 mpv

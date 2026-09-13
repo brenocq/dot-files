@@ -18,7 +18,6 @@ brew "fish"
 brew "fzf"
 brew "vivid"
 brew "cowsay"
-brew "fortune"
 
 # Casks (GUI Apps)
 cask "kitty"

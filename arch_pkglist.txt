@@ -35,7 +35,6 @@ nerd-fonts-roboto-mono
 ttf-nerd-fonts-symbols
 jump
 fzf
-fortune-mod
 cowsay
 btop
 mpv
