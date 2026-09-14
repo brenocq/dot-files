@@ -320,13 +320,10 @@ return {
     opts = {
       keymaps = {
         execute_cell = "<leader><CR>",     -- simple execute (replaces <C-CR>)
-        execute_all_below = "<leader>kb",  -- current cell + everything after
-        -- Defaults displaced by the execute bindings above/below, relocated
-        -- so nothing races: add cell Above/Below -> kA/kB, make raw -> kt
-        -- (its default kr stays free).
-        add_cell_above = "<leader>kA",
-        add_cell_below = "<leader>kB",
-        make_raw = "<leader>kt",
+        execute_all_below = "<leader>kA",  -- current cell + everything after
+        add_cell_above = "<leader>kt",     -- (default ka is used for run-all below)
+        add_cell_below = "<leader>kb",     -- plugin default, kept explicit
+        -- make_raw stays on its default <leader>kr.
       },
     },
     config = function(_, opts)
@@ -334,7 +331,7 @@ return {
 
       -- Commands with no keymap slot in the plugin's config, bound per
       -- notebook buffer: run ALL cells from the top (<leader>ka is free
-      -- because add_cell_above was relocated to kA above) and delete the
+      -- because add_cell_above was moved to kt above) and delete the
       -- current cell (<leader>kd).
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "ipynb",
