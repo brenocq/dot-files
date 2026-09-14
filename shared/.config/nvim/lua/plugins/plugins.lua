@@ -332,17 +332,20 @@ return {
     config = function(_, opts)
       require("ipynb").setup(opts)
 
-      -- Run ALL cells from the top (no keymap slot exists for this command,
-      -- so bind it per notebook buffer). <leader>ka is free because
-      -- add_cell_above was relocated to kA above.
+      -- Commands with no keymap slot in the plugin's config, bound per
+      -- notebook buffer: run ALL cells from the top (<leader>ka is free
+      -- because add_cell_above was relocated to kA above) and delete the
+      -- current cell (<leader>kd).
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "ipynb",
-        group = vim.api.nvim_create_augroup("ipynb_execute_all_map", { clear = true }),
+        group = vim.api.nvim_create_augroup("ipynb_extra_maps", { clear = true }),
         callback = function(ev)
           vim.schedule(function()
             if vim.api.nvim_buf_is_valid(ev.buf) then
               vim.keymap.set("n", "<leader>ka", "<cmd>NotebookExecuteAll<cr>",
                 { buffer = ev.buf, desc = "Notebook: run all cells from top" })
+              vim.keymap.set("n", "<leader>kd", "<cmd>NotebookDeleteCell<cr>",
+                { buffer = ev.buf, desc = "Notebook: delete current cell" })
             end
           end)
         end,
