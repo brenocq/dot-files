@@ -26,9 +26,14 @@
 
     // --- Module-Specific Settings ---
     "hyprland/workspaces": {
+        // The 0 key opens a named workspace "0" (see hyprland.conf). Named
+        // workspaces have negative ids, so sorting by id puts it first,
+        // matching a keyboard whose 0 sits left of 1.
         "format": "{name}",
+        "sort-by": "id",
         "on-click": "activate",
-        "all-outputs": true
+        // Each monitor's bar lists only the workspaces living on that monitor.
+        "all-outputs": false
     },
 
     "clock": {
