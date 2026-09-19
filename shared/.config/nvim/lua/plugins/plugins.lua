@@ -301,7 +301,13 @@ return {
     -- Modal Jupyter notebook editor: cell-isolated editing buffers, kernel
     -- execution (<C-CR> run cell, <S-CR> run + next, <leader>ks start kernel),
     -- ]] / [[ cell navigation. Needs python3 with jupyter_client.
-    "ajbucci/ipynb.nvim",
+    -- Personal fork of ajbucci/ipynb.nvim. `dev = true` makes lazy load it
+    -- from ~/Github/ipynb.nvim when that checkout exists (see dev.path in
+    -- config/lazy.lua) and fall back to cloning the fork from GitHub when it
+    -- does not. Lazy never runs `build` for a local checkout on its own, so
+    -- after cloning the fork by hand run `:Lazy build ipynb.nvim` once.
+    "brenocq/ipynb.nvim",
+    dev = true,
     -- No `ft` lazy-trigger: nvim detects .ipynb as json, and the plugin
     -- registers its own notebook handling at setup time.
     --

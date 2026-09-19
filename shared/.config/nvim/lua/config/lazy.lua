@@ -30,6 +30,9 @@ require("lazy").setup({
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "habamax" } },
+  -- Plugins marked `dev = true` load from a local checkout under this path,
+  -- or from their GitHub repo when no checkout exists (fallback).
+  dev = { path = "~/Github", fallback = true },
   -- automatically check for plugin updates
   checker = { enabled = true },
 })
