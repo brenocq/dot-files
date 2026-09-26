@@ -246,6 +246,21 @@ return {
           '-synctex=1',
         }
       }
+      -- VimTeX's \l... maps live under <leader>k instead (\ll -> <leader>kl,
+      -- \lv -> <leader>kv, ...), the prefix notebooks use. VimTeX makes them
+      -- buffer-local to .tex files, so they never meet ipynb.nvim's.
+      vim.g.vimtex_mappings_prefix = '<leader>k'
+      -- Name the <leader>k group in which-key's popup, in .tex buffers only.
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "tex",
+        group = vim.api.nvim_create_augroup("vimtex_which_key", { clear = true }),
+        callback = function(ev)
+          local ok, wk = pcall(require, "which-key")
+          if ok then
+            wk.add({ { "<leader>k", group = "latex", buffer = ev.buf } })
+          end
+        end,
+      })
     end
   },
   {
