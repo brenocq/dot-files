@@ -307,7 +307,13 @@ return {
     -- does not. Lazy never runs `build` for a local checkout on its own, so
     -- after cloning the fork by hand run `:Lazy build ipynb.nvim` once.
     "brenocq/ipynb.nvim",
-    dev = true,
+    -- Loading the breno-dev worktree: main plus the branches in daily use
+    -- (feat/latex-rendering, fix/which-key-buffer-local), merged. To go back
+    -- to ~/Github/ipynb.nvim, restore `dev = true` and drop `name` and `dir`.
+    -- A new worktree has no compiled parser; build it once with the `build`
+    -- command below (or :Lazy build ipynb.nvim).
+    name = "ipynb.nvim",
+    dir = "~/Github/ipynb.nvim/.worktrees/breno-dev",
     -- No `ft` lazy-trigger: nvim detects .ipynb as json, and the plugin
     -- registers its own notebook handling at setup time.
     --
