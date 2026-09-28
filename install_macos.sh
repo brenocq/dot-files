@@ -60,4 +60,20 @@ cd "$SCRIPT_PATH" || exit
 stow -R -t ~ shared
 stow -R -t ~ macos
 
+# --- 5. Screenshot Shortcuts ---
+log_step "Setting screenshot keyboard shortcuts..."
+# Symbolic hotkey parameters are (character, key code, modifiers); 1048576 = Cmd.
+# These override the same Cmd shortcuts inside apps (save, select all, find next).
+# Selected area -> file: Cmd+S (default Cmd+Shift+4)
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 30 \
+  '{ enabled = 1; value = { type = standard; parameters = (115, 1, 1048576); }; }'
+# Selected area -> clipboard: Cmd+A (default Ctrl+Cmd+Shift+4)
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 31 \
+  '{ enabled = 1; value = { type = standard; parameters = (97, 0, 1048576); }; }'
+# Screenshot and recording options: Cmd+G (default Cmd+Shift+5)
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 184 \
+  '{ enabled = 1; value = { type = standard; parameters = (103, 5, 1048576); }; }'
+# Apply without logging out
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
 log_step "Done! Please restart your terminal for all changes to take effect."
