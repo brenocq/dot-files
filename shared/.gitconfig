@@ -29,8 +29,6 @@
 	smudge = git-lfs smudge -- %f
 [init]
 	defaultBranch = main
-[includeIf "gitdir:~/Work/PercivAI/"]
-    path = ~/Work/PercivAI/.gitconfig
 [submodule]
 	recurse = true
 [include]
