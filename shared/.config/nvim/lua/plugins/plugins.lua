@@ -67,6 +67,39 @@ return {
     end,
   },
   {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      -- lualine calls component functions with its own arguments, and
+      -- ipynb.kernel.statusline(state) would take the first as the notebook
+      -- state, so call each with none. pcall keeps the bar working if
+      -- ipynb.nvim fails to load.
+      local function ipynb(fn)
+        return function()
+          local ok, kernel = pcall(require, "ipynb.kernel")
+          if ok then
+            return kernel[fn]()
+          end
+        end
+      end
+      require("lualine").setup({
+        options = { theme = "gruvbox-material" },
+        sections = {
+          lualine_x = {
+            -- Jupyter kernel status in notebook buffers: IDLE / BUSY / DISC
+            {
+              ipynb("statusline"),
+              cond = ipynb("statusline_visible"),
+              color = ipynb("statusline_color"),
+            },
+            "encoding", "fileformat", "filetype",
+          },
+        },
+      })
+      vim.o.showmode = false -- lualine already shows the mode
+    end,
+  },
+  {
     "Davidyz/VectorCode",
     version = "*",
     dependencies = { "nvim-lua/plenary.nvim" },
