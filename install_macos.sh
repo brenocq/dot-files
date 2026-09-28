@@ -64,11 +64,11 @@ stow -R -t ~ macos
 log_step "Setting screenshot keyboard shortcuts..."
 # Symbolic hotkey parameters are (character, key code, modifiers); 1048576 = Cmd.
 # These override the same Cmd shortcuts inside apps (save, select all, find next).
-# Selected area -> file: Cmd+S (default Cmd+Shift+4)
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 30 \
-  '{ enabled = 1; value = { type = standard; parameters = (115, 1, 1048576); }; }'
-# Selected area -> clipboard: Cmd+A (default Ctrl+Cmd+Shift+4)
+# Selected area -> clipboard: Cmd+S (default Ctrl+Cmd+Shift+4)
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 31 \
+  '{ enabled = 1; value = { type = standard; parameters = (115, 1, 1048576); }; }'
+# Selected area -> file: Cmd+A (default Cmd+Shift+4)
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 30 \
   '{ enabled = 1; value = { type = standard; parameters = (97, 0, 1048576); }; }'
 # Screenshot and recording options: Cmd+G (default Cmd+Shift+5)
 defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 184 \
