@@ -70,30 +70,41 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      -- lualine calls component functions with its own arguments, and
-      -- ipynb.kernel.statusline(state) would take the first as the notebook
-      -- state, so call each with none. pcall keeps the bar working if
-      -- ipynb.nvim fails to load.
-      local function ipynb(fn)
-        return function()
-          local ok, kernel = pcall(require, "ipynb.kernel")
-          if ok then
-            return kernel[fn]()
-          end
+      -- Notebook state for the current buffer: the notebook itself, or a
+      -- cell being edited, which ipynb.nvim opens in a float with its own
+      -- buffer (the plugin's statusline helpers only check the former).
+      -- pcall keeps the bar working if ipynb.nvim fails to load.
+      local function notebook_state()
+        local ok, state = pcall(require, "ipynb.state")
+        if not ok then
+          return nil
         end
+        local buf = vim.api.nvim_get_current_buf()
+        return state.get(buf) or state.get_from_edit_buf(buf)
       end
+      -- Jupyter kernel status: IDLE / BUSY / DISC, colored by state.
+      local kernel_status = {
+        function()
+          return (require("ipynb.kernel").statusline(notebook_state()))
+        end,
+        cond = function()
+          return notebook_state() ~= nil
+        end,
+        color = function()
+          local kernel = require("ipynb.kernel")
+          local _, hl_state = kernel.statusline(notebook_state())
+          return kernel.statusline_color(hl_state)
+        end,
+      }
       require("lualine").setup({
-        options = { theme = "gruvbox-material" },
+        options = {
+          theme = "gruvbox-material",
+          -- One bar that follows the focused window, so it stays complete
+          -- while editing a notebook cell in its float.
+          globalstatus = true,
+        },
         sections = {
-          lualine_x = {
-            -- Jupyter kernel status in notebook buffers: IDLE / BUSY / DISC
-            {
-              ipynb("statusline"),
-              cond = ipynb("statusline_visible"),
-              color = ipynb("statusline_color"),
-            },
-            "encoding", "fileformat", "filetype",
-          },
+          lualine_x = { kernel_status, "encoding", "filetype" },
         },
       })
       vim.o.showmode = false -- lualine already shows the mode
