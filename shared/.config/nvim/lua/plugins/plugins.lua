@@ -96,6 +96,32 @@ return {
           return kernel.statusline_color(hl_state)
         end,
       }
+      -- Notebook state if the current buffer is a cell's edit buffer.
+      local function cell_state()
+        local ok, state = pcall(require, "ipynb.state")
+        return ok and state.get_from_edit_buf(vim.api.nvim_get_current_buf()) or nil
+      end
+      -- Git branch of the notebook's repo while editing a cell. The cell
+      -- buffer's name is not a real path, so lualine's branch component falls
+      -- back to nvim's cwd and would show that repo's branch instead.
+      local function notebook_branch()
+        local root = vim.fs.root(vim.api.nvim_buf_get_name(cell_state().facade_buf), ".git")
+        if not root then
+          return ""
+        end
+        local git_dir = root .. "/.git"
+        if vim.fn.isdirectory(git_dir) == 0 then
+          -- Worktree: .git is a file holding "gitdir: <path>"
+          local ok, lines = pcall(vim.fn.readfile, git_dir, "", 1)
+          git_dir = ok and (lines[1] or ""):match("^gitdir: (.+)$") or ""
+          if git_dir:sub(1, 1) ~= "/" then
+            git_dir = root .. "/" .. git_dir
+          end
+        end
+        local ok, head = pcall(vim.fn.readfile, git_dir .. "/HEAD", "", 1)
+        head = ok and head[1] or ""
+        return head:match("^ref: refs/heads/(.+)$") or head:sub(1, 7)
+      end
       require("lualine").setup({
         options = {
           theme = "gruvbox-material",
@@ -104,6 +130,11 @@ return {
           globalstatus = true,
         },
         sections = {
+          lualine_b = {
+            { "branch", cond = function() return cell_state() == nil end },
+            { notebook_branch, icon = "", cond = function() return cell_state() ~= nil end },
+            "diff", "diagnostics",
+          },
           lualine_x = { kernel_status, "encoding", "filetype" },
         },
       })
