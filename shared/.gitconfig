@@ -31,3 +31,5 @@
 	defaultBranch = main
 [includeIf "gitdir:~/Work/PercivAI/"]
     path = ~/Work/PercivAI/.gitconfig
+[submodule]
+	recurse = true
