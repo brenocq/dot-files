@@ -25,6 +25,8 @@ fish
 vivid
 tmux
 neovim
+tree-sitter
+tree-sitter-cli
 luarocks
 wl-clipboard
 ripgrep

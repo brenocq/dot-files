@@ -15,6 +15,7 @@ kitty
 fish
 tmux
 neovim
+tree-sitter-cli # nvim-treesitter parser builds; in apt since Ubuntu 24.10 — drop on older releases
 ripgrep
 fonts-powerline # For starship icons
 fzf

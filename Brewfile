@@ -7,6 +7,7 @@
 brew "git"
 brew "stow"
 brew "neovim"
+brew "tree-sitter" # CLI + lib; nvim-treesitter (main branch) builds parsers with it
 brew "neofetch"
 brew "starship"
 brew "jump"

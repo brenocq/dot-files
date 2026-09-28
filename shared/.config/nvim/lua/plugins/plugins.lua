@@ -122,19 +122,33 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "main",
-    lazy = false,
+    branch = "main", -- master is frozen and its query directives crash on nvim 0.12+
+    lazy = false,    -- the main rewrite asks not to be lazy-loaded
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter").install({
-        "bash", "c", "cpp", "cuda", "cmake", "javascript", "typescript",
-        "tsx", "python", "lua", "html", "css", "glsl", "ini",
-      })
-      -- Highlighting is no longer a plugin option; it's started per-buffer
-      -- through the core API.
+      -- Parsers to install (async; already-installed ones are skipped). The main
+      -- rewrite builds them with the tree-sitter CLI — without it every install
+      -- errors on each startup, so skip and say so once instead.
+      if vim.fn.executable("tree-sitter") == 1 then
+        require("nvim-treesitter").install({
+          "bash", "c", "cpp", "cuda", "cmake", "javascript", "typescript", "tsx", "python", "lua", "html", "css", "glsl", "ini"
+        })
+      else
+        vim.notify_once(
+          "nvim-treesitter: `tree-sitter` CLI not found — parsers not installed "
+            .. "(brew install tree-sitter, then :TSUpdate). Falling back to regex highlighting.",
+          vim.log.levels.WARN
+        )
+      end
+      -- The main rewrite has no highlight/indent modules: highlighting is
+      -- vim.treesitter.start() per buffer (no-op fail when no parser exists,
+      -- leaving regex highlighting), indent is an indentexpr.
       vim.api.nvim_create_autocmd("FileType", {
-        callback = function(ev)
-          pcall(vim.treesitter.start, ev.buf)
+        group = vim.api.nvim_create_augroup("TreesitterStart", {}),
+        callback = function(args)
+          if pcall(vim.treesitter.start, args.buf) then
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
         end,
       })
     end,
@@ -332,10 +346,9 @@ return {
     -- No `ft` lazy-trigger: nvim detects .ipynb as json, and the plugin
     -- registers its own notebook handling at setup time.
     --
-    -- build: compile the bundled ipynb treesitter grammar with cc. The
-    -- plugin's own auto-compile registers via the nvim-treesitter MAIN-branch
-    -- API and silently does nothing on the legacy `master` branch this config
-    -- pins; compiling here sidesteps that and re-runs on every plugin update.
+    -- build: compile the bundled ipynb treesitter grammar with cc instead of
+    -- relying on the plugin's auto-compile through the nvim-treesitter API.
+    -- Re-runs on every plugin update.
     build = "cd tree-sitter-ipynb && mkdir -p parser"
       .. " && cc -O2 -shared -fPIC -I src src/parser.c src/scanner.c -o parser/ipynb.so",
     dependencies = {
