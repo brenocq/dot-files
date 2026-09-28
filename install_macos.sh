@@ -63,16 +63,15 @@ stow -R -t ~ macos
 # --- 5. Screenshot Shortcuts ---
 log_step "Setting screenshot keyboard shortcuts..."
 # Symbolic hotkey parameters are (character, key code, modifiers); 1048576 = Cmd.
+# Written as XML so `enabled` is a boolean like System Settings stores it.
 # These override the same Cmd shortcuts inside apps (save, select all, find next).
-# Selected area -> clipboard: Cmd+S (default Ctrl+Cmd+Shift+4)
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 31 \
-  '{ enabled = 1; value = { type = standard; parameters = (115, 1, 1048576); }; }'
-# Selected area -> file: Cmd+A (default Cmd+Shift+4)
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 30 \
-  '{ enabled = 1; value = { type = standard; parameters = (97, 0, 1048576); }; }'
-# Screenshot and recording options: Cmd+G (default Cmd+Shift+5)
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 184 \
-  '{ enabled = 1; value = { type = standard; parameters = (103, 5, 1048576); }; }'
+set_hotkey() {
+    defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add "$1" \
+      "<dict><key>enabled</key><true/><key>value</key><dict><key>type</key><string>standard</string><key>parameters</key><array><integer>$2</integer><integer>$3</integer><integer>$4</integer></array></dict></dict>"
+}
+set_hotkey 31 115 1 1048576  # Selected area -> clipboard: Cmd+S (default Ctrl+Cmd+Shift+4)
+set_hotkey 30 97 0 1048576   # Selected area -> file: Cmd+A (default Cmd+Shift+4)
+set_hotkey 184 103 5 1048576 # Screenshot and recording options: Cmd+G (default Cmd+Shift+5)
 # Apply without logging out
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
