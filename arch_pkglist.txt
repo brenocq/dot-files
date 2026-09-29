@@ -41,6 +41,7 @@ cowsay
 btop
 mpv
 jq
+mermaid-cli
 swww
 wdisplays
 neofetch

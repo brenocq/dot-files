@@ -14,6 +14,7 @@ brew "jump"
 brew "cmake"
 brew "pkg-config"
 brew "ripgrep"
+brew "mermaid-cli" # mmdc: render Mermaid diagrams to SVG/PNG
 brew "node"
 brew "fish"
 brew "fzf"
