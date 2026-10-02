@@ -8,6 +8,36 @@ return {
     opts = {
       image = { enabled = true },
     },
+    config = function(_, opts)
+      require("snacks").setup(opts)
+
+      -- Work around a snacks image-viewer bug (still on main at 882c996):
+      -- when an image buffer leaves every window its placement hides itself
+      -- and nothing ever un-hides it, so reopening the buffer renders an
+      -- empty image. The "identify loading …" spinner extmark, which is never
+      -- removed after the first load, is then the only thing left on screen.
+      -- So when a viewer buffer is shown again, un-hide it and drop any
+      -- extmark that is not part of the image.
+      local placement = require("snacks.image.placement")
+      local update = placement.update
+      function placement:update()
+        if self:ready() and vim.bo[self.buf].filetype == "image" then
+          if self.hidden and #self:wins() > 0 then
+            self.hidden = false
+          end
+          local own = {}
+          for _, id in ipairs(self.eids) do
+            own[id] = true
+          end
+          for _, mark in ipairs(vim.api.nvim_buf_get_extmarks(self.buf, placement.ns, 0, -1, {})) do
+            if not own[mark[1]] then
+              vim.api.nvim_buf_del_extmark(self.buf, placement.ns, mark[1])
+            end
+          end
+        end
+        return update(self)
+      end
+    end,
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
