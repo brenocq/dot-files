@@ -1,5 +1,15 @@
 return {
   {
+    -- Renders image files (png, jpg, pdf, ...) inline via the kitty graphics
+    -- protocol. Needs setup() to run, so it cannot stay a bare dependency.
+    "folke/snacks.nvim",
+    lazy = false,
+    priority = 900,
+    opts = {
+      image = { enabled = true },
+    },
+  },
+  {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
