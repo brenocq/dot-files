@@ -31,6 +31,8 @@
 	defaultBranch = main
 [submodule]
 	recurse = true
+[status]
+	showUntrackedFiles = all
 [include]
 	# Machine-specific overrides (e.g. work email); untracked, and last so it wins.
 	path = ~/.gitconfig.local
