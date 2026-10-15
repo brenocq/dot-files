@@ -33,7 +33,7 @@ ripgrep
 fontconfig
 ttf-roboto-mono
 ttf-joypixels
-nerd-fonts-roboto-mono
+ttf-roboto-mono-nerd
 ttf-nerd-fonts-symbols
 jump
 fzf
