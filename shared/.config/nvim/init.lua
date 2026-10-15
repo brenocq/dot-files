@@ -109,6 +109,65 @@ vim.keymap.set('n', '<leader>v', '"+p', { noremap = true, silent = true })
 -- Git
 -- vim.keymap.set('n', '<leader>d', ':vertical Gitsigns diffthis<CR>', { noremap = true, silent = true })
 
+-- Markdown: preview rendered as on GitHub (needs `gh extension install yusukebe/gh-markdown-preview`),
+-- on the key VimTeX opens a PDF with (<leader>kl), buffer-local as VimTeX's. One server per file,
+-- reloading the page on save; pressing again reopens it. The servers stop with nvim.
+local markdown_previews = {} -- file -> { job, url }
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  group = vim.api.nvim_create_augroup("markdown_preview", { clear = true }),
+  callback = function(ev)
+    vim.keymap.set("n", "<leader>kl", function()
+      local file = vim.fn.expand("%:p")
+      local running = markdown_previews[file]
+      if running then
+        vim.ui.open(running.url)
+        vim.notify("GitHub preview: " .. running.url)
+        return
+      end
+      local port = 3333 + vim.tbl_count(markdown_previews)
+      local url = "http://localhost:" .. port
+      local errors = {}
+      local opened = false
+      local job = vim.fn.jobstart({ "gh", "markdown-preview", "--disable-auto-open", "-p", tostring(port), file }, {
+        on_stderr = function(_, lines)
+          for _, line in ipairs(lines) do
+            if line:find("Watching") and not opened then
+              -- The server is up once it watches the folder: open the page.
+              opened = true
+              vim.defer_fn(function() vim.ui.open(url) end, 300)
+            elseif line ~= "" then
+              table.insert(errors, line)
+            end
+          end
+        end,
+        on_exit = function(_, code)
+          markdown_previews[file] = nil
+          if code ~= 0 and code ~= 143 then
+            vim.notify("GitHub preview failed: " .. table.concat(errors, "\n"), vim.log.levels.ERROR)
+          end
+        end,
+      })
+      if job <= 0 then
+        vim.notify("GitHub preview: could not run gh", vim.log.levels.ERROR)
+        return
+      end
+      markdown_previews[file] = { job = job, url = url }
+      vim.notify("GitHub preview: starting " .. url)
+    end, { buffer = ev.buf, desc = "GitHub preview" })
+  end,
+})
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  group = "markdown_preview",
+  callback = function()
+    for _, preview in pairs(markdown_previews) do
+      -- gh runs the extension as a child, which outlives gh unless stopped too.
+      vim.fn.system({ "pkill", "-P", tostring(vim.fn.jobpid(preview.job)) })
+      vim.fn.jobstop(preview.job)
+    end
+  end,
+})
+
 -- Auto reload
 vim.o.autoread = true
 vim.api.nvim_create_autocmd(
