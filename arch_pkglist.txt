@@ -80,3 +80,4 @@ mosh
 ufw
 neocmakelsp-bin
 cmake-format
+sioyek-git

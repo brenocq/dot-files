@@ -42,6 +42,8 @@ cppcheck
 clang
 
 # Apps (These are often installed via .deb or Snap)
+# sioyek: PDF viewer for VimTeX (universe, Ubuntu 23.04 and later)
+sioyek
 # spotify-client (snap or deb)
 # discord (snap or deb)
 # telegram-desktop (snap or deb)

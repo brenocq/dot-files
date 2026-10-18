@@ -24,3 +24,4 @@ brew "cowsay"
 # Casks (GUI Apps)
 cask "kitty"
 cask "font-roboto-mono-nerd-font"
+cask "sioyek" # PDF viewer for VimTeX
