@@ -1,5 +1,5 @@
 # This file lists all official (apt) packages
-# Install with: grep -vE "^\s*#|^\s*$" ubuntu_pkglist.txt | sudo xargs apt-get install -y
+# Install with: sed 's/#.*//' ubuntu_pkglist.txt | grep -vE "^\s*$" | sudo xargs apt-get install -y
 # Or just run ./install_ubuntu.sh
 
 # Core

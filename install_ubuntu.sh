@@ -20,8 +20,8 @@ sudo apt-get install -y git stow build-essential curl
 
 # --- 2. Install Packages from List ---
 log_step "Installing all packages from ubuntu_pkglist.txt..."
-# We filter out comments (#) and empty lines
-grep -vE "^\s*#|^\s*$" "$SCRIPT_PATH/ubuntu_pkglist.txt" | sudo xargs apt-get install -y
+# Strip comments, whole-line and inline (pkg # note), then empty lines
+sed 's/#.*//' "$SCRIPT_PATH/ubuntu_pkglist.txt" | grep -vE "^\s*$" | sudo xargs apt-get install -y
 
 # --- 3. Install Starship ---
 if ! command -v starship &> /dev/null; then
