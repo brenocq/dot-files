@@ -48,7 +48,6 @@ This repository contains my carefully curated dotfiles, optimized for a modern d
   - Code completion (nvim-cmp)
   - File navigation (Telescope, Neo-tree)
   - Git integration
-  - AI assistance (CodeCompanion)
 - **Terminal:** Kitty with Gruvbox theme
 - **Shell Prompt:** Starship
 - **Multiplexer:** Tmux with vim-tmux-navigator
@@ -163,7 +162,6 @@ Located in `shared/.config/nvim/`, featuring:
 - **File Tree:** Neo-tree
 - **Git:** Fugitive + Gitsigns
 - **Navigation:** Harpoon + Leap
-- **AI:** CodeCompanion for AI-assisted coding
 - **Theme:** Gruvbox Material
 
 Leader key is set to `Space`.

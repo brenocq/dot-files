@@ -30,12 +30,6 @@ for i = 0, 4 do
   vim.keymap.set("n", "<leader>" .. i, function() require("harpoon.ui").nav_file(i+1) end)
 end
 
---- LLM config
-vim.keymap.set('n', '<leader>l', '<cmd>CodeCompanionChat Toggle<CR>', { noremap = true, silent = true })
-vim.keymap.set('v', '<leader>e', '<cmd>CodeCompanion /explain<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>C', '<cmd>CodeCompanion /commit<CR>', { noremap = true, silent = true })
-
-
 --- LSP config
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
