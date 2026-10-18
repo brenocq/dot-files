@@ -193,10 +193,26 @@ return {
     priority = 49, -- Make sure it is loaded after treesitter
     opts = {
       preview = {
-        filetypes = { "markdown" },
+        -- ipynb: render markdown cells in the notebook itself, not only in
+        -- the float that opens while a cell is edited (filetype markdown).
+        filetypes = { "markdown", "ipynb" },
         ignore_buftypes = {},
       },
     },
+    config = function(_, opts)
+      require("markview").setup(opts)
+      -- ipynb.nvim draws notebook math as images; skip markview's Unicode
+      -- LaTeX there so formulas aren't drawn twice. markview has no
+      -- per-filetype switch for it, so wrap its LaTeX parser.
+      local latex = require("markview.parsers.latex")
+      local parse = latex.parse
+      latex.parse = function(buffer, ...)
+        if vim.bo[buffer].filetype == "ipynb" then
+          return {}, {}
+        end
+        return parse(buffer, ...)
+      end
+    end,
   },
   {
     "hrsh7th/nvim-cmp",
@@ -480,6 +496,9 @@ return {
         add_cell_below = "<leader>kb",     -- plugin default, kept explicit
         -- make_raw stays on its default <leader>kr.
       },
+      -- markview sizes table columns from the source text; pad inline math
+      -- in tables to its source width so the table borders line up.
+      latex = { pad_tables = true },
     },
     config = function(_, opts)
       require("ipynb").setup(opts)
