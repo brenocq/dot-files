@@ -85,15 +85,18 @@ gaps.outer.right =      0
     alt-comma = 'layout accordion horizontal vertical'
 
     # Focus and move on Cmd like i3's $mod. This shadows Cmd+H (hide app).
-    cmd-h = 'focus left'
-    cmd-j = 'focus down'
-    cmd-k = 'focus up'
-    cmd-l = 'focus right'
+    # The all-monitors boundary continues onto the next display at a
+    # workspace edge, following the display arrangement in System Settings
+    # (built-in with workspaces 0-4 on the left, the LG with 5-9 on the right).
+    cmd-h = 'focus left --boundaries all-monitors-outer-frame --boundaries-action stop'
+    cmd-j = 'focus down --boundaries all-monitors-outer-frame --boundaries-action stop'
+    cmd-k = 'focus up --boundaries all-monitors-outer-frame --boundaries-action stop'
+    cmd-l = 'focus right --boundaries all-monitors-outer-frame --boundaries-action stop'
 
-    cmd-shift-h = 'move left'
-    cmd-shift-j = 'move down'
-    cmd-shift-k = 'move up'
-    cmd-shift-l = 'move right'
+    cmd-shift-h = 'move left --boundaries all-monitors-outer-frame'
+    cmd-shift-j = 'move down --boundaries all-monitors-outer-frame'
+    cmd-shift-k = 'move up --boundaries all-monitors-outer-frame'
+    cmd-shift-l = 'move right --boundaries all-monitors-outer-frame'
 
     alt-minus = 'resize smart -50'
     alt-equal = 'resize smart +50'

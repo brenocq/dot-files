@@ -133,8 +133,8 @@ Workspaces 0-4 live on the built-in display and 5-9 on the external monitor (fal
 - `CMD + SHIFT + [0-9]` - Move window to workspace
 - `CMD + Return` - New kitty window to the right of the focused one
 - `CMD + SHIFT + Return` - New kitty window below the focused one
-- `CMD + H/J/K/L` - Focus window left/down/up/right
-- `CMD + SHIFT + H/J/K/L` - Move window
+- `CMD + H/J/K/L` - Focus window left/down/up/right, continuing onto the next monitor at the edge
+- `CMD + SHIFT + H/J/K/L` - Move window, crossing to the next monitor at the edge
 - `CMD + Q` - Close window (quits the app only if it was its last window)
 - `CMD + SHIFT + Space` - Toggle floating/tiling
 - `ALT + F` - Fullscreen, `ALT + Tab` - Previous workspace
