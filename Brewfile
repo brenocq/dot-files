@@ -25,3 +25,7 @@ brew "cowsay"
 cask "kitty"
 cask "font-roboto-mono-nerd-font"
 cask "sioyek" # PDF viewer for VimTeX
+
+# i3-like tiling window manager; config in macos/.aerospace.toml
+tap "nikitabobko/tap"
+cask "nikitabobko/tap/aerospace"

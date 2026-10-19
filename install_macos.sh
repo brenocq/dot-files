@@ -75,4 +75,16 @@ set_hotkey 184 103 5 1048576 # Screenshot and recording options: Cmd+G (default 
 # Apply without logging out
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
-log_step "Done! Please restart your terminal for all changes to take effect."
+# --- 6. Desktop settings for AeroSpace ---
+log_step "Configuring the desktop for AeroSpace..."
+# Stage Manager shrinks windows into a side strip underneath the tiling.
+defaults write com.apple.WindowManager GloballyEnabled -bool false
+# No icons on the desktop; the files stay in ~/Desktop.
+defaults write com.apple.finder CreateDesktop -bool false
+killall Finder
+# The first launch asks for Accessibility access; the config starts it at
+# login from then on. Native fullscreen (green button) and desktop widgets
+# both confuse the tiling, so leave them alone and use alt-f instead.
+open -a AeroSpace
+
+log_step "Done! Grant AeroSpace Accessibility access when prompted, and restart your terminal."

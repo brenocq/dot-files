@@ -37,7 +37,8 @@ This repository contains my carefully curated dotfiles, optimized for a modern d
 - **Wallpaper:** Hyprpaper with custom wallpapers
 
 ### macOS
-- **Terminal:** Kitty with Zsh shell
+- **Window Manager:** [AeroSpace](https://github.com/nikitabobko/AeroSpace), i3-style tiling with workspaces 0-9 on Cmd (config in `macos/.aerospace.toml`)
+- **Terminal:** Kitty with Fish shell
 - **Editor:** Neovim (shared config)
 - **Shell Prompt:** Starship
 
@@ -89,8 +90,12 @@ chmod +x install_macos.sh
 The script will:
 1. Install Homebrew if not present
 2. Install packages from Brewfile
-3. Set Zsh as default shell
+3. Set Fish as default shell
 4. Symlink configs using GNU Stow
+5. Bind the screenshot shortcuts to Cmd+S, Cmd+A and Cmd+G
+6. Turn off Stage Manager and desktop icons, then launch AeroSpace
+
+**Post-install:** grant AeroSpace Accessibility access when it asks, and remove any desktop widgets (right-click the desktop, Edit Widgets). Stage Manager, native fullscreen (the green button) and desktop widgets all resize windows behind AeroSpace's back, so use `alt-f` for fullscreen instead.
 
 ### Ubuntu
 
@@ -121,6 +126,22 @@ chmod +x install_ubuntu.sh
 - `SUPER + G` - Screen recording
 - `SUPER + [1-9]` - Switch workspace
 - `SUPER + Mouse` - Move/resize windows
+
+### AeroSpace Keybindings (macOS)
+Workspaces 0-4 live on the built-in display and 5-9 on the external monitor (falling back to the built-in when it is unplugged).
+- `CMD + [0-9]` - Switch workspace
+- `CMD + SHIFT + [0-9]` - Move window to workspace
+- `CMD + Return` - New kitty window to the right of the focused one
+- `CMD + SHIFT + Return` - New kitty window below the focused one
+- `CMD + H/J/K/L` - Focus window left/down/up/right
+- `CMD + SHIFT + H/J/K/L` - Move window
+- `CMD + Q` - Close window (quits the app only if it was its last window)
+- `CMD + SHIFT + Space` - Toggle floating/tiling
+- `ALT + F` - Fullscreen, `ALT + Tab` - Previous workspace
+- `ALT + -` / `ALT + =` - Resize, `ALT + /` and `ALT + ,` - Tiles/accordion layout
+- `ALT + SHIFT + ;` - Service mode: `Esc` reload config, `r` reset layout, `f` toggle floating
+
+Cmd+Return goes through `macos/.local/bin/aerospace-kitty`, which pins the new window to the workspace focused at keypress; macOS otherwise hands a window opened from an empty workspace to the monitor that still holds keyboard focus.
 
 ### Waybar Modules
 - Workspaces

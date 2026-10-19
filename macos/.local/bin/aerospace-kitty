@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Opens a new kitty window on the AeroSpace workspace that was focused when the
+# binding fired. When the focused workspace is empty, macOS keeps keyboard
+# focus on a window of another monitor and AeroSpace can follow it while kitty
+# activates, which files the new window on that other workspace. This records
+# the intended workspace first and moves the window there if it strayed.
+set -euo pipefail
+
+readonly script_name=${0##*/}
+readonly kitty_bin=/Applications/kitty.app/Contents/MacOS/kitty
+
+die() {
+  printf '%s: %s\n' "$script_name" "$*" >&2
+  exit 1
+}
+
+kitty_window_ids() {
+  aerospace list-windows --all --format '%{window-id}|%{app-name}' \
+    | awk -F'|' '$2 == "kitty" { print $1 }'
+}
+
+# Prints the id of the first kitty window not listed in $1, polling for up to
+# five seconds. Exits 1 when none appears.
+wait_for_new_kitty_window() {
+  local before=$1 id
+  local attempts_left=50
+  while ((attempts_left > 0)); do
+    attempts_left=$((attempts_left - 1))
+    while IFS= read -r id; do
+      case " $before " in
+        *" $id "*) ;;
+        *) printf '%s\n' "$id"; return 0 ;;
+      esac
+    done < <(kitty_window_ids)
+    sleep 0.1
+  done
+  return 1
+}
+
+main() {
+  command -v aerospace >/dev/null || die "aerospace CLI not found"
+  [[ -x $kitty_bin ]] || die "kitty not found at $kitty_bin"
+
+  local target before new_id landed
+  target=$(aerospace list-workspaces --focused)
+  before=$(kitty_window_ids | tr '\n' ' ')
+
+  "$kitty_bin" --single-instance --directory ~ >/dev/null 2>&1 &
+  disown
+
+  new_id=$(wait_for_new_kitty_window "$before") \
+    || die "kitty window did not appear"
+
+  landed=$(aerospace list-windows --all --format '%{window-id}|%{workspace}' \
+    | awk -F'|' -v id="$new_id" '$1 == id { print $2 }')
+  if [[ $landed != "$target" ]]; then
+    aerospace move-node-to-workspace --window-id "$new_id" "$target"
+  fi
+  aerospace workspace "$target" >/dev/null 2>&1 || true
+  aerospace focus --window-id "$new_id"
+}
+
+main "$@"
