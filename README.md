@@ -92,7 +92,7 @@ The script will:
 2. Install packages from Brewfile
 3. Set Fish as default shell
 4. Symlink configs using GNU Stow
-5. Bind the screenshot shortcuts to Cmd+S, Cmd+A and Cmd+G, and disable the ones left on Cmd+Shift+3 and Cmd+Shift+6 so they do not collide with workspace moves
+5. Bind area-to-clipboard capture to Cmd+S and the capture options to Cmd+G, and disable the captures left on Cmd+Shift+3, Cmd+Shift+4 and Cmd+Shift+6 so they do not collide with workspace moves
 6. Turn off Stage Manager and desktop icons, then launch AeroSpace
 
 **Post-install:** grant AeroSpace Accessibility access when it asks, and remove any desktop widgets (right-click the desktop, Edit Widgets). Stage Manager, native fullscreen (the green button) and desktop widgets all resize windows behind AeroSpace's back, so use `alt-f` for fullscreen instead.

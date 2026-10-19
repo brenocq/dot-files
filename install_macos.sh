@@ -64,13 +64,12 @@ stow -R -t ~ macos
 log_step "Setting screenshot keyboard shortcuts..."
 # Symbolic hotkey parameters are (character, key code, modifiers); 1048576 = Cmd.
 # Written as XML so `enabled` is a boolean like System Settings stores it.
-# These override the same Cmd shortcuts inside apps (save, select all, find next).
+# These override the same Cmd shortcuts inside apps (save, find next).
 set_hotkey() {
     defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add "$1" \
       "<dict><key>enabled</key><true/><key>value</key><dict><key>type</key><string>standard</string><key>parameters</key><array><integer>$2</integer><integer>$3</integer><integer>$4</integer></array></dict></dict>"
 }
 set_hotkey 31 115 1 1048576  # Selected area -> clipboard: Cmd+S (default Ctrl+Cmd+Shift+4)
-set_hotkey 30 97 0 1048576   # Selected area -> file: Cmd+A (default Cmd+Shift+4)
 set_hotkey 184 103 5 1048576 # Screenshot and recording options: Cmd+G (default Cmd+Shift+5)
 # The remaining capture shortcuts sit on Cmd+Shift+<digit>, which AeroSpace
 # uses to move a window to that workspace; Cmd+G reaches the same captures.
@@ -78,6 +77,7 @@ disable_hotkey() {
     defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add "$1" \
       "<dict><key>enabled</key><false/></dict>"
 }
+disable_hotkey 30  # Selected area -> file (Cmd+Shift+4); Cmd+A stays Select All
 disable_hotkey 28  # Whole screen -> file (Cmd+Shift+3)
 disable_hotkey 29  # Whole screen -> clipboard (Ctrl+Cmd+Shift+3)
 disable_hotkey 181 # Touch Bar -> file (Cmd+Shift+6)
