@@ -72,6 +72,16 @@ set_hotkey() {
 set_hotkey 31 115 1 1048576  # Selected area -> clipboard: Cmd+S (default Ctrl+Cmd+Shift+4)
 set_hotkey 30 97 0 1048576   # Selected area -> file: Cmd+A (default Cmd+Shift+4)
 set_hotkey 184 103 5 1048576 # Screenshot and recording options: Cmd+G (default Cmd+Shift+5)
+# The remaining capture shortcuts sit on Cmd+Shift+<digit>, which AeroSpace
+# uses to move a window to that workspace; Cmd+G reaches the same captures.
+disable_hotkey() {
+    defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add "$1" \
+      "<dict><key>enabled</key><false/></dict>"
+}
+disable_hotkey 28  # Whole screen -> file (Cmd+Shift+3)
+disable_hotkey 29  # Whole screen -> clipboard (Ctrl+Cmd+Shift+3)
+disable_hotkey 181 # Touch Bar -> file (Cmd+Shift+6)
+disable_hotkey 182 # Touch Bar -> clipboard (Ctrl+Cmd+Shift+6)
 # Apply without logging out
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
 
