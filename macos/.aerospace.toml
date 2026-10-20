@@ -111,8 +111,8 @@ gaps.outer.right =      0
 
     # Previous/next workspace on the focused monitor. The MX mouse's side
     # buttons send these chords via Logi Options+ (Keystroke assignment).
-    ctrl-alt-left = 'workspace prev'
-    ctrl-alt-right = 'workspace next'
+    ctrl-shift-left = 'workspace prev'
+    ctrl-shift-right = 'workspace next'
 
     alt-f = 'fullscreen'
     alt-tab = 'workspace-back-and-forth'
