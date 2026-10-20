@@ -71,6 +71,7 @@ set_hotkey() {
 }
 set_hotkey 31 115 1 1048576  # Selected area -> clipboard: Cmd+S (default Ctrl+Cmd+Shift+4)
 set_hotkey 184 103 5 1048576 # Screenshot and recording options: Cmd+G (default Cmd+Shift+5)
+set_hotkey 64 100 2 1048576  # Spotlight: Cmd+D like the Hyprland launcher (default Cmd+Space)
 # The remaining capture shortcuts sit on Cmd+Shift+<digit>, which AeroSpace
 # uses to move a window to that workspace; Cmd+G reaches the same captures.
 disable_hotkey() {
