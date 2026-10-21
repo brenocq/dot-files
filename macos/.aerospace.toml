@@ -46,6 +46,13 @@ gaps.outer.right =      0
     8 = ['lg', 'built-in']
     9 = ['lg', 'built-in']
 
+# Apps whose windows have a fixed size or aspect ratio open floating instead of
+# being stretched into a tile. AeroSpace only auto-floats windows that cannot
+# be resized at all, which an aspect-locked video window can.
+[[on-window-detected]]
+    if.app-id = 'com.apple.QuickTimePlayerX'
+    run = 'layout floating'
+
 [mode.main.binding]
     # Workspace switching on Cmd, as on i3 with $mod. This shadows Cmd+N tab
     # switching in browsers and Cmd+0 reset-zoom.
