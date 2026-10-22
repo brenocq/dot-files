@@ -57,6 +57,9 @@ cd "$SCRIPT_PATH" || exit
 # Stow all shared configs and all macos-specific configs
 # -R = Re-stow (deletes old symlinks and creates new ones)
 # -t ~ = Target the home directory
+# ~/.hammerspoon exists first so stow links the files inside it rather than
+# the folder itself; Hammerspoon writes its own state into that folder.
+mkdir -p ~/.hammerspoon
 stow -R -t ~ shared
 stow -R -t ~ macos
 
@@ -97,5 +100,7 @@ killall Finder
 # login from then on. Native fullscreen (green button) and desktop widgets
 # both confuse the tiling, so leave them alone and use alt-f instead.
 open -a AeroSpace
+# Cmd+drag tiling; it also asks for Accessibility access on first launch.
+open -a Hammerspoon
 
-log_step "Done! Grant AeroSpace Accessibility access when prompted, and restart your terminal."
+log_step "Done! Grant AeroSpace and Hammerspoon Accessibility access when prompted, and restart your terminal."

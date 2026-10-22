@@ -29,3 +29,5 @@ cask "sioyek" # PDF viewer for VimTeX
 # i3-like tiling window manager; config in macos/.aerospace.toml
 tap "nikitabobko/tap"
 cask "nikitabobko/tap/aerospace"
+# Cmd+drag tiling for AeroSpace; config in macos/.hammerspoon
+cask "hammerspoon"

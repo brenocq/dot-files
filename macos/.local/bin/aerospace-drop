@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# Places AeroSpace window <moved> against one edge of window <target>, as a
+# tiling drag-and-drop does in i3: the target's slot is split along that edge
+# and the moved window takes the half on that side. Called by the Hammerspoon
+# Cmd+drag handler (macos/.hammerspoon/aerospace_drag.lua) on mouse release.
+#
+# AeroSpace has no "insert here" command, so the move is composed: float the
+# moved window (it leaves the tree), split the target, focus the target (a
+# window that becomes tiling is inserted right after the workspace's most
+# recently focused window), tile the moved window, and step it before the
+# target for the left and top edges.
+set -euo pipefail
+
+readonly script_name=${0##*/}
+PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
+usage() {
+  printf 'usage: %s <moved-window-id> <target-window-id> (left|right|up|down)\n' "$script_name" >&2
+  exit 2
+}
+
+die() {
+  printf '%s: %s\n' "$script_name" "$*" >&2
+  exit 1
+}
+
+# Prints "<workspace>|<layout>" for window $1, or nothing when it is unknown.
+window_info() {
+  aerospace list-windows --all --format '%{window-id}|%{workspace}|%{window-layout}' \
+    | awk -F'|' -v id="$1" '$1 == id { print $2 "|" $3 }'
+}
+
+main() {
+  (($# == 3)) || usage
+  local moved=$1 target=$2 edge=$3 axis
+  [[ $moved =~ ^[0-9]+$ && $target =~ ^[0-9]+$ ]] || usage
+  case $edge in
+    left | right) axis=horizontal ;;
+    up | down) axis=vertical ;;
+    *) usage ;;
+  esac
+  [[ $moved != "$target" ]] || exit 0
+
+  command -v aerospace >/dev/null || die "aerospace CLI not found"
+
+  local moved_info target_info target_workspace
+  moved_info=$(window_info "$moved")
+  target_info=$(window_info "$target")
+  [[ -n $moved_info ]] || die "unknown window $moved"
+  [[ -n $target_info ]] || die "unknown window $target"
+  [[ ${target_info#*|} != floating ]] || die "target window $target is floating"
+  target_workspace=${target_info%%|*}
+
+  aerospace layout floating --window-id "$moved" >/dev/null 2>&1 || true
+  # From here on the moved window is out of the tree; put it back as a tile
+  # if any later step fails, so a failed drop never strands it floating.
+  trap 'aerospace layout tiling --window-id "$moved" >/dev/null 2>&1 || true' EXIT
+
+  if [[ ${moved_info%%|*} != "$target_workspace" ]]; then
+    aerospace move-node-to-workspace --window-id "$moved" "$target_workspace"
+  fi
+  aerospace split --window-id "$target" "$axis"
+  aerospace focus --window-id "$target"
+  aerospace layout tiling --window-id "$moved"
+  trap - EXIT
+  case $edge in
+    left | up) aerospace move --window-id "$moved" "$edge" ;;
+  esac
+  aerospace focus --window-id "$moved"
+}
+
+main "$@"

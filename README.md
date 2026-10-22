@@ -95,7 +95,7 @@ The script will:
 5. Bind area-to-clipboard capture to Cmd+S, the capture options to Cmd+G and Spotlight to Cmd+D, and disable the captures left on Cmd+Shift+3, Cmd+Shift+4 and Cmd+Shift+6 so they do not collide with workspace moves
 6. Turn off Stage Manager and desktop icons, then launch AeroSpace
 
-**Post-install:** grant AeroSpace Accessibility access when it asks, and remove any desktop widgets (right-click the desktop, Edit Widgets). Stage Manager, native fullscreen (the green button) and desktop widgets all resize windows behind AeroSpace's back, so use `alt-f` for fullscreen instead.
+**Post-install:** grant AeroSpace and Hammerspoon Accessibility access when they ask, and remove any desktop widgets (right-click the desktop, Edit Widgets). Stage Manager, native fullscreen (the green button) and desktop widgets all resize windows behind AeroSpace's back, so use `alt-f` for fullscreen instead.
 
 ### Ubuntu
 
@@ -137,14 +137,14 @@ Workspaces 0-4 live on the built-in display and 5-9 on the external monitor (fal
 - `CMD + SHIFT + H/J/K/L` - Move window, crossing to the next monitor at the edge
 - `CMD + Q` - Close window (quits the app only if it was its last window)
 - `CMD + SHIFT + Space` - Toggle floating/tiling
-- `CMD + E` - Flip the focused window's container between side-by-side and stacked
-- `CTRL + CMD + H/J/K/L` - Join the focused window with its neighbor in that direction; from a row, `CTRL + CMD + L` then `CMD + SHIFT + J` puts a window below its right neighbor
-- `CTRL + SHIFT + Left/Right` - Previous/next workspace on the focused monitor; in Logi Options+ assign the mouse's back and forward buttons to these chords (Keystroke assignment) to flip workspaces from the mouse
+- `CMD + E` - Flip the focused window's container between side-by-side and stacked- `CTRL + SHIFT + Left/Right` - Previous/next workspace on the focused monitor; in Logi Options+ assign the mouse's back and forward buttons to these chords (Keystroke assignment) to flip workspaces from the mouse
 - `ALT + F` - Fullscreen, `ALT + Tab` - Previous workspace
 - `ALT + -` / `ALT + =` - Resize, `ALT + /` and `ALT + ,` - Tiles/accordion layout
 - `ALT + SHIFT + ;` - Service mode: `Esc` reload config, `r` reset layout, `f` toggle floating
 
 Cmd+Return goes through `macos/.local/bin/aerospace-kitty`, which pins the new window to the workspace focused at keypress; macOS otherwise hands a window opened from an empty workspace to the monitor that still holds keyboard focus.
+
+**Cmd+drag tiling.** Hold Cmd, press anywhere in a window and drag it over another tiled window: a blue box shows the half it will take, and on release it lands against that edge of the target, as i3's `$mod`+drag does. Hammerspoon catches the drag (`macos/.hammerspoon/aerospace_drag.lua`) and `macos/.local/bin/aerospace-drop` rearranges the tree, because AeroSpace's own title-bar drag can only swap two windows. A Cmd+click that does not move reaches the app unchanged; a Cmd+drag inside an app, such as moving files in Finder, does not, so quit Hammerspoon from its menu bar icon for that.
 
 ### Waybar Modules
 - Workspaces
