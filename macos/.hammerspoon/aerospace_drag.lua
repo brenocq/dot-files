@@ -53,6 +53,29 @@ local function contains(rect, point)
     and point.y >= rect.y and point.y < rect.y + rect.h
 end
 
+-- True when `point` lies in one of `rects`. Fed the screens' visible frames,
+-- which leave out the menu bar and the Dock, it keeps Cmd+drag there (moving
+-- menu bar icons, Dock items) with macOS.
+function M.inAny(rects, point)
+  for _, rect in ipairs(rects) do
+    if contains(rect, point) then
+      return true
+    end
+  end
+  return false
+end
+
+-- The screens' visible frames. NSScreen geometry, no AX, so it is cheap
+-- enough for the tap callback.
+local function windowAreas()
+  local areas = {}
+  for _, screen in ipairs(hs.screen.allScreens()) do
+    local f = screen:frame()
+    table.insert(areas, { x = f.x, y = f.y, w = f.w, h = f.h })
+  end
+  return areas
+end
+
 -- Returns the first window in `snapshot` (front to back, each {id, frame})
 -- under `point`, skipping `excludeId` and windows whose center is on no
 -- screen in `screens`: AeroSpace parks windows of hidden workspaces almost
@@ -187,6 +210,9 @@ local function handle(event)
       return false
     end
     local p = event:location()
+    if not M.inAny(windowAreas(), p) then
+      return false
+    end
     state = { downPoint = { x = p.x, y = p.y }, lastPoint = { x = p.x, y = p.y }, downEvent = event:copy() }
     return true
   end
