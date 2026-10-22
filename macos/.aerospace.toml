@@ -120,6 +120,14 @@ gaps.outer.right =      0
     # column, as i3's $mod+e. Dragging can only swap windows, not re-split.
     cmd-e = 'layout horizontal vertical'
 
+    # Join the focused window with its neighbor into a container of the
+    # opposite orientation: from a row, ctrl-cmd-l stacks the window above its
+    # right neighbor, and cmd-shift-j then moves it below.
+    ctrl-cmd-h = 'join-with left'
+    ctrl-cmd-j = 'join-with down'
+    ctrl-cmd-k = 'join-with up'
+    ctrl-cmd-l = 'join-with right'
+
     # Previous/next workspace on the focused monitor. The MX mouse's side
     # buttons send these chords via Logi Options+ (Keystroke assignment).
     ctrl-shift-left = 'workspace prev'

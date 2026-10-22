@@ -138,6 +138,7 @@ Workspaces 0-4 live on the built-in display and 5-9 on the external monitor (fal
 - `CMD + Q` - Close window (quits the app only if it was its last window)
 - `CMD + SHIFT + Space` - Toggle floating/tiling
 - `CMD + E` - Flip the focused window's container between side-by-side and stacked
+- `CTRL + CMD + H/J/K/L` - Join the focused window with its neighbor in that direction; from a row, `CTRL + CMD + L` then `CMD + SHIFT + J` puts a window below its right neighbor
 - `CTRL + SHIFT + Left/Right` - Previous/next workspace on the focused monitor; in Logi Options+ assign the mouse's back and forward buttons to these chords (Keystroke assignment) to flip workspaces from the mouse
 - `ALT + F` - Fullscreen, `ALT + Tab` - Previous workspace
 - `ALT + -` / `ALT + =` - Resize, `ALT + /` and `ALT + ,` - Tiles/accordion layout
