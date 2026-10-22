@@ -116,6 +116,10 @@ gaps.outer.right =      0
     # $mod+Shift+Space.
     cmd-shift-space = 'layout floating tiling'
 
+    # Flip the container holding the focused window between a row and a
+    # column, as i3's $mod+e. Dragging can only swap windows, not re-split.
+    cmd-e = 'layout horizontal vertical'
+
     # Previous/next workspace on the focused monitor. The MX mouse's side
     # buttons send these chords via Logi Options+ (Keystroke assignment).
     ctrl-shift-left = 'workspace prev'
