@@ -122,8 +122,10 @@ gaps.outer.right =      0
 
     # Previous/next workspace on the focused monitor. The MX mouse's side
     # buttons send these chords via Logi Options+ (Keystroke assignment).
-    ctrl-shift-left = 'workspace prev'
-    ctrl-shift-right = 'workspace next'
+    # Only workspaces holding windows are stepped through; the focused one is
+    # added so stepping works from an empty workspace too.
+    ctrl-shift-left = 'exec-and-forget { aerospace list-workspaces --monitor focused --empty no; aerospace list-workspaces --focused; } | sort -u | aerospace workspace --stdin prev'
+    ctrl-shift-right = 'exec-and-forget { aerospace list-workspaces --monitor focused --empty no; aerospace list-workspaces --focused; } | sort -u | aerospace workspace --stdin next'
 
     alt-f = 'fullscreen'
     alt-tab = 'workspace-back-and-forth'
