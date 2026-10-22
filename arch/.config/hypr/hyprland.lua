@@ -254,6 +254,13 @@ hl.window_rule({
     suppress_event = "maximize",
 })
 
+-- Android Emulator (the phone and its extended-controls window): float.
+hl.window_rule({
+    name  = "float-android-emulator",
+    match = { class = "^Emulator$" },
+    float = true,
+})
+
 -- Fix some dragging issues with XWayland.
 hl.window_rule({
     name  = "fix-xwayland-drags",
