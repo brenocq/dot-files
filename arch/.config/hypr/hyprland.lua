@@ -222,6 +222,10 @@ end
 hl.bind(M("mouse_down"), hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(M("mouse_up"),   hl.dsp.focus({ workspace = "e-1" }))
 
+-- The mouse's side buttons (forward/back) switch workspaces back and forth
+hl.bind("mouse:276", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind("mouse:275", hl.dsp.focus({ workspace = "e-1" }))
+
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(M("mouse:272"), hl.dsp.window.drag(),   { mouse = true })
 hl.bind(M("mouse:273"), hl.dsp.window.resize(), { mouse = true })
