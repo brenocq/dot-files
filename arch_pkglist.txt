@@ -10,6 +10,7 @@ xorg-wayland
 xorg-xhost
 yazi
 hyprlock
+hyprsunset
 imagemagick
 grim
 slurp

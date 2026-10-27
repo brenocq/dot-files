@@ -70,6 +70,8 @@ hl.on("hyprland.start", function()
     -- Picks a random wallpaper over IPC once hyprpaper answers; see the script.
     hl.exec_cmd("~/.config/hypr/scripts/wallpaper.sh")
     hl.exec_cmd("xhost +local:docker")
+    -- Blue light filter from 19:00 to 06:00; schedule in hyprsunset.conf.
+    hl.exec_cmd("hyprsunset")
 end)
 
 -------------------------------------------------------------------------------
