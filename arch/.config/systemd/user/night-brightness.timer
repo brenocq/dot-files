@@ -1,0 +1,11 @@
+[Unit]
+Description=Switch the monitor brightness at 06:00 and 19:00
+
+[Timer]
+OnCalendar=*-*-* 06,19:00:00
+# Catches a switch missed while the machine was off or asleep.
+Persistent=true
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

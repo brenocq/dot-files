@@ -78,5 +78,9 @@ sudo systemctl enable --now NetworkManager
 systemctl --user enable --now wireplumber.service
 sudo systemctl enable --now docker.service
 sudo usermod -aG docker $USER
+# ddcutil reaches the monitors over i2c-dev; night-brightness.timer dims them at night.
+echo i2c-dev | sudo tee /etc/modules-load.d/i2c-dev.conf
+sudo modprobe i2c-dev
+systemctl --user enable --now night-brightness.timer
 
 log_step "Done! Please log out and log back in for all changes to take effect."

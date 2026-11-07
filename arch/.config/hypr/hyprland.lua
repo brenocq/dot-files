@@ -72,6 +72,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("xhost +local:docker")
     -- Blue light filter from 19:00 to 06:00; schedule in hyprsunset.conf.
     hl.exec_cmd("hyprsunset")
+    -- Half the monitor brightness in the same window; night-brightness.timer switches it after.
+    hl.exec_cmd("~/.config/hypr/scripts/night-brightness.sh")
 end)
 
 -------------------------------------------------------------------------------

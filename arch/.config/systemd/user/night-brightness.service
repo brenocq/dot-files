@@ -1,0 +1,6 @@
+[Unit]
+Description=Set the monitor brightness for day or night
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/hypr/scripts/night-brightness.sh

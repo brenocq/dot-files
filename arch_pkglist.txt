@@ -11,6 +11,7 @@ xorg-xhost
 yazi
 hyprlock
 hyprsunset
+ddcutil
 imagemagick
 grim
 slurp
