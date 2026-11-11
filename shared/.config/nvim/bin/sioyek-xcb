@@ -1,0 +1,4 @@
+#!/bin/sh
+# Sioyek through XWayland: on Hyprland its native Wayland window sometimes never appears
+# (the process runs, no window maps), while the X11 one always does. VimTeX launches this.
+QT_QPA_PLATFORM=xcb exec sioyek "$@"

@@ -380,6 +380,7 @@ return {
     lazy = false,
     init = function()
       vim.g.vimtex_view_method = 'sioyek'
+      vim.g.vimtex_view_sioyek_exe = vim.fn.stdpath('config') .. '/bin/sioyek-xcb'
       vim.g.vimtex_compiler_latexmk = {
         build_dir = 'build',
         out_dir = 'build',
