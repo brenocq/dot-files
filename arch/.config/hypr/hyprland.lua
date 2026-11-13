@@ -270,11 +270,12 @@ hl.window_rule({
 })
 
 -- Dear ImGui apps (SuperDex Studio, its physics debugger): the main window tiles, and
--- every panel dragged out of it floats. ImGui opens those extra windows with the
--- title "No Title Yet" before renaming them to the panel's name.
+-- every panel dragged out of it floats. ImGui creates those extra windows with the
+-- title "No Title Yet", and GLFW makes that their X11 class; the title is renamed
+-- to the panel's name before the window maps, but the class stays.
 hl.window_rule({
     name  = "float-imgui-viewports",
-    match = { initial_title = "^No Title Yet$" },
+    match = { class = "^No Title Yet$" },
     float = true,
 })
 
