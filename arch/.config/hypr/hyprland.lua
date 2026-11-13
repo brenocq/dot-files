@@ -269,6 +269,15 @@ hl.window_rule({
     float = true,
 })
 
+-- Dear ImGui apps (SuperDex Studio, its physics debugger): the main window tiles, and
+-- every panel dragged out of it floats. ImGui opens those extra windows with the
+-- title "No Title Yet" before renaming them to the panel's name.
+hl.window_rule({
+    name  = "float-imgui-viewports",
+    match = { initial_title = "^No Title Yet$" },
+    float = true,
+})
+
 -- Fix some dragging issues with XWayland.
 hl.window_rule({
     name  = "fix-xwayland-drags",
