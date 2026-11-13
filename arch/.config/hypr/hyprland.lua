@@ -272,11 +272,14 @@ hl.window_rule({
 -- Dear ImGui apps (SuperDex Studio, its physics debugger): the main window tiles, and
 -- every panel dragged out of it floats. ImGui creates those extra windows with the
 -- title "No Title Yet", and GLFW makes that their X11 class; the title is renamed
--- to the panel's name before the window maps, but the class stays.
+-- to the panel's name before the window maps, but the class stays. A panel pops out
+-- in the middle of a drag, so it must not take focus when it maps: that would end
+-- the drag in the main window and leave the panel behind.
 hl.window_rule({
     name  = "float-imgui-viewports",
     match = { class = "^No Title Yet$" },
     float = true,
+    no_initial_focus = true,
 })
 
 -- Fix some dragging issues with XWayland.
